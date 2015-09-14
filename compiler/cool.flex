@@ -1,10 +1,14 @@
+				typedef char bool;
+				#define true 1
+				#define false 0
+
 /*
  * Main FLEX file
  * TODO: define COOL language based on documentation
  * Start point: recognise classes as such
  */
 
-bool classFound = false;
+				bool classFound = false;
 
 %%
 class 			classFound=true;
