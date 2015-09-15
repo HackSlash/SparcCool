@@ -11,11 +11,12 @@
 	#include <string.h>
 }
 	
-ID						[A-Z][a-z0-9]*
+CLASS_ID				[A-Z][A-Za-z0-9]*
+ID 						[a-zA-Z][A-Za-z0-9]*
 CHAR 					[a-zA-Z]
 
 %%
-"class "+{ID}			setFoundClass(yytext);
+"class "+{CLASS_ID}		setFoundClass(yytext);
 "{"						indent++;
 "}"						indent--;
 %%
@@ -27,11 +28,7 @@ int main(int argc, char const *argv[])
 	className = (char*)malloc(sizeof(char) * 15);
 	yylex();
 	printf("\n\nClass found: %s\n\n", classFound?className:"Nothing");
-	if (indent != 0)
-	{
-		printf("Syntax error!\n");
-	}
-	free(className);
+	printf("%s\n", (indent==0)?"No syntax errors!":(indent>0)?"Missing \"}\"":"Missing \"{\"");
 	return 0;
 }
 
