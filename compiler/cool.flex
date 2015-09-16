@@ -44,7 +44,8 @@ void setFoundClass(char* in) {
 
 int getIntValue(char* in) {
 	char* buff = (char*)malloc(sizeof(char) * 15);
-	strcpy(buff, in+8);
+	strcpy(buff, in+6);
+	buff[strlen(buff)-1] = 0;
 	int ret = atoi(buff);
 	free(buff);
 	return ret;

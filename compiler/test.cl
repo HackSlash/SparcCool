@@ -1,3 +1,3 @@
 class Main {
-test=-10;
+test=10;
 }
