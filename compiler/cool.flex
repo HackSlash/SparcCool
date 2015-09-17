@@ -71,8 +71,9 @@ void printToken(token type, char* text) {
 			break;
 		case assignment:
 			printf("{int,%d}", getIntValue(text));
+			break;
 		default:
-			printf("\nEOF");
+			printf("EOF");
 			break;
 	}
 }
