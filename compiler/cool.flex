@@ -25,7 +25,11 @@ WS							[" "|"\t"|"\n"]
 <*>{FEATURE}+"="+{INT}+";"	printToken(assignment, yytext);
 <*>"{"						indent++;
 <*>"}"						indent--;
-<*>"/*"						if(comIndent==0) BEGIN(COMMENT); comIndent++;
+<*>"/*"						{
+								if(comIndent==0)
+									BEGIN(COMMENT);
+								comIndent++;
+							}
 <COMMENT>"*/"				if(comIndent==1) BEGIN(INITIAL); else comIndent--;
 <COMMENT>.					;
 %%
