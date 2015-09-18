@@ -4,6 +4,7 @@
  * Start point: recognise classes as such
  */
 %pointer
+%option yylineno
 
 %top{
 	#include "cool.h"
@@ -18,10 +19,14 @@ SIGN 					[+|-]
 INT 					{SIGN}?0?[0-9]*
 
 %%
-"class "+{CLASS_ID}		printToken(classname, yytext);//setFoundClass(yytext);
+"class "+{CLASS_ID}		printToken(classname, yytext);
 {ID}+"="+{INT}+";"		printToken(assignment, yytext);
 "{"						indent++;
-"}"						indent--;
+"}"						{
+							if (indent > 0) indent--; 
+							else genError(yylineno, "}");
+						}
+"\n"					{}
 %%
 
 int main(int argc, char const *argv[])
@@ -31,9 +36,11 @@ int main(int argc, char const *argv[])
 	classFound = false;
 	className = (char*)malloc(sizeof(char) * 15);
 	yylex();
-	//printf("\n\nClass found: %s\n\n", classFound?className:"Nothing");
-	//printf("%s\n", (indent==0)?"No syntax errors!":(indent>0)?"Missing \"}\"":"Missing \"{\"");
 	return 0;
+}
+
+void genError(int line, char* characters) {
+	printf("\n Error in line %d, got \'%s\'\n",line, characters );
 }
 
 void setFoundClass(char* in) {
