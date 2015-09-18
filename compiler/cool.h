@@ -15,3 +15,4 @@ int getIntValue(char* in);
 void printToken(token type, char*);
 void getClassName(char* in, char* out);
 void printClassName(char* text);
+void genError(int line, char* characters);
