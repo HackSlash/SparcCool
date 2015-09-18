@@ -13,20 +13,21 @@
 }
 	
 CLASS_ID				[A-Z][A-Za-z0-9]*
-ID 						[a-zA-Z][A-Za-z0-9]*
+FEATURE					[a-z][A-Za-z0-9]*
 CHAR 					[a-zA-Z]
 SIGN 					[+|-]
-INT 					{SIGN}?0?[0-9]*
+INT 					[0|{SIGN}?[1-9][0-9]*]
+WS						[" "|"\t"|"\n"]
 
 %%
 "class "+{CLASS_ID}		printToken(classname, yytext);
-{ID}+"="+{INT}+";"		printToken(assignment, yytext);
-"{"						indent++;
-"}"						{
-							if (indent > 0) indent--; 
-							else genError(yylineno, "}");
-						}
-"\n"					{}
+{FEATURE}+"="+{INT}+";"		printToken(assignment, yytext);
+"{"				indent++;
+"}"				{
+					if (indent > 0) indent--; 
+					else genError(yylineno, "}");
+				}
+"\n"				{}
 %%
 
 int main(int argc, char const *argv[])
