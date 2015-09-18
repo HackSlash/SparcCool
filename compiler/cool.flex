@@ -12,14 +12,15 @@
 }
 	
 CLASS_ID				[A-Z][A-Za-z0-9]*
-ID 						[a-zA-Z][A-Za-z0-9]*
+FEATURE					[a-z][A-Za-z0-9]*
 CHAR 					[a-zA-Z]
 SIGN 					[+|-]
-INT 					{SIGN}?0?[0-9]*
+INT 					[0|{SIGN}?[1-9][0-9]*]
+WS						[" "|"\t"|"\n"]
 
 %%
 "class "+{CLASS_ID}		printToken(classname, yytext);//setFoundClass(yytext);
-{ID}+"="+{INT}+";"		printToken(assignment, yytext);
+{FEATURE}+"="+{INT}+";"	printToken(assignment, yytext);
 "{"						indent++;
 "}"						indent--;
 %%
