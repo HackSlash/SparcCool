@@ -29,7 +29,7 @@ WS							[" "|"\t"|"\n"]
 									BEGIN(COMMENT);
 								comIndent++;
 							}
-<INITIAL>"//"+.*$					printf("Comment found\n");
+<INITIAL>"//"+.*$			printf("Comment found\n");
 <COMMENT>"*/"				{
 								if(comIndent==1) {
 									BEGIN(INITIAL);
