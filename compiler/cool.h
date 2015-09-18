@@ -8,6 +8,7 @@ bool classFound;
 char * className;
 int indent;
 int identifierCount;
+int comIndent=0;
 
 void setFoundClass(char* in);
 int getIntValue(char* in);

@@ -11,18 +11,22 @@
 	#include <string.h>
 }
 	
-CLASS_ID				[A-Z][A-Za-z0-9]*
-FEATURE					[a-z][A-Za-z0-9]*
-CHAR 					[a-zA-Z]
-SIGN 					[+|-]
-INT 					[0|{SIGN}?[1-9][0-9]*]
-WS						[" "|"\t"|"\n"]
+CLASS_ID					[A-Z][A-Za-z0-9]*
+FEATURE						[a-z][A-Za-z0-9]*
+CHAR 						[a-zA-Z]
+SIGN 						[+|-]
+INT 						[0|{SIGN}?[1-9][0-9]*]
+WS							[" "|"\t"|"\n"]
 
+
+%s COMMENT
 %%
-"class "+{CLASS_ID}		printToken(classname, yytext);//setFoundClass(yytext);
-{FEATURE}+"="+{INT}+";"	printToken(assignment, yytext);
-"{"						indent++;
-"}"						indent--;
+<*>"class "+{CLASS_ID}		printToken(classname, yytext);//setFoundClass(yytext);
+<*>{FEATURE}+"="+{INT}+";"	printToken(assignment, yytext);
+<*>"{"						indent++;
+<*>"}"						indent--;
+<*>"/*"						if(comIndent==0) BEGIN(COMMENT); comIndent++;
+<COMMENT>"*/"				if(comIndent==1) BEGIN(INITIAL); else comIndent--;
 %%
 
 int main(int argc, char const *argv[])
