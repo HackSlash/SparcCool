@@ -13,31 +13,45 @@
 }
 	
 CLASS_ID					[A-Z][A-Za-z0-9]*
-FEATURE						[a-z][A-Za-z0-9]*
+ID							[a-z][A-Za-z0-9]*
 CHAR 						[a-zA-Z]
 SIGN 						[+|-]
 INT 						[0|[1-9][0-9]*]
 WS							[" "|"\t"|"\n"]
 
+tokens: String, Char
 
 %s COMMENT
 %%
-<*>"class "+{CLASS_ID}		printToken(classname, yytext);//setFoundClass(yytext);
-<*>{FEATURE}+"="+{INT}+";"	printToken(assignment, yytext);
-<*>"/*"						{
-								if(comIndent==0)
-									BEGIN(COMMENT);
-								comIndent++;
-							}
-<COMMENT>"*/"				if(comIndent==1) BEGIN(INITIAL); else comIndent--;flex single line comments
-							
-<COMMENT>.					;
-<*>"{"						indent++;
-<*>"}"						{
-								if (indent > 0) indent--; 
-								else genError(yylineno, "}");
-							}
-<*>"\n"						{}
+<INITIAL>{INT}+"."+{INT}		printToken(Float, yytext);
+<INITIAL>{INT}					printToken(Int, yytext);
+<INITIAL>{ID}					printToken(id, yytext);
+<INITIAL>["true"|"false"]		printToken(Bool, yytext);
+<INITIAL>{CHAR}					printToken(Char, yytext);NIET AF
+<INITIAL>"class "+{CLASS_ID}	printToken(classname, yytext);
+<INITIAL>";" 					printToken(semicolon, yytext);
+<INITIAL>":"					printToken(colon, yytext);
+<INITIAL>"+"					printToken(add, yytext);
+<INITIAL>"-"					printToken(sub, yytext);
+<INITIAL>"/"					printToken(divide, yytext);
+<INITIAL>"*"					printToken(mult, yytext);
+
+
+
+<INITIAL>"/*"					{
+									if(comIndent==0)
+										BEGIN(COMMENT);
+									comIndent++;
+								}
+<COMMENT>"*/"					if(comIndent==1) BEGIN(INITIAL); else comIndent--;flex single line comments
+								
+<COMMENT>.						;
+<INITIAL>"{"					indent++;
+<INITIAL>"}"					{
+									if (indent > 0) indent--; 
+									else genError(yylineno, "}");
+								}
+<INITIAL>"\n"					{}
 %%
 
 int main(int argc, char const *argv[])
