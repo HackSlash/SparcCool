@@ -14,6 +14,9 @@ var testPlus : Int = 1 + 2;
 var testSub : Int = 5 - 2;
 var testDiv : Int = 8 / 2;
 var testMult : Int = 2 * 8;
+
+var escapeString : String = "\n\nnew lines\n\n\n";
+var escapeChar : Char = '\n';
 }
 /*
 	COMMENT

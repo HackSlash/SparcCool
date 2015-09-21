@@ -1,7 +1,7 @@
 FLEXFILES=cool.flex
 CFILES=lex.yy.c
 CC=gcc
-CFLAGS=-lfl
+CFLAGS=-lfl -Wall -g
 TARGET=scanner
 
 all: flex c

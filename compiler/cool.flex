@@ -37,12 +37,17 @@ WS									[" "|"\t"|"\n"]
 										}
 									}
 <COMMENT>.							;
+<INITIAL>"if"						printToken(if_s);
+<INITIAL>"else"						printToken(else_s);
+<INITIAL>"while"					printToken(while_s);
+<INITIAL>"match"					printToken(match_s);
+<INITIAL>"case"						printToken(case_s);
 <INITIAL>"'"						BEGIN(CHAR);
-<CHAR>.								charbuff=*yytext;//strncpy(charbuff,yytext,1);
+<CHAR>"'"							printToken(Char);BEGIN(INITIAL);
 <CHAR>"\\"							BEGIN(CHARESCAPE);
+<CHAR>.								charbuff=*yytext;
 <CHARESCAPE>"n"						charbuff='\n';BEGIN(CHAR);
 <CHARESCAPE>.						BEGIN(CHAR);
-<CHAR>"'"							printToken(Char);BEGIN(INITIAL);
 <INITIAL>"\""						BEGIN(STRING);
 <STRING>"\""							printToken(String);strdone();BEGIN(INITIAL);
 <STRING>"\\"							BEGIN(STRESCAPE);
@@ -103,10 +108,24 @@ int getIntValue(char* in) {
 	return ret;
 }
 
-// id = 0, var, Int, String, Float, Bool, Char, semicolon, colon, add, sub, divide, mult, eq, classname
+// if_s, else_s, while_s, match_s, case_s
 
 void printToken(token t_type) {
 	switch(t_type){
+		case if_s:
+			printf("{if}");
+			break;
+		case else_s:
+			printf("{else}");
+			break;
+		case while_s:
+			printf("{while}");
+			break;
+		case match_s:
+			printf("{match}");
+			break;
+		case case_s:
+			printf("{case}");
 		case id:
 			printf("{ID,%s}", yytext);
 			break;
