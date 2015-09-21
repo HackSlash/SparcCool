@@ -2,7 +2,7 @@ typedef char bool;
 #define true 1
 #define false 0
 
-typedef enum {id, val, classname, assignment} token;
+typedef enum {id = 0, Int, String, Float, Bool, Char, kw_class, semicolon, colon, add, sub, divide, mult, classname} token;
 
 bool classFound;
 char * className;

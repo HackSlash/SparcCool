@@ -16,7 +16,7 @@ CLASS_ID					[A-Z][A-Za-z0-9]*
 FEATURE						[a-z][A-Za-z0-9]*
 CHAR 						[a-zA-Z]
 SIGN 						[+|-]
-INT 						[0|{SIGN}?[1-9][0-9]*]
+INT 						[0|[1-9][0-9]*]
 WS							[" "|"\t"|"\n"]
 
 
@@ -29,14 +29,8 @@ WS							[" "|"\t"|"\n"]
 									BEGIN(COMMENT);
 								comIndent++;
 							}
-<INITIAL>"//"+.*$			printf("Comment found\n");
-<COMMENT>"*/"				{
-								if(comIndent==1) {
-									BEGIN(INITIAL);
-									printf("Comment found\n");
-								}
-								else comIndent--;
-							}
+<COMMENT>"*/"				if(comIndent==1) BEGIN(INITIAL); else comIndent--;flex single line comments
+							
 <COMMENT>.					;
 <*>"{"						indent++;
 <*>"}"						{
