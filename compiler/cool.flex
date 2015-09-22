@@ -12,6 +12,7 @@
 	#include <string.h>
 	#define SAVE_TOKEN strcpy(yylval.string,yytext)
 	#define TOKEN(t) (yylval.token = t)
+	#define RED "\x1B[31m"
 }
 
 CLASS_ID							[A-Z][A-Za-z0-9]*
@@ -50,6 +51,7 @@ WS									[" "|"\t"|"\n"]
 <CHARESCAPE>.						BEGIN(CHAR);
 <INITIAL>"\""						BEGIN(STRING);
 <STRING>"\""							printToken(String);strdone();BEGIN(INITIAL);
+<STRING>"\n"							printf(RED "\n\nFatal error: Newline in String literal!\n");yyterminate();
 <STRING>"\\"							BEGIN(STRESCAPE);
 <STRESCAPE>"n"						strcopy("\n");BEGIN(STRING);
 <STRESCAPE>.						BEGIN(STRING);
@@ -65,7 +67,21 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"-"						printToken(sub);
 <INITIAL>"/"						printToken(divide);
 <INITIAL>"*"							printToken(mult);
+<INITIAL>"=="						printToken(double_eq);
+<INITIAL>">="						printToken(gteq);
+<INITIAL>"<="						printToken(lteq);
+<INITIAL>"<"						printToken(lt);
+<INITIAL>">"						printToken(gt);
+<INITIAL>"!="						printToken(neq);
 <INITIAL>"="						printToken(eq);
+<INITIAL>"new"						printToken(new_kw);
+<INITIAL>"def"						printToken(def);
+<INITIAL>"("						printToken(par_open);
+<INITIAL>")"						printToken(par_close);
+<INITIAL>"{"						printToken(brace_open);
+<INITIAL>"}"						printToken(brace_close);
+<INITIAL>"["						printToken(brack_open);
+<INITIAL>"]"						printToken(brack_close);
 <INITIAL>"var"						printToken(var);
 <INITIAL>{ID}						printToken(id);
 <INITIAL>"{"						indent++;
@@ -74,6 +90,8 @@ WS									[" "|"\t"|"\n"]
 										else genError(yylineno, "}");
 									}
 <*>"\n"								printf("\n");
+<*>{WS}								{}
+<*>.									printf(RED "\n\nFatal error: unexpected input: %s\n", yytext);yyterminate();
 %%
 
 int main(int argc, char const *argv[])
@@ -90,25 +108,8 @@ int main(int argc, char const *argv[])
 }
 
 void genError(int line, char* characters) {
-	printf("\n Error in line %d, got \'%s\'\n",line, characters );
+	printf(RED "\n Error in line %d, got \'%s\'\n",line, characters );
 }
-
-void setFoundClass(char* in) {
-	classFound = true;
-	strcpy(className,in+6);
-	//printf("\n%s\n", className);
-}
-
-int getIntValue(char* in) {
-	char* buff = (char*)malloc(sizeof(char) * 15);
-	strcpy(buff, in+6);
-	buff[strlen(buff)-1] = 0;
-	int ret = atoi(buff);
-	free(buff);
-	return ret;
-}
-
-// if_s, else_s, while_s, match_s, case_s
 
 void printToken(token t_type) {
 	switch(t_type){
@@ -174,8 +175,20 @@ void printToken(token t_type) {
 		case type:
 			printf("{type,%s}", yytext);
 			break;
+		case brace_close:
+			printf("{brace_close}");
+			break;
+		case brace_open:
+			printf("{brace_open}");
+			break;
+		case par_open:
+			printf("{par_open}");
+			break;
+		case par_close:
+			printf("{par_close}");
+			break;
 		default:
-			//printf("FAIL");
+			printf(RED "FAIL");
 			break;
 	}
 }
