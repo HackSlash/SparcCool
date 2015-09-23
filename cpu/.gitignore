@@ -23,8 +23,8 @@
 # design.
 
 # ignore hdl source files in top level directory
-*.vhd
-*.v
+#*.vhd
+#*.v
 
 # ignore Quartus II generated files
 *sopc_*
