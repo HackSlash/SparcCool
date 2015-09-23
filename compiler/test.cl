@@ -20,7 +20,11 @@ class Main {
 
 	if(boolTest) {
 		boolTest = false;
+	} else {
+		boolTest = true;
 	}
+
+	while (intTest < 12) intTest++;
 }
 /*
 	COMMENT

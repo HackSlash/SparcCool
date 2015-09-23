@@ -21,7 +21,7 @@ SIGN 								[+|-]
 INT 								0|[1-9][0-9]*
 WS									[" "|"\t"|"\n"]
 
-%s COMMENT STRING STRESCAPE CHAR CHARESCAPE
+%s COMMENT STRING STRESCAPE CHAR CHARESCAPE TRSTRING
 %%
 <INITIAL,COMMENT>"/*"				{
 										if(comIndent==0)
@@ -37,12 +37,21 @@ WS									[" "|"\t"|"\n"]
 											//printf("Comment found\n");
 										}
 									}
-<COMMENT>.							;
+<COMMENT>.
+<INITIAL>"!"						printToken(exm_s);
+<INITIAL>"this"						printToken(this);
+<INITIAL>"super"					printToken(super);
+<INITIAL>"override"					printToken(override);
+<INITIAL>"null"						printToken(null);
+<INITIAL>"extends"					printToken(extends)							;
 <INITIAL>"if"						printToken(if_s);
 <INITIAL>"else"						printToken(else_s);
 <INITIAL>"while"					printToken(while_s);
 <INITIAL>"match"					printToken(match_s);
 <INITIAL>"case"						printToken(case_s);
+<INITIAL>"\"\"\""					BEGIN(TRSTRING);
+<TRSTRING>"\"\"\""					printToken(String);strdone();BEGIN(INITIAL);
+<TRSTRING>.							strcopy(yytext);
 <INITIAL>"'"						BEGIN(CHAR);
 <CHAR>"'"							printToken(Char);BEGIN(INITIAL);
 <CHAR>"\\"							BEGIN(CHARESCAPE);
@@ -50,9 +59,9 @@ WS									[" "|"\t"|"\n"]
 <CHARESCAPE>"n"						charbuff='\n';BEGIN(CHAR);
 <CHARESCAPE>.						BEGIN(CHAR);
 <INITIAL>"\""						BEGIN(STRING);
-<STRING>"\""							printToken(String);strdone();BEGIN(INITIAL);
-<STRING>"\n"							printf(RED "\n\nFatal error: Newline in String literal!\n");yyterminate();
-<STRING>"\\"							BEGIN(STRESCAPE);
+<STRING>"\""						printToken(String);strdone();BEGIN(INITIAL);
+<STRING>"\n"						printf(RED "\n\nFatal error: Newline in String literal!\n");yyterminate();
+<STRING>"\\"						BEGIN(STRESCAPE);
 <STRESCAPE>"n"						strcopy("\n");BEGIN(STRING);
 <STRESCAPE>.						BEGIN(STRING);
 <STRING>.							strcopy(yytext);
@@ -66,7 +75,7 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"+"						printToken(add);
 <INITIAL>"-"						printToken(sub);
 <INITIAL>"/"						printToken(divide);
-<INITIAL>"*"							printToken(mult);
+<INITIAL>"*"						printToken(mult);
 <INITIAL>"=="						printToken(double_eq);
 <INITIAL>">="						printToken(gteq);
 <INITIAL>"<="						printToken(lteq);
@@ -115,6 +124,24 @@ void printToken(token t_type) {
 	switch(t_type){
 		case if_s:
 			printf("{if}");
+			break;
+		case extends:
+			printf("{extends}");
+			break;
+		case null:
+			printf("{null}");
+			break;
+		case override:
+			printf("{override}");
+			break;
+		case super:
+			printf("{super}");
+			break;
+		case this:
+			printf("{this}");
+			break;
+		case exm_s:
+			printf("{exm_s}");
 			break;
 		case else_s:
 			printf("{else}");
