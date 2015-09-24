@@ -24,6 +24,8 @@ class Main {
 		boolTest = true;
 	}
 
+	~
+
 	while (intTest < 12) intTest++;
 }
 /*

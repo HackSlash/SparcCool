@@ -38,7 +38,13 @@ typedef enum {id = 0,
 				neq,
 				new_kw,
 				def,
-
+				exm_s,
+				this,
+				super,
+				override,
+				null,
+				extends,
+				
 			} token;
 
 int indent;

@@ -13,6 +13,7 @@
 	#define SAVE_TOKEN strcpy(yylval.string,yytext)
 	#define TOKEN(t) (yylval.token = t)
 	#define RED "\x1B[31m"
+	#define WHITE "\x1B[37m"
 }
 
 CLASS_ID							[A-Z][A-Za-z0-9]*
@@ -43,7 +44,7 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"super"					printToken(super);
 <INITIAL>"override"					printToken(override);
 <INITIAL>"null"						printToken(null);
-<INITIAL>"extends"					printToken(extends)							;
+<INITIAL>"extends"					printToken(extends);
 <INITIAL>"if"						printToken(if_s);
 <INITIAL>"else"						printToken(else_s);
 <INITIAL>"while"					printToken(while_s);
@@ -59,9 +60,9 @@ WS									[" "|"\t"|"\n"]
 <CHARESCAPE>"n"						charbuff='\n';BEGIN(CHAR);
 <CHARESCAPE>.						BEGIN(CHAR);
 <INITIAL>"\""						BEGIN(STRING);
-<STRING>"\""						printToken(String);strdone();BEGIN(INITIAL);
-<STRING>"\n"						printf(RED "\n\nFatal error: Newline in String literal!\n");yyterminate();
-<STRING>"\\"						BEGIN(STRESCAPE);
+<STRING>"\""							printToken(String);strdone();BEGIN(INITIAL);
+<STRING>"\n"							genError(yylineno,"LF");//printf(RED "\n\nFatal error: Newline in String literal!\n");yyterminate();
+<STRING>"\\"							BEGIN(STRESCAPE);
 <STRESCAPE>"n"						strcopy("\n");BEGIN(STRING);
 <STRESCAPE>.						BEGIN(STRING);
 <STRING>.							strcopy(yytext);
@@ -75,7 +76,7 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"+"						printToken(add);
 <INITIAL>"-"						printToken(sub);
 <INITIAL>"/"						printToken(divide);
-<INITIAL>"*"						printToken(mult);
+<INITIAL>"*"							printToken(mult);
 <INITIAL>"=="						printToken(double_eq);
 <INITIAL>">="						printToken(gteq);
 <INITIAL>"<="						printToken(lteq);
@@ -100,17 +101,16 @@ WS									[" "|"\t"|"\n"]
 									}
 <*>"\n"								printf("\n");
 <*>{WS}								{}
-<*>.									printf(RED "\n\nFatal error: unexpected input: %s\n", yytext);yyterminate();
+<*>.									genError(yylineno, yytext);//printf(RED "\n\nFatal error: unexpected input: %s\n", yytext);yyterminate();
 %%
 
 int main(int argc, char const *argv[])
 {
+	printf(WHITE);
 	stringBuffer = (char*)calloc(1000, sizeof(char));
 	savedTokens = (token*)calloc(1000000, (sizeof(token)));
 	indent = 0;
 	identifierCount = 0;
-	classFound = false;
-	className = (char*)malloc(sizeof(char) * 15);
 	yylex();
 	free(savedTokens);
 	return 0;
@@ -118,6 +118,7 @@ int main(int argc, char const *argv[])
 
 void genError(int line, char* characters) {
 	printf(RED "\n Error in line %d, got \'%s\'\n",line, characters );
+	printf(WHITE);
 }
 
 void printToken(token t_type) {
@@ -214,8 +215,11 @@ void printToken(token t_type) {
 		case par_close:
 			printf("{par_close}");
 			break;
+		case lt:
+			printf("{lt}");
+			break;
 		default:
-			printf(RED "FAIL");
+			printf(RED "FAIL: %d", t_type);
 			break;
 	}
 }
