@@ -3,7 +3,7 @@ input[64:0]a,b;					// 64 bit input registers
 input[3:0]sel;					// 4 bit instruction register
 output[64:0]out;				// 64 bit output register
 reg[64:0]out;
-always @(sel) begin 			// only execute with command
+always @(sel) begin				// Only execute with command
 	case(sel)
 		4'b0000:	out=a+b;	// 4'b0000 = addition			(64bit)
 		4'b0001:	out=a-b;	// 4'b0001 = subtraction		(64bit)
