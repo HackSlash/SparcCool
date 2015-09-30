@@ -44,9 +44,13 @@ typedef enum {id = 0,
 				override,
 				null,
 				extends,
-				
+
 			} token;
 
+int filecount;
+int currfile;
+char const *args[128];
+char path[1024];
 int indent;
 int identifierCount;
 int comIndent=0;
@@ -69,3 +73,5 @@ void strdone() {
 void printToken(token type);
 void genError(int line, char* characters);
 void getNextToken();
+int yywrap();
+void nextFile();

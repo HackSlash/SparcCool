@@ -9,8 +9,13 @@
 %top{
 	#include "cool.h"
 	#include <stdio.h>
+	#include <unistd.h>
 	#include <string.h>
-	#define SAVE_TOKEN strcpy(yylval.string,yytext)
+
+	extern YYSTYPE yylval;
+
+	#define SAVE_STRING strcpy(yylval.string,stringBuffer)
+	#define SAVE_CHAR strcpy(yylval.string,charbuff)
 	#define TOKEN(t) (yylval.token = t)
 	#define RED "\x1B[31m"
 	#define WHITE "\x1B[37m"
@@ -39,61 +44,61 @@ WS									[" "|"\t"|"\n"]
 										}
 									}
 <COMMENT>.
-<INITIAL>"!"						printToken(exm_s);
-<INITIAL>"this"						printToken(this);
-<INITIAL>"super"					printToken(super);
-<INITIAL>"override"					printToken(override);
-<INITIAL>"null"						printToken(null);
-<INITIAL>"extends"					printToken(extends);
-<INITIAL>"if"						printToken(if_s);
-<INITIAL>"else"						printToken(else_s);
-<INITIAL>"while"					printToken(while_s);
-<INITIAL>"match"					printToken(match_s);
-<INITIAL>"case"						printToken(case_s);
+<INITIAL>"!"						return TOKEN(exm_s);
+<INITIAL>"this"						return TOKEN(this);
+<INITIAL>"super"					return TOKEN(super);
+<INITIAL>"override"					return TOKEN(override);
+<INITIAL>"null"						return TOKEN(null);
+<INITIAL>"extends"					return TOKEN(extends);
+<INITIAL>"if"						return TOKEN(if_s);
+<INITIAL>"else"						return TOKEN(else_s);
+<INITIAL>"while"					return TOKEN(while_s);
+<INITIAL>"match"					return TOKEN(match_s);
+<INITIAL>"case"						return TOKEN(case_s);
 <INITIAL>"\"\"\""					BEGIN(TRSTRING);
-<TRSTRING>"\"\"\""					printToken(String);strdone();BEGIN(INITIAL);
+<TRSTRING>"\"\"\""					SAVE_STRING;strdone();BEGIN(INITIAL);return TOKEN(String);
 <TRSTRING>.							strcopy(yytext);
 <INITIAL>"'"						BEGIN(CHAR);
-<CHAR>"'"							printToken(Char);BEGIN(INITIAL);
+<CHAR>"'"							SAVE_CHAR;BEGIN(INITIAL);return TOKEN(Char);
 <CHAR>"\\"							BEGIN(CHARESCAPE);
 <CHAR>.								charbuff=*yytext;
 <CHARESCAPE>"n"						charbuff='\n';BEGIN(CHAR);
 <CHARESCAPE>.						BEGIN(CHAR);
 <INITIAL>"\""						BEGIN(STRING);
-<STRING>"\""							printToken(String);strdone();BEGIN(INITIAL);
+<STRING>"\""							SAVE_STRING;strdone();BEGIN(INITIAL);return TOKEN(String);
 <STRING>"\n"							genError(yylineno,"LF");//printf(RED "\n\nFatal error: Newline in String literal!\n");yyterminate();
 <STRING>"\\"							BEGIN(STRESCAPE);
 <STRESCAPE>"n"						strcopy("\n");BEGIN(STRING);
 <STRESCAPE>.						BEGIN(STRING);
 <STRING>.							strcopy(yytext);
-<INITIAL>{INT}+"."+{INT}+"f"		printToken(Float);
-<INITIAL>{INT}						printToken(Int);
-<INITIAL>"true"|"false"				printToken(Bool);
-<INITIAL>"class "+{CLASS_ID}		printToken(classname);
-<INITIAL>{CLASS_ID}					printToken(type);
-<INITIAL>";" 						printToken(semicolon);
-<INITIAL>":"						printToken(colon);
-<INITIAL>"+"						printToken(add);
-<INITIAL>"-"						printToken(sub);
-<INITIAL>"/"						printToken(divide);
-<INITIAL>"*"							printToken(mult);
-<INITIAL>"=="						printToken(double_eq);
-<INITIAL>">="						printToken(gteq);
-<INITIAL>"<="						printToken(lteq);
-<INITIAL>"<"						printToken(lt);
-<INITIAL>">"						printToken(gt);
-<INITIAL>"!="						printToken(neq);
-<INITIAL>"="						printToken(eq);
-<INITIAL>"new"						printToken(new_kw);
-<INITIAL>"def"						printToken(def);
-<INITIAL>"("						printToken(par_open);
-<INITIAL>")"						printToken(par_close);
-<INITIAL>"{"						printToken(brace_open);
-<INITIAL>"}"						printToken(brace_close);
-<INITIAL>"["						printToken(brack_open);
-<INITIAL>"]"						printToken(brack_close);
-<INITIAL>"var"						printToken(var);
-<INITIAL>{ID}						printToken(id);
+<INITIAL>{INT}+"."+{INT}+"f"		return TOKEN(Float);
+<INITIAL>{INT}						return TOKEN(Int);
+<INITIAL>"true"|"false"				return TOKEN(Bool);
+<INITIAL>"class "+{CLASS_ID}		return TOKEN(classname);
+<INITIAL>{CLASS_ID}					return TOKEN(type);
+<INITIAL>";" 						return TOKEN(semicolon);
+<INITIAL>":"						return TOKEN(colon);
+<INITIAL>"+"						return TOKEN(add);
+<INITIAL>"-"						return TOKEN(sub);
+<INITIAL>"/"						return TOKEN(divide);
+<INITIAL>"*"							return TOKEN(mult);
+<INITIAL>"=="						return TOKEN(double_eq);
+<INITIAL>">="						return TOKEN(gteq);
+<INITIAL>"<="						return TOKEN(lteq);
+<INITIAL>"<"						return TOKEN(lt);
+<INITIAL>">"						return TOKEN(gt);
+<INITIAL>"!="						return TOKEN(neq);
+<INITIAL>"="						return TOKEN(eq);
+<INITIAL>"new"						return TOKEN(new_kw);
+<INITIAL>"def"						return TOKEN(def);
+<INITIAL>"("						return TOKEN(par_open);
+<INITIAL>")"						return TOKEN(par_close);
+<INITIAL>"{"						return TOKEN(brace_open);
+<INITIAL>"}"						return TOKEN(brace_close);
+<INITIAL>"["						return TOKEN(brack_open);
+<INITIAL>"]"						return TOKEN(brack_close);
+<INITIAL>"var"						return TOKEN(var);
+<INITIAL>{ID}						return TOKEN(id);
 <INITIAL>"{"						indent++;
 <INITIAL>"}"						{
 										if (indent > 0) indent--; 
@@ -106,14 +111,32 @@ WS									[" "|"\t"|"\n"]
 
 int main(int argc, char const *argv[])
 {
+	if (argc > 1) {
+		memcpy(args,argv,128*1024);
+		filecount = argc-1;
+		currfile = 1;
+		nextFile();
+	}
 	printf(WHITE);
 	stringBuffer = (char*)calloc(1000, sizeof(char));
 	savedTokens = (token*)calloc(1000000, (sizeof(token)));
 	indent = 0;
 	identifierCount = 0;
-	yylex();
+	printf("%d",yylex());
 	free(savedTokens);
 	return 0;
+}
+
+void nextFile() {
+	getcwd(path, sizeof(path));
+	strcat(path,"/");
+	strcat(path,args[currfile]);
+	currfile++;
+	FILE* yyin = fopen(path,"r");
+}
+
+int yywrap() {
+
 }
 
 void genError(int line, char* characters) {
