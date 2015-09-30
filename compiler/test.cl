@@ -10,6 +10,11 @@ class Main {
 	var floatTest : Float = 3.14159265f;
 	var charTest : Char = 'c';
 
+	""" I shall be while u.
+	\n can u see that difference?
+	;\; var lol : Int = 1
+	":D" """ 
+
 	var testPlus : Int = 1 + 2;
 	var testSub : Int = 5 - 2;
 	var testDiv : Int = 8 / 2;
@@ -24,12 +29,10 @@ class Main {
 		boolTest = true;
 	}
 
-	~
-
 	while (intTest < 12) intTest++;
 }
 /*
 	COMMENT
-	/*dfsafaesf*/
+	/* while (I am king) go mad;*/
 	//COMMENT
 */

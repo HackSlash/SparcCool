@@ -34,13 +34,12 @@ WS									[" "|"\t"|"\n"]
 											BEGIN(COMMENT);
 										comIndent++;
 									}
-<INITIAL,COMMENT>"//"+.*$			;//printf("Comment found\n");
+<INITIAL,COMMENT>"//"+.*$			;
 <COMMENT>[^"*/"]						{}
 <COMMENT>"*/"						{
 										comIndent--;
 										if(comIndent==0) {
 											BEGIN(INITIAL);
-											//printf("Comment found\n");
 										}
 									}
 <COMMENT>.
@@ -81,7 +80,7 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"+"						return TOKEN(add);
 <INITIAL>"-"						return TOKEN(sub);
 <INITIAL>"/"						return TOKEN(divide);
-<INITIAL>"*"							return TOKEN(mult);
+<INITIAL>"*"						return TOKEN(mult);
 <INITIAL>"=="						return TOKEN(double_eq);
 <INITIAL>">="						return TOKEN(gteq);
 <INITIAL>"<="						return TOKEN(lteq);
@@ -106,7 +105,7 @@ WS									[" "|"\t"|"\n"]
 									}
 <*>"\n"								printf("\n");
 <*>{WS}								{}
-<*>.									genError(yylineno, yytext);//printf(RED "\n\nFatal error: unexpected input: %s\n", yytext);yyterminate();
+<*>.									genError(yylineno, yytext);
 %%
 
 int main(int argc, char const *argv[])
