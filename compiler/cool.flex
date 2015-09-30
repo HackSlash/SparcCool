@@ -63,13 +63,27 @@ WS									[" "|"\t"|"\n"]
 <CHAR>"\\"							BEGIN(CHARESCAPE);
 <CHAR>.								charbuff=*yytext;
 <CHARESCAPE>"n"						charbuff='\n';BEGIN(CHAR);
-<CHARESCAPE>.						BEGIN(CHAR);
+<CHARESCAPE>"0"						charbuff="\0";BEGIN(CHAR);
+<CHARESCAPE>"b"						charbuff="\b";BEGIN(CHAR);
+<CHARESCAPE>"t"						charbuff="\t";BEGIN(CHAR);
+<CHARESCAPE>"r"						charbuff="\r";BEGIN(CHAR);
+<CHARESCAPE>"f"						charbuff="\f";BEGIN(CHAR);
+<CHARESCAPE>"\""						charbuff="\"";BEGIN(CHAR);
+<CHARESCAPE>"\\"						charbuff="\\";BEGIN(CHAR);
+<CHARESCAPE>.						generror(yylineno,yytext);BEGIN(CHAR);
 <INITIAL>"\""						BEGIN(STRING);
 <STRING>"\""							SAVE_STRING;strdone();BEGIN(INITIAL);return TOKEN(String);
 <STRING>"\n"							genError(yylineno,"LF");//printf(RED "\n\nFatal error: Newline in String literal!\n");yyterminate();
 <STRING>"\\"							BEGIN(STRESCAPE);
 <STRESCAPE>"n"						strcopy("\n");BEGIN(STRING);
-<STRESCAPE>.						BEGIN(STRING);
+<STRESCAPE>"0"						strcopy("\0");BEGIN(STRING);
+<STRESCAPE>"b"						strcopy("\b");BEGIN(STRING);
+<STRESCAPE>"t"						strcopy("\t");BEGIN(STRING);
+<STRESCAPE>"r"						strcopy("\r");BEGIN(STRING);
+<STRESCAPE>"f"						strcopy("\f");BEGIN(STRING);
+<STRESCAPE>"\""						strcopy("\"");BEGIN(STRING);
+<STRESCAPE>"\\"						strcopy("\\");BEGIN(STRING);
+<STRESCAPE>.						generror(yylineno,yytext);BEGIN(STRING);
 <STRING>.							strcopy(yytext);
 <INITIAL>{INT}+"."+{INT}+"f"		return TOKEN(Float);
 <INITIAL>{INT}						return TOKEN(Int);
@@ -106,7 +120,7 @@ WS									[" "|"\t"|"\n"]
 									}
 <*>"\n"								printf("\n");
 <*>{WS}								{}
-<*>.									genError(yylineno, yytext);//printf(RED "\n\nFatal error: unexpected input: %s\n", yytext);yyterminate();
+<*>.									genError(yylineno, yytext);
 %%
 
 int main(int argc, char const *argv[])
