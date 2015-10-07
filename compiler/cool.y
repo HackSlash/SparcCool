@@ -1,5 +1,7 @@
 %{
 	#include "cool.h"
+
+	int yyerror;
 %}
 
 %start input
@@ -9,13 +11,17 @@
 
 %%
 
-input:		/* empty */
-			| exp	{ cout << "Result: " << $1 << endl; }
+input		: /* empty */ { /* empty file */ }
+			| classdecl { /* accept */ }
 			;
 
-exp:		INTEGER_LITERAL	{ $$ = $1; }
-			| exp PLUS exp	{ $$ = $1 + $3; }
-			| exp MULT exp	{ $$ = $1 * $3; }
+classdecl	: "class" type varformals classbody { /* basic class def detected */ }
+			| "class" type varformals extends "native" { /* now it extends native! */ }
 			;
+varformals	: '(' ')' { /* empty */ }
+			| '('  ')' {}
+			;
+classbody	: '{' '}' { /* empty class */ }
+			| '{' feature '}' {}
 
 %%
