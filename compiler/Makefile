@@ -1,12 +1,16 @@
 FLEXFILES=cool.flex
+BISONFILES=cool.y
 CFILES=lex.yy.c
 CC=gcc
 CFLAGS=-lfl -Wall -g
 TARGET=scanner
 
-all: flex c
+all: bison flex c
 
-flex: 
+bison:
+	bison $(BISONFILES)
+
+flex:
 	flex $(FLEXFILES)
 
 c:
