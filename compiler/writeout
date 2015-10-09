@@ -1,0 +1,91 @@
+program
+	classdecl* EOF
+
+classdecl
+	class TYPE varformals classbody
+	class TYPE varformals extends TYPE actuals classbody
+	class TYPE varformals extends native classbody
+
+varformals
+	( form )
+		form= Ɛ
+		form=var ID : TYPE
+		form=var ID : TYPE, form
+
+classbody
+	{ features }
+		features=Ɛ
+		features=feature
+		features=feature features
+
+feature
+	def ID formals : TYPE = expr ;
+	override def ID formals : TYPE = expr ;
+	def ID formals : TYPE = native ;
+	override def ID formals : TYPE = native ;
+	var ID = native ;
+	var ID : TYPE = expr ;
+	{ block } ;
+
+formals
+	( form )
+		form= Ɛ
+		form=ID : TYPE
+		form=ID : TYPE, form
+
+actuals
+	( actual )
+		actual=Ɛ
+		form=expr
+		form=expr, actual
+
+block
+	Ɛ
+	blockpt expr
+		blockpt=Ɛ
+		blockpt=expr ; blockpt
+		blockpt=var ID : TYPE = expr ; blockpt
+
+expr
+	ex primary exp
+		ex=Ɛ
+		ex=ID = ex
+		ex=! ex
+		ex=- ex
+		ex=if ( expr ) expr else ex
+		ex=while ( expr ) ex
+
+		exp=Ɛ
+		exp=<= expr exp
+		exp=>= expr exp
+		exp=< expr exp
+		exp=> expr exp
+		exp=== expr exp
+		exp=* expr exp
+		exp=/ expr exp
+		exp=+ expr exp
+		exp=- expr exp
+		exp=match cases exp
+		exp=. ID actuals
+
+primary
+	ID actuals
+	super . ID actuals
+	new TYPE actuals
+	{ block }
+	( expr )
+	null
+	()
+	ID
+	INTEGER
+	STRING
+	BOOLEAN
+	this
+
+cases
+	{ ca cas }
+		cas=Ɛ
+		cas=ca cas
+		ca=case ID : TYPE => block
+		ca=case null => block
+

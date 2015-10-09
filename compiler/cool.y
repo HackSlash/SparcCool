@@ -2,20 +2,38 @@
 	#include "cool.h"
 %}
 
-%start input
+%start program
 
 %token id
 
 
-%%
-
-input:		/* empty */
-			| exp	{ cout << "Result: " << $1 << endl; }
+%% {ID, exp, !}
+		
+program:	:/* empty */				
+        	| program line				
 			;
 
-exp:		INTEGER_LITERAL	{ $$ = $1; }
-			| exp PLUS exp	{ $$ = $1 + $3; }
-			| exp MULT exp	{ $$ = $1 * $3; }
+classdecl  	: class TYPE varformals classbody								
+			| class TYPE varformals extends TYPE actuals classbody			
+			| class TYPE varformals extends native classbody				
+	        ;
+
+varformals	: ( form )
 			;
+
+form	: /* empty */
+		| var ID : TYPE
+		| var ID : TYPE, form
+		;
+
+
+
+
+term		: number                	{$$ = $1;}
+			| ID						{$$ = symbolVal($1);}
+			;
+
+
+
 
 %%

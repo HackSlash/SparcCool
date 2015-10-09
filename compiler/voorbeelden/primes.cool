@@ -1,0 +1,35 @@
+// sieve.cl
+// John Boyland
+
+// A sieve is a chain of numbers:
+// Each number only makes it through the sieve if it
+// is not divisible by any of the numbers existing.
+
+class Sieve(var prime : Int) extends IO() {
+  var next : Sieve = null;
+
+  def test(n : Int) : Unit = {
+    //out_any(prime).out(" tests ").out_any(n).out("\n");
+    //out("n / prime = ").out_any(n/prime).out("\n");
+    if (prime * (n / prime) == n)
+      ()
+    else if (is_null(next)) {
+      out_any(n); out(" ");
+      next = new Sieve(n)
+    } else next.test(n)
+  };
+}
+
+class Main() extends IO() {
+  {
+    var s : Sieve = new Sieve(2);
+    var i : Int = 2;
+
+    out("2 ");
+    while (true) {
+      // loop forever
+      i = i + 1;
+      s.test(i)
+    }
+  };
+}
