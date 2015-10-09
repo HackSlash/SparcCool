@@ -22,16 +22,24 @@ module alu(out,a,b,instr,c);				// 64 bit integer ALU
 			8'b00001101:	out<=a>>b;		// right shift				(64bit)
 			8'b00001110:	out<=a+1;		// increment				(64bit)
 			8'b00001111:	out<=a-1;		// decrement				(64bit)
-			8'b10000000:	;					// noop
+			8'b10000000:	;					// noop						(64bit)
 		endcase
 	end
 endmodule
 
-module SparCool(output clock);
+module core(out1,out2,a1,a2,b1,b2,instr1,instr2,c);
+	output[64:0] out1, out2;
+	input[64:0] a1,a2,b1,b2;
+	input[8:0] instr1, instr2;
+	input c;
+	alu alu1(.out(out1), .a(a1), .b(b1), .instr(instr1), .c(c));
+	alu alu2(.out(out2), .a(a2), .b(b2), .instr(instr2), .c(c));
+endmodule
 
-alu core1(.c(clock));
-alu core2(.c(clock));
-
-assign #5 clock=~clock;
-
+module SparCool(output clock);			// Top module
+core core1(.c(clock));						// First "core", passing clock to c
+core core2(.c(clock));						// Second "core"
+core core3(.c(clock));						// Third core
+core core4(.c(clock));
+assign #5 clock=~clock;						// 5 time units clock delay
 endmodule

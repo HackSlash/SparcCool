@@ -1,5 +1,7 @@
 %{
 	#include "cool.h"
+
+	int yyerror;
 %}
 
 %start program
@@ -32,6 +34,8 @@ form	: /* empty */
 term		: number                	{$$ = $1;}
 			| ID						{$$ = symbolVal($1);}
 			;
+classbody	: '{' '}' { /* empty class */ }
+			| '{' feature '}' {}
 
 
 
