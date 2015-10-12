@@ -15,20 +15,20 @@ program:	:/* empty */
         	| program line				
 			;
 
-classdecl  	: class TYPE varformals classbody								
-			| class TYPE varformals extends TYPE actuals classbody			
-			| class TYPE varformals extends native classbody				
+classdecl  	: CLASS TYPE varformals classbody								
+			| CLASS TYPE varformals EXTENDS TYPE actuals classbody			
+			| CLASS TYPE varformals EXTENDS NATIVE classbody				
 	        ;
 
-varformals	: ( form )
+varformals	: PAR_OPEN form PAR_CLOSE
 			;
 
-form	: /* empty */
-		| var ID : TYPE
-		| var ID : TYPE, form
-		;
+form		: /* empty */
+			| VAR ID COLON TYPE
+			| VAR ID COLON TYPE, form
+			;
 
-classbody	: { features }
+classbody	: BRACK_OPEN features BRACK_CLOSE
 			;
 
 features	: /* empty */
@@ -36,90 +36,90 @@ features	: /* empty */
 			| feature features
 			;
 
-feature 	: def ID formals : TYPE = expr ;
-			| override def ID formals : TYPE = expr ;
-			| def ID formals : TYPE = native ;
-			| override def ID formals : TYPE = native ;
-			| var ID = native ;
-			| var ID : TYPE = expr ;
-			| { block } ;
+feature 	: DEF ID formals COLON TYPE EQ expr SEMICOLON
+			| OVERRIDE DEF ID formals COLON TYPE EQ expr SEMICOLON
+			| DEF ID formals COLON TYPE EQ NATIVE SEMICOLON
+			| override DEF ID formals COLON TYPE EQ NATIVE SEMICOLON
+			| VAR ID EQ NATIVE SEMICOLON
+			| VAR ID COLON TYPE COLON expr SEMICOLON
+			| BRACK_OPEN block BRACK_CLOSE SEMICOLON
 	
-formals	: ( form )
-		;
+formals		: PAR_OPEN form PAR_CLOSE
+			;
 
-form 	: /* empty */
-		| ID : TYPE
-		| ID : TYPE, form
-		;
+form 		: /* empty */
+			| ID COLON TYPE
+			| ID COLON TYPE COMMA form
+			;
 
-actuals	: ( actual )
-		;
+actuals		: PAR_OPEN actual PAR_CLOSE
+			;
 
-actual 	: /* empty */
-		| expr
-		| expr, actual
-		;
+actual 		: /* empty */
+			| expr
+			| expr COMMA actual
+			;
 
-block 	: /* empty */
-		| blockpt expr
-		;
+block 		: /* empty */
+			| blockpt expr
+			;
 
-blockpt	: /* empty */
-		| expr ; blockpt
-		| var ID : TYPE = expr ; blockpt
-		;
+blockpt		: /* empty */
+			| expr SEMICOLON blockpt
+			| VAR ID COLON TYPE EQ expr SEMICOLON blockpt
+			;
 
-expr	: ex primary exp
-		;
+expr		: ex primary exp
+			;
 
-ex 		: /* empty */
-		| ID = ex
-		| ! ex
-		| - ex
-		| if ( expr ) expr else ex
-		| while ( expr ) ex
-		;
+ex 			: /* empty */
+			| ID EQ ex
+			| EXM ex
+			| SUB ex
+			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex
+			| WHILE PAR_OPEN expr PAR_CLOSE ex
+			;
 
-exp		: /* empty */
-		| <= expr exp
-		| >= expr exp
-		| < expr exp
-		| > expr exp
-		| == expr exp
-		| * expr exp
-		| / expr exp
-		| + expr exp
-		| - expr exp
-		| match cases exp
-		| . ID actuals
-		;
+exp			: /* empty */
+			| LTEQ expr exp
+			| GTEQ expr exp
+			| LT expr exp
+			| GT expr exp
+			| EQEQ expr exp
+			| MULT expr exp
+			| DIV expr exp
+			| ADD expr exp
+			| SUB expr exp
+			| MATCH cases exp
+			| DOT ID actuals
+			;
 
-primary	: ID actuals
-		| super . ID actuals
-		| new TYPE actuals
-		| { block }
-		| ( expr )
-		| null
-		| ()
-		| ID
-		| INTEGER
-		| STRING
-		| BOOLEAN
-		| this
-		;
+primary		: ID actuals
+			| SUPER DOT ID actuals
+			| NEW TYPE actuals
+			| BRACK_OPEN block BRACK_CLOSE
+			| PAR_OPEN expr PAR_CLOSE
+			| NULLVAL
+			| PAR_OPEN PAR_CLOSE
+			| ID
+			| INTEGER
+			| STRING
+			| BOOLEAN
+			| THIS
+			;
 
-cases	: { ca cas }
-		;
+cases		: BRACK_OPEN ca cas BRACK_CLOSE
+			;
 
-cas 	: /* empty */
-		| ca cas
-		;
+cas 		: /* empty */
+			| ca cas
+			;
 		
-ca		: case ID : TYPE => block
-		| case null => block
-		;
+ca			: CASE ID COLON TYPE ARROW block
+			| CASE NULLVAL ARROW block
+			;
 
-term		: number                	{$$ = $1;}
+term		: NUMBER                	{$$ = $1;}
 			| ID						{$$ = symbolVal($1);}
 			;
 
