@@ -43,17 +43,17 @@ WS									[" "|"\t"|"\n"]
 										}
 									}
 <COMMENT>.
-<INITIAL>"!"						return TOKEN(EXM_S);
+<INITIAL>"!"						return TOKEN(EXM);
 <INITIAL>"this"						return TOKEN(THIS);
 <INITIAL>"super"					return TOKEN(SUPER);
 <INITIAL>"override"					return TOKEN(OVERRIDE);
-<INITIAL>"null"						return TOKEN(NULLV);
+<INITIAL>"null"						return TOKEN(NULLVAL);
 <INITIAL>"extends"					return TOKEN(EXTENDS);
-<INITIAL>"if"						return TOKEN(IF_S);
-<INITIAL>"else"						return TOKEN(ELSE_S);
-<INITIAL>"while"					return TOKEN(WHILE_S);
-<INITIAL>"match"					return TOKEN(MATCH_S);
-<INITIAL>"case"						return TOKEN(CASE_S);
+<INITIAL>"if"						return TOKEN(IF);
+<INITIAL>"else"						return TOKEN(ELSE);
+<INITIAL>"while"					return TOKEN(WHILE);
+<INITIAL>"match"					return TOKEN(MATCH);
+<INITIAL>"case"						return TOKEN(CASE);
 <INITIAL>"\"\"\""					BEGIN(TRSTRING);
 <TRSTRING>"\"\"\""					SAVE_STRING;strdone();BEGIN(INITIAL);return TOKEN(STRING);
 <TRSTRING>.							strcopy(yytext);
@@ -95,14 +95,14 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"-"						return TOKEN(SUBSTRACT);
 <INITIAL>"/"						return TOKEN(DIVIDE);
 <INITIAL>"*"						return TOKEN(MULTIPLY);
-<INITIAL>"=="						return TOKEN(DOUBLE_EQ);
+<INITIAL>"=="						return TOKEN(EQEQ);
 <INITIAL>">="						return TOKEN(GTEQ);
 <INITIAL>"<="						return TOKEN(LTEQ);
 <INITIAL>"<"						return TOKEN(LT);
 <INITIAL>">"						return TOKEN(GT);
 <INITIAL>"!="						return TOKEN(NEQ);
 <INITIAL>"="						return TOKEN(EQ);
-<INITIAL>"new"						return TOKEN(NEW_KW);
+<INITIAL>"new"						return TOKEN(NEW);
 <INITIAL>"def"						return TOKEN(DEF);
 <INITIAL>"("						return TOKEN(PAR_OPEN);
 <INITIAL>")"						return TOKEN(PAR_CLOSE);
@@ -111,6 +111,7 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"["						return TOKEN(BRACK_OPEN);
 <INITIAL>"]"						return TOKEN(BRACK_CLOSE);
 <INITIAL>"var"						return TOKEN(VAR);
+<INITIAL>"native"					return TOKEN(NATIVE);
 <INITIAL>{ID}						return TOKEN(ID);
 <INITIAL>"{"						indent++;
 <INITIAL>"}"						{
