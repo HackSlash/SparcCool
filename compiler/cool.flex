@@ -43,7 +43,6 @@ WS									[" "|"\t"|"\n"]
 										}
 									}
 <COMMENT>.
-<INITIAL>"!"						return TOKEN(EXM);
 <INITIAL>"this"						return TOKEN(THIS);
 <INITIAL>"super"					return TOKEN(SUPER);
 <INITIAL>"override"					return TOKEN(OVERRIDE);
@@ -97,11 +96,13 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"*"						return TOKEN(MULTIPLY);
 <INITIAL>"=="						return TOKEN(EQEQ);
 <INITIAL>">="						return TOKEN(GTEQ);
+<INITIAL>"=>"						return TOKEN(ARROW);
 <INITIAL>"<="						return TOKEN(LTEQ);
 <INITIAL>"<"						return TOKEN(LT);
 <INITIAL>">"						return TOKEN(GT);
 <INITIAL>"!="						return TOKEN(NEQ);
 <INITIAL>"="						return TOKEN(EQ);
+<INITIAL>"!"						return TOKEN(EXM);
 <INITIAL>"new"						return TOKEN(NEW);
 <INITIAL>"def"						return TOKEN(DEF);
 <INITIAL>"("						return TOKEN(PAR_OPEN);

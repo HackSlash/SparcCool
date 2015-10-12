@@ -49,6 +49,7 @@
 %token VAR
 %token DOT
 %token COMMA
+%token ARROW
 
 %%
 		
