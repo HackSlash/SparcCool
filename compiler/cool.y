@@ -1,23 +1,24 @@
 %{
+	#define _GNU_SOURCE
 	#include "cool.h"
-
-	int yyerror;
 %}
+
+%define parse.error verbose
 
 %start program
 
-%token ID EXM THIS SUPER OVERRIDE NULLVAL EXTENDS IF ELSE WHILE MATCH CASE STRING CHAR FLOAT INTEGER BOOL CLASS TYPE SEMICOLON COLON  \
-EQEQ GTEQ LTEQ LT GT NEQ EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE BRACK_OPEN BRACK_CLOSE VAR DOT COMMA ARROW
+%token ID EXM THIS SUPER OVERRIDE NULLVAL NATIVE EXTENDS IF ELSE WHILE MATCH CASE STRING CHAR FLOAT INTEGER BOOL CLASS TYPE SEMICOLON COLON EQEQ GTEQ LTEQ LT GT NEQ EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE BRACK_OPEN BRACK_CLOSE VAR DOT COMMA ARROW
 
 %left DOT EXM MULT DIV ADD SUB EQEQ LTEQ LT GTEQ GT MATCH IF WHILE EQ
 
-%right 
-
-
+%union {
+	varTableEntry* var;
+	stringTableEntry str;
+}
 
 %%
 		
-program:	:/* empty */													{}
+program		:/* empty */													{}
         	| program classdecl												{}		
 			;
 
@@ -79,10 +80,10 @@ expr		: ex primary exp 												{}
 			;
 
 ex 			: /* empty */													{}
-			| ID EQ ex 														{}
-			| EXM ex 														{}
-			| SUB ex 														{}
-			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{}
+			| ID EQ ex 														{$$ = $3}
+			| EXM ex 														{$$ = !$2}
+			| SUB ex 														{$$ = -$2}
+			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{$$ = ($3)?$5:$7}
 			| WHILE PAR_OPEN expr PAR_CLOSE ex 								{}
 			;
 
@@ -110,7 +111,7 @@ primary		: ID actuals 													{}
 			| ID 															{}
 			| INTEGER 														{}
 			| STRING 														{}
-			| BOOLEAN 														{}
+			| BOOL	 														{}
 			| THIS 															{}
 			;
 

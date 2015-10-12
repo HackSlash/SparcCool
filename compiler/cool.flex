@@ -11,12 +11,14 @@
 	#include <stdio.h>
 	#include <unistd.h>
 	#include <string.h>
+	#include "cool.tab.h"
 
 	extern YYSTYPE yylval;
 
 	#define SAVE_STRING strcpy(yylval.string,stringBuffer)
 	#define SAVE_CHAR strcpy(yylval.string,charbuff)
-	#define TOKEN(t) (yylval.token = t)
+	#define TOKEN(t) t
+	//(yylval.token = t)
 	#define RED "\x1B[31m"
 	#define WHITE "\x1B[37m"
 }

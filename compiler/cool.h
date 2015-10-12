@@ -2,50 +2,7 @@ typedef char bool;
 #define true 1
 #define false 0
 
-typedef enum {id = 0, 
-				var, 
-				Int, 
-				String, 
-				Float, 
-				Bool, 
-				Char, 
-				semicolon, 
-				colon, 
-				add, 
-				sub, 
-				divide, 
-				mult, 
-				eq, 
-				classname, 
-				type, 
-				if_s, 
-				else_s, 
-				while_s, 
-				match_s, 
-				case_s, 
-				comma, 
-				par_open, 
-				par_close,
-				brack_open,
-				brack_close,
-				brace_open,
-				brace_close,
-				double_eq,
-				lt,
-				gt,
-				gteq,
-				lteq,
-				neq,
-				new_kw,
-				def,
-				exm_s,
-				this,
-				super,
-				override,
-				null,
-				extends,
-
-			} token;
+#include <vector>
 
 int filecount;
 int currfile;
@@ -75,3 +32,16 @@ void genError(int line, char* characters);
 void getNextToken();
 int yywrap();
 void nextFile();
+
+typedef struct {
+	int id,
+	char* data
+} stringTableEntry;
+
+typedef struct {
+	int id,
+	char* name,
+	void* data
+} varTableEntry;
+
+std::vector<stringTableEntry> stringTable;
