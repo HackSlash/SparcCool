@@ -6,8 +6,50 @@
 
 %start program
 
-%token id
-
+%token ID
+%token EXM
+%token THIS
+%token SUPER
+%token OVERRIDE
+%token NULLVAL
+%token EXTENDS
+%token IF
+%token ELSE
+%token WHILE
+%token MATCH
+%token CASE
+%token STRING
+%token CHAR
+%token FLOAT
+%token INTEGER
+%token BOOL
+%token CLASS
+%token TYPE
+%token SEMICOLON
+%token COLON
+%token ADD
+%token SUB
+%token DIV
+%token MULT
+%token EQEQ
+%token GTEQ
+%token LTEQ
+%token LT
+%token GT
+%token NEQ
+%token EQ
+%token NEW
+%token DEF
+%token PAR_OPEN
+%token PAR_CLOSE
+%token BRACE_OPEN
+%token BRACE_CLOSE
+%token BRACK_OPEN
+%token BRACK_CLOSE
+%token VAR
+%token DOT
+%token COMMA
+%token ARROW
 
 %%
 		
