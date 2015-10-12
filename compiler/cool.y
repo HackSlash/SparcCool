@@ -6,50 +6,12 @@
 
 %start program
 
-%token ID
-%token EXM
-%token THIS
-%token SUPER
-%token OVERRIDE
-%token NULLVAL
-%token EXTENDS
-%token IF
-%token ELSE
-%token WHILE
-%token MATCH
-%token CASE
-%token STRING
-%token CHAR
-%token FLOAT
-%token INTEGER
-%token BOOL
-%token CLASS
-%token TYPE
-%token SEMICOLON
-%token COLON
-%token ADD
-%token SUB
-%token DIV
-%token MULT
-%token EQEQ
-%token GTEQ
-%token LTEQ
-%token LT
-%token GT
-%token NEQ
-%token EQ
-%token NEW
-%token DEF
-%token PAR_OPEN
-%token PAR_CLOSE
-%token BRACE_OPEN
-%token BRACE_CLOSE
-%token BRACK_OPEN
-%token BRACK_CLOSE
-%token VAR
-%token DOT
-%token COMMA
-%token ARROW
+%token ID EXM THIS SUPER OVERRIDE NULLVAL EXTENDS IF ELSE WHILE MATCH CASE STRING CHAR FLOAT INTEGER BOOL CLASS TYPE SEMICOLON COLON  \
+EQEQ GTEQ LTEQ LT GT NEQ EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE BRACK_OPEN BRACK_CLOSE VAR DOT COMMA ARROW
+
+%left ADD SUB DIV MULT
+
+%right 
 
 %%
 		
@@ -67,7 +29,7 @@ varformals	: PAR_OPEN form PAR_CLOSE
 
 form		: /* empty */
 			| VAR ID COLON TYPE
-			| VAR ID COLON TYPE, form
+			| VAR ID COLON TYPE COMMA form
 			;
 
 classbody	: BRACK_OPEN features BRACK_CLOSE
@@ -81,7 +43,7 @@ features	: /* empty */
 feature 	: DEF ID formals COLON TYPE EQ expr SEMICOLON
 			| OVERRIDE DEF ID formals COLON TYPE EQ expr SEMICOLON
 			| DEF ID formals COLON TYPE EQ NATIVE SEMICOLON
-			| override DEF ID formals COLON TYPE EQ NATIVE SEMICOLON
+			| OVERRIDE DEF ID formals COLON TYPE EQ NATIVE SEMICOLON
 			| VAR ID EQ NATIVE SEMICOLON
 			| VAR ID COLON TYPE COLON expr SEMICOLON
 			| BRACK_OPEN block BRACK_CLOSE SEMICOLON
@@ -161,8 +123,9 @@ ca			: CASE ID COLON TYPE ARROW block
 			| CASE NULLVAL ARROW block
 			;
 
-term		: NUMBER                	{$$ = $1;}
+term		: INTEGER 					{$$ = $1;}
 			| ID						{$$ = symbolVal($1);}
+			| STRING					{}
 			;
 
 %%
