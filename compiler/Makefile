@@ -16,10 +16,10 @@ flex:
 c:
 	$(CC) $(CFILES) $(CFLAGS) -o $(TARGET)
 
-test: flex c
+test: bison flex c
 	cat test.cl | ./$(TARGET)
 
-test2: flex c
+test2: bison flex c
 	cat test2.cl | ./$(TARGET)
 
 clean:

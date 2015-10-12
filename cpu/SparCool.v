@@ -37,9 +37,9 @@ module core(out1,out2,a1,a2,b1,b2,instr1,instr2,c);
 endmodule
 
 module SparCool(output clock);			// Top module
-core core1(.c(clock));						// First "core", passing clock to c
-core core2(.c(clock));						// Second "core"
-core core3(.c(clock));						// Third core
-core core4(.c(clock));
-assign #5 clock=~clock;						// 5 time units clock delay
+	core core1(.c(clock));						// First "core", passing clock to c
+	core core2(.c(clock));						// Second "core"
+	core core3(.c(clock));						// Third core
+	core core4(.c(clock));
+	assign #5 clock=~clock;						// 5 time units clock delay
 endmodule
