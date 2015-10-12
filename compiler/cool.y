@@ -80,10 +80,10 @@ expr		: ex primary exp 												{}
 			;
 
 ex 			: /* empty */													{}
-			| ID EQ ex 														{}
-			| EXM ex 														{}
-			| SUB ex 														{}
-			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{}
+			| ID EQ ex 														{$$ = $3}
+			| EXM ex 														{$$ = !$2}
+			| SUB ex 														{$$ = -$2}
+			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{$$ = ($3)?$5:$7}
 			| WHILE PAR_OPEN expr PAR_CLOSE ex 								{}
 			;
 
