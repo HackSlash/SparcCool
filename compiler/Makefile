@@ -8,7 +8,7 @@ TARGET=scanner
 all: bison flex c
 
 bison:
-	bison $(BISONFILES)
+	bison -kdv $(BISONFILES)
 
 flex:
 	flex $(FLEXFILES)

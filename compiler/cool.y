@@ -1,23 +1,24 @@
 %{
+	#define _GNU_SOURCE
 	#include "cool.h"
-
-	int yyerror;
 %}
+
+%define parse.error verbose
 
 %start program
 
-%token ID EXM THIS SUPER OVERRIDE NULLVAL EXTENDS IF ELSE WHILE MATCH CASE STRING CHAR FLOAT INTEGER BOOL CLASS TYPE SEMICOLON COLON  \
-EQEQ GTEQ LTEQ LT GT NEQ EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE BRACK_OPEN BRACK_CLOSE VAR DOT COMMA ARROW
+%token ID EXM THIS SUPER OVERRIDE NULLVAL NATIVE EXTENDS IF ELSE WHILE MATCH CASE STRING CHAR FLOAT INTEGER BOOL CLASS TYPE SEMICOLON COLON EQEQ GTEQ LTEQ LT GT NEQ EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE BRACK_OPEN BRACK_CLOSE VAR DOT COMMA ARROW
 
 %left ADD SUB DIV MULT
 
-%right 
-
-
+%union {
+	varTableEntry* var;
+	stringTableEntry str;
+}
 
 %%
 		
-program:	:/* empty */													{}
+program		:/* empty */													{}
         	| program classdecl												{}		
 			;
 
@@ -31,7 +32,7 @@ varformals	: PAR_OPEN form PAR_CLOSE										{}
 
 form		: /* empty */													{}
 			| VAR ID COLON TYPE												{}
-			| VAR ID COLON TYPE COMMA form 										{}
+			| VAR ID COLON TYPE COMMA form 									{}
 			;
 
 classbody	: BRACK_OPEN features BRACK_CLOSE								{}
@@ -110,7 +111,7 @@ primary		: ID actuals 													{}
 			| ID 															{}
 			| INTEGER 														{}
 			| STRING 														{}
-			| BOOLEAN 														{}
+			| BOOL	 														{}
 			| THIS 															{}
 			;
 
