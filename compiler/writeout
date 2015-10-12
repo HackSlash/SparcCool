@@ -1,3 +1,51 @@
+%left	.
+%left	! -#
+%left	* /
+%left	+ -
+%left	==
+%left	<= <
+%left	match
+%left	if while
+%left	=
+
+
+
+VRAAG:
+	IS ER > OF => IN COOL?
+	NO RIGHT PRECIDENCE?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+___________________________________________________________________________
+
+
 program
 	classdecl* EOF
 
