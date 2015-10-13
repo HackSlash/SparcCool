@@ -9,12 +9,29 @@
 
 %token ID EXM THIS SUPER OVERRIDE NULLVAL NATIVE EXTENDS IF ELSE WHILE MATCH CASE STRING CHAR FLOAT INTEGER BOOL CLASS TYPE SEMICOLON COLON EQEQ GTEQ LTEQ LT GT NEQ EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE BRACK_OPEN BRACK_CLOSE VAR DOT COMMA ARROW
 
-%left DOT EXM MULT DIV ADD SUB EQEQ LTEQ LT GTEQ GT MATCH IF WHILE EQ
+%left	EQ
+%left	IF WHILE
+%left	MATCH
+%left	LTEQ LT
+%left	EQEQ
+%left	ADD SUB
+%left	MULT DIV
+%left	EXM -#
+%left	DOT
 
 %union {
-	varTableEntry* var;
-	stringTableEntry str;
+	std::string Str;
+	int Int;
 }
+
+/** TODO:
+ * TOKENIZE -#
+ * Create class "Node()"
+ * %union, valid values
+ * Ilegal keywords in lexer, must generate errors
+ * TOKEN "native", can only be used in basic.cool
+ * Create tables (Vectors), id's; int's; string's;
+ */
 
 %%
 		
