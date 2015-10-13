@@ -16,7 +16,7 @@
 %left	EQEQ
 %left	ADD SUB
 %left	MULT DIV
-%left	EXM -#
+%left	EXM UMIN
 %left	DOT
 
 %union {
@@ -25,12 +25,12 @@
 }
 
 /** TODO:
- * TOKENIZE -#
- * Create class "Node()"
- * %union, valid values
+ * Create class "Node()", FILL ZEH FILEZ
+ * %union, valid values ^^
  * Ilegal keywords in lexer, must generate errors
  * TOKEN "native", can only be used in basic.cool
  * Create tables (Vectors), id's; int's; string's;
+ * Method to generate errors
  */
 
 %%
@@ -99,7 +99,7 @@ expr		: ex primary exp 												{}
 ex 			: /* empty */													{}
 			| ID EQ ex 														{$$ = $3}
 			| EXM ex 														{$$ = !$2}
-			| SUB ex 														{$$ = -$2}
+			| SUB ex %prec UMIN 											{$$ = -$2}
 			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{$$ = ($3)?$5:$7}
 			| WHILE PAR_OPEN expr PAR_CLOSE ex 								{}
 			;
