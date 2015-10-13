@@ -1,7 +1,7 @@
 FLEXFILES=cool.flex
 BISONFILES=cool.y
 CFILES=lex.yy.c
-CC=gcc
+CC=g++
 CFLAGS=-lfl -Wall -g
 TARGET=scanner
 

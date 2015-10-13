@@ -11,10 +11,28 @@
 
 %left DOT EXM MULT DIV ADD SUB EQEQ LTEQ LT GTEQ GT MATCH IF WHILE EQ
 
-%union {
+/*%union {
 	varTableEntry* var;
 	stringTableEntry str;
-}
+}*/
+
+%{
+	typedef struct {
+		union {
+			int intval;
+			bool boolval;
+			float floatval;
+			char* stringval;
+		} payload;
+
+		enum {
+			INT_DATA,
+			BOOL_DATA,
+			FLOAT_DATA,
+			STRING_DATA
+		} dataType;
+	} YYSTYPE;
+%}
 
 %%
 		

@@ -45,3 +45,4 @@ typedef struct {
 } varTableEntry;
 
 std::vector<stringTableEntry> stringTable;
+std::vector<varTableEntry> varTable;
