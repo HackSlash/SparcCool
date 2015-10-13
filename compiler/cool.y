@@ -36,7 +36,7 @@
 %%
 		
 program		:/* empty */													{}
-        	| program classdecl												{}		
+        	| program classdecl												{}
 			;
 
 classdecl  	: CLASS TYPE varformals classbody								{}
