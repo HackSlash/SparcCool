@@ -9,30 +9,29 @@
 
 %token ID EXM THIS SUPER OVERRIDE NULLVAL NATIVE EXTENDS IF ELSE WHILE MATCH CASE STRING CHAR FLOAT INTEGER BOOL CLASS TYPE SEMICOLON COLON EQEQ GTEQ LTEQ LT GT NEQ EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE BRACK_OPEN BRACK_CLOSE VAR DOT COMMA ARROW
 
-%left DOT EXM MULT DIV ADD SUB EQEQ LTEQ LT GTEQ GT MATCH IF WHILE EQ
+%left	EQ
+%left	IF WHILE
+%left	MATCH
+%left	LTEQ LT
+%left	EQEQ
+%left	ADD SUB
+%left	MULT DIV
+%left	EXM UMIN
+%left	DOT
 
-/*%union {
-	varTableEntry* var;
-	stringTableEntry str;
-}*/
+%union {
+	std::string Str;
+	int Int;
+}
 
-%{
-	typedef struct {
-		union {
-			int intval;
-			bool boolval;
-			float floatval;
-			char* stringval;
-		} payload;
-
-		enum {
-			INT_DATA,
-			BOOL_DATA,
-			FLOAT_DATA,
-			STRING_DATA
-		} dataType;
-	} YYSTYPE;
-%}
+/** TODO:
+ * Create class "Node()", FILL ZEH FILEZ
+ * %union, valid values ^^
+ * Ilegal keywords in lexer, must generate errors
+ * TOKEN "native", can only be used in basic.cool
+ * Create tables (Vectors), id's; int's; string's;
+ * Method to generate errors
+ */
 
 %%
 		
@@ -100,7 +99,7 @@ expr		: ex primary exp 												{}
 ex 			: /* empty */													{}
 			| ID EQ ex 														{$$ = $3}
 			| EXM ex 														{$$ = !$2}
-			| SUB ex 														{$$ = -$2}
+			| SUB ex %prec UMIN 											{$$ = -$2}
 			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{$$ = ($3)?$5:$7}
 			| WHILE PAR_OPEN expr PAR_CLOSE ex 								{}
 			;

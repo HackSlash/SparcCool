@@ -70,13 +70,13 @@ WS									[" "|"\t"|"\n"]
 <CHARESCAPE>"t"						charbuff='\t';BEGIN(CHAR);
 <CHARESCAPE>"r"						charbuff='\r';BEGIN(CHAR);
 <CHARESCAPE>"f"						charbuff='\f';BEGIN(CHAR);
-<CHARESCAPE>"\""						charbuff='\"';BEGIN(CHAR);
-<CHARESCAPE>"\\"						charbuff='\\';BEGIN(CHAR);
+<CHARESCAPE>"\""					charbuff='\"';BEGIN(CHAR);
+<CHARESCAPE>"\\"					charbuff='\\';BEGIN(CHAR);
 <CHARESCAPE>.						generror(yylineno,yytext);BEGIN(CHAR);
 <INITIAL>"\""						BEGIN(STRING);
-<STRING>"\""							SAVE_STRING;strdone();BEGIN(INITIAL);return TOKEN(STRING);
-<STRING>"\n"							genError(yylineno,"LF");//printf(RED "\n\nFatal error: Newline in String literal!\n");yyterminate();
-<STRING>"\\"							BEGIN(STRESCAPE);
+<STRING>"\""						SAVE_STRING;strdone();BEGIN(INITIAL);return TOKEN(STRING);
+<STRING>"\n"						genError(yylineno,"LF");//printf(RED "\n\nFatal error: Newline in String literal!\n");yyterminate();
+<STRING>"\\"						BEGIN(STRESCAPE);
 <STRESCAPE>"n"						strcopy("\n");BEGIN(STRING);
 <STRESCAPE>"0"						strcopy("\0");BEGIN(STRING);
 <STRESCAPE>"b"						strcopy("\b");BEGIN(STRING);
@@ -125,7 +125,7 @@ WS									[" "|"\t"|"\n"]
 									}
 <*>"\n"								printf("\n");
 <*>{WS}								{}
-<*>.									genError(yylineno, yytext);
+<*>.								genError(yylineno, yytext);
 %%
 
 int main(int argc, char const *argv[])
