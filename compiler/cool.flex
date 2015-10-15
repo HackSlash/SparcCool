@@ -59,21 +59,6 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"\"\"\""					BEGIN(TRSTRING);
 <TRSTRING>"\"\"\""					SAVE_STRING;strdone();BEGIN(INITIAL);return TOKEN(STRING);
 <TRSTRING>.							strcopy(yytext);
-/*
-<INITIAL>"'"						BEGIN(CHAR);
-<CHAR>"'"							SAVE_CHAR;BEGIN(INITIAL);return TOKEN(CHAR);
-<CHAR>"\\"							BEGIN(CHARESCAPE);
-<CHAR>.								charbuff=*yytext;
-<CHARESCAPE>"n"						charbuff='\n';BEGIN(CHAR);
-<CHARESCAPE>"0"						charbuff='\0';BEGIN(CHAR);
-<CHARESCAPE>"b"						charbuff='\b';BEGIN(CHAR);
-<CHARESCAPE>"t"						charbuff='\t';BEGIN(CHAR);
-<CHARESCAPE>"r"						charbuff='\r';BEGIN(CHAR);
-<CHARESCAPE>"f"						charbuff='\f';BEGIN(CHAR);
-<CHARESCAPE>"\""					charbuff='\"';BEGIN(CHAR);
-<CHARESCAPE>"\\"					charbuff='\\';BEGIN(CHAR);
-<CHARESCAPE>.						generror(yylineno,yytext);BEGIN(CHAR);
-*/// Characters are not a thing in cool.
 <INITIAL>"\""						BEGIN(STRING);
 <STRING>"\""						SAVE_STRING;strdone();BEGIN(INITIAL);return TOKEN(STRING);
 <STRING>"\n"						genError(yylineno,"LF");//printf(RED "\n\nFatal error: Newline in String literal!\n");yyterminate();
