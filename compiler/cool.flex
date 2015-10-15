@@ -12,6 +12,7 @@
 	#include <unistd.h>
 	#include <string.h>
 	#include "cool.tab.h"
+	#include "error.h"
 
 	extern YYSTYPE yylval;
 
@@ -19,8 +20,6 @@
 	#define SAVE_CHAR strcpy(yylval.string,charbuff)
 	#define TOKEN(t) t
 	//(yylval.token = t)
-	#define RED "\x1B[31m"
-	#define WHITE "\x1B[37m"
 }
 
 CLASS_ID							[A-Z][A-Za-z0-9]*
@@ -87,7 +86,6 @@ WS									[" "|"\t"|"\n"]
 <STRESCAPE>"\\"						strcopy("\\");BEGIN(STRING);
 <STRESCAPE>.						generror(yylineno,yytext);BEGIN(STRING);
 <STRING>.							strcopy(yytext);
-<INITIAL>{INT}+"."+{INT}+"f"		return TOKEN(FLOAT);
 <INITIAL>{INT}						return TOKEN(INTEGER);
 <INITIAL>"true"|"false"				return TOKEN(BOOL);
 <INITIAL>"class"					return TOKEN(CLASS);
@@ -99,11 +97,9 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"/"						return TOKEN(DIV);
 <INITIAL>"*"						return TOKEN(MULT);
 <INITIAL>"=="						return TOKEN(EQEQ);
-<INITIAL>">="						return TOKEN(GTEQ);
 <INITIAL>"=>"						return TOKEN(ARROW);
 <INITIAL>"<="						return TOKEN(LTEQ);
 <INITIAL>"<"						return TOKEN(LT);
-<INITIAL>">"						return TOKEN(GT);
 <INITIAL>"!="						return TOKEN(NEQ);
 <INITIAL>"="						return TOKEN(EQ);
 <INITIAL>"!"						return TOKEN(EXM);
@@ -116,7 +112,34 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"["						return TOKEN(BRACK_OPEN);
 <INITIAL>"]"						return TOKEN(BRACK_CLOSE);
 <INITIAL>"var"						return TOKEN(VAR);
-<INITIAL>"native"					return TOKEN(NATIVE);
+<INITIAL>"native"					{
+										if (yyin == $CLASSHOME/lib/basic.cool) return TOKEN(NATIVE);
+										else genError(ill_nat, yytext, yylineno, yycolno);
+									}
+<INITIAL>"abstract"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"catch"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"do"						genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"final"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"finally"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"for"						genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"forsome"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"implicit"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"import"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"lazy"						genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"object"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"package"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"private"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"protected"				genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"requires"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"return"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"sealed"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"throw"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"trait"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"try"						genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"type"						genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"val"						genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"with"						genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"yield"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
 <INITIAL>{ID}						return TOKEN(ID);
 <INITIAL>"{"						indent++;
 <INITIAL>"}"						{
@@ -125,7 +148,8 @@ WS									[" "|"\t"|"\n"]
 									}
 <*>"\n"								printf("\n");
 <*>{WS}								{}
-<*>.									genError(yylineno, yytext);
+<*>.								genError(yylineno, yytext);
+
 %%
 
 int main(int argc, char const *argv[])
@@ -156,9 +180,4 @@ void nextFile() {
 
 int yywrap() {
 
-}
-
-void genError(int line, char* characters) {
-	printf(RED "\n Error in line %d, got \'%s\'\n",line, characters );
-	printf(WHITE);
 }

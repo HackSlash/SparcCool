@@ -7,7 +7,7 @@
 
 %start program
 
-%token ID EXM THIS SUPER OVERRIDE NULLVAL NATIVE EXTENDS IF ELSE WHILE MATCH CASE STRING CHAR FLOAT INTEGER BOOL CLASS TYPE SEMICOLON COLON EQEQ GTEQ LTEQ LT GT NEQ EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE BRACK_OPEN BRACK_CLOSE VAR DOT COMMA ARROW
+%token ID EXM THIS SUPER OVERRIDE NULLVAL NATIVE EXTENDS IF ELSE WHILE MATCH CASE STRING CHAR FLOAT INTEGER BOOL CLASS TYPE SEMICOLON COLON EQEQ LTEQ LT NEQ EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE BRACK_OPEN BRACK_CLOSE VAR DOT COMMA ARROW
 
 %left	EQ
 %left	IF WHILE
@@ -22,21 +22,20 @@
 %union {
 	std::string Str;
 	int Int;
+	Boolean Bool;
 }
 
 /** TODO:
  * Create class "Node()", FILL ZEH FILEZ
  * %union, valid values ^^
- * Ilegal keywords in lexer, must generate errors
- * TOKEN "native", can only be used in basic.cool
- * Create tables (Vectors), id's; int's; string's;
- * Method to generate errors
+ * Create tables (Vectors), id's; int's; string's.
+ * Types: are they declared? (Int, String, Boolean)
  */
 
 %%
 		
 program		:/* empty */													{}
-        	| program classdecl												{}		
+        	| program classdecl												{}
 			;
 
 classdecl  	: CLASS TYPE varformals classbody								{}
@@ -106,9 +105,7 @@ ex 			: /* empty */													{}
 
 exp			: /* empty */													{}
 			| LTEQ expr exp 												{}
-			| GTEQ expr exp 												{}
 			| LT expr exp 													{}
-			| GT expr exp 													{}
 			| EQEQ expr exp 												{}
 			| MULT expr exp 												{}
 			| DIV expr exp 													{}
