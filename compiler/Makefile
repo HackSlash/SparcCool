@@ -1,7 +1,7 @@
 FLEXFILES=cool.flex
 BISONFILES=cool.y
 CFILES=lex.yy.c
-CC=gcc
+CC=g++
 YACC=bison
 LEX=flex
 CFLAGS=-lfl -Wall -g
