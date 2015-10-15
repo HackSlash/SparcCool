@@ -27,4 +27,4 @@ test2: bison flex c
 	cat test2.cl | ./$(TARGET)
 
 clean:
-	rm $(TARGET) lex.yy.c cool.tab.h cool.tab.c
+	rm $(TARGET) lex.yy.c cool.tab.h cool.tab.c cool.output
