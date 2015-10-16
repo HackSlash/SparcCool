@@ -61,17 +61,17 @@ WS									[" "|"\t"|"\n"]
 <TRSTRING>.							strcopy(yytext);
 <INITIAL>"\""						BEGIN(STRING);
 <STRING>"\""						SAVE_STRING;strdone();BEGIN(INITIAL);return TOKEN(STRING);
-<STRING>"\n"						genError(yylineno,"LF");//printf(RED "\n\nFatal error: Newline in String literal!\n");yyterminate();
+<STRING>"\n"						genError(ill_nln, NULL, yylineno);
 <STRING>"\\"						BEGIN(STRESCAPE);
-<STRESCAPE>"n"						strcopy("\n");BEGIN(STRING);
-<STRESCAPE>"0"						strcopy("\0");BEGIN(STRING);
-<STRESCAPE>"b"						strcopy("\b");BEGIN(STRING);
-<STRESCAPE>"t"						strcopy("\t");BEGIN(STRING);
-<STRESCAPE>"r"						strcopy("\r");BEGIN(STRING);
-<STRESCAPE>"f"						strcopy("\f");BEGIN(STRING);
-<STRESCAPE>"\""						strcopy("\"");BEGIN(STRING);
-<STRESCAPE>"\\"						strcopy("\\");BEGIN(STRING);
-<STRESCAPE>.						generror(yylineno,yytext);BEGIN(STRING);
+<STRESCAPE>"n"						strcopy((char*)"\n");BEGIN(STRING);
+<STRESCAPE>"0"						strcopy((char*)"\0");BEGIN(STRING);
+<STRESCAPE>"b"						strcopy((char*)"\b");BEGIN(STRING);
+<STRESCAPE>"t"						strcopy((char*)"\t");BEGIN(STRING);
+<STRESCAPE>"r"						strcopy((char*)"\r");BEGIN(STRING);
+<STRESCAPE>"f"						strcopy((char*)"\f");BEGIN(STRING);
+<STRESCAPE>"\""						strcopy((char*)"\"");BEGIN(STRING);
+<STRESCAPE>"\\"						strcopy((char*)"\\");BEGIN(STRING);
+<STRESCAPE>.						genError(inv_syn, yytext, yylineno);BEGIN(STRING);
 <STRING>.							strcopy(yytext);
 <INITIAL>{INT}						return TOKEN(INTEGER);
 <INITIAL>"true"|"false"				return TOKEN(BOOL);
@@ -100,42 +100,42 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"]"						return TOKEN(BRACK_CLOSE);
 <INITIAL>"var"						return TOKEN(VAR);
 <INITIAL>"native"					{
-										if (yyin == $CLASSHOME/lib/basic.cool) return TOKEN(NATIVE);
-										else genError(ill_nat, yytext, yylineno, yycolno);
+										if (strcmp(filePath, "$CLASSHOME/lib/basic.cool")) return TOKEN(NATIVE);
+										else genError(ill_nat, yytext, yylineno);
 									}
-<INITIAL>"abstract"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"catch"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"do"						genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"final"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"finally"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"for"						genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"forsome"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"implicit"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"import"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"lazy"						genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"object"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"package"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"private"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"protected"				genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"requires"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"return"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"sealed"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"throw"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"trait"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"try"						genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"type"						genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"val"						genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"with"						genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
-<INITIAL>"yield"					genError(ill_key, yytext, yylineno, yycolno); //Ilegal keyword
+<INITIAL>"abstract"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"catch"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"do"						genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"final"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"finally"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"for"						genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"forsome"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"implicit"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"import"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"lazy"						genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"object"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"package"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"private"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"protected"				genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"requires"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"return"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"sealed"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"throw"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"trait"					genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"try"						genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"type"						genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"val"						genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"with"						genError(ill_key, yytext, yylineno); //Ilegal keyword
+<INITIAL>"yield"					genError(ill_key, yytext, yylineno); //Ilegal keyword
 <INITIAL>{ID}						return TOKEN(ID);
 <INITIAL>"{"						indent++;
 <INITIAL>"}"						{
 										if (indent > 0) indent--; 
-										else genError(yylineno, "}");
+										else genError(ill_chr, (char*)"}", yylineno);
 									}
 <*>"\n"								printf("\n");
 <*>{WS}								{}
-<*>.								genError(yylineno, yytext);
+<*>.								genError(ill_chr, yytext, yylineno);
 
 %%
 
@@ -149,11 +149,11 @@ int main(int argc, char const *argv[])
 	}
 	printf(WHITE);
 	stringBuffer = (char*)calloc(1000, sizeof(char));
-	savedTokens = (token*)calloc(1000000, (sizeof(token)));
+	//savedTokens = (token*)calloc(1000000, sizeof(token));
 	indent = 0;
 	identifierCount = 0;
 	printf("%d",yylex());
-	free(savedTokens);
+	//free(savedTokens);
 	return 0;
 }
 
@@ -163,8 +163,5 @@ void nextFile() {
 	strcat(path,args[currfile]);
 	currfile++;
 	FILE* yyin = fopen(path,"r");
-}
-
-int yywrap() {
-
+	filePath = path;
 }
