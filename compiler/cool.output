@@ -1,0 +1,2254 @@
+Terminals unused in grammar
+
+   NEQ
+   BRACE_OPEN
+   BRACE_CLOSE
+
+
+Rules useless in parser due to conflicts
+
+   12 features: feature
+
+   22 form: %empty
+
+
+State 6 conflicts: 1 reduce/reduce
+State 21 conflicts: 5 shift/reduce, 10 reduce/reduce
+State 24 conflicts: 1 reduce/reduce
+State 28 conflicts: 1 shift/reduce
+State 33 conflicts: 1 shift/reduce
+State 37 conflicts: 1 shift/reduce
+State 39 conflicts: 1 shift/reduce
+State 45 conflicts: 1 reduce/reduce
+State 51 conflicts: 1 reduce/reduce
+State 53 conflicts: 1 shift/reduce
+State 55 conflicts: 1 shift/reduce
+State 56 conflicts: 1 shift/reduce
+State 61 conflicts: 5 shift/reduce, 10 reduce/reduce
+State 70 conflicts: 1 shift/reduce
+State 71 conflicts: 5 shift/reduce, 10 reduce/reduce
+State 72 conflicts: 9 shift/reduce
+State 76 conflicts: 1 reduce/reduce
+State 78 conflicts: 1 shift/reduce
+State 95 conflicts: 1 shift/reduce
+State 96 conflicts: 1 shift/reduce
+State 97 conflicts: 1 shift/reduce
+State 99 conflicts: 1 shift/reduce
+State 100 conflicts: 1 shift/reduce
+State 101 conflicts: 1 shift/reduce
+State 102 conflicts: 1 shift/reduce
+State 111 conflicts: 1 shift/reduce
+State 112 conflicts: 1 shift/reduce
+State 119 conflicts: 9 shift/reduce
+State 120 conflicts: 9 shift/reduce
+State 121 conflicts: 9 shift/reduce
+State 122 conflicts: 9 shift/reduce
+State 124 conflicts: 9 shift/reduce
+State 125 conflicts: 9 shift/reduce
+State 126 conflicts: 9 shift/reduce
+State 127 conflicts: 9 shift/reduce
+State 128 conflicts: 1 shift/reduce
+State 131 conflicts: 1 shift/reduce
+State 134 conflicts: 1 shift/reduce
+State 148 conflicts: 1 shift/reduce
+State 151 conflicts: 1 shift/reduce
+State 163 conflicts: 5 shift/reduce, 10 reduce/reduce
+State 165 conflicts: 5 shift/reduce, 10 reduce/reduce
+State 173 conflicts: 5 shift/reduce, 10 reduce/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: %empty
+    2        | program classdecl
+
+    3 classdecl: CLASS TYPE varformals classbody
+    4          | CLASS TYPE varformals EXTENDS TYPE actuals classbody
+    5          | CLASS TYPE varformals EXTENDS NATIVE classbody
+
+    6 varformals: PAR_OPEN form PAR_CLOSE
+
+    7 form: %empty
+    8     | VAR ID COLON TYPE
+    9     | VAR ID COLON TYPE COMMA form
+
+   10 classbody: BRACK_OPEN features BRACK_CLOSE
+
+   11 features: %empty
+   12         | feature
+   13         | feature features
+
+   14 feature: DEF ID formals COLON TYPE EQ expr SEMICOLON
+   15        | OVERRIDE DEF ID formals COLON TYPE EQ expr SEMICOLON
+   16        | DEF ID formals COLON TYPE EQ NATIVE SEMICOLON
+   17        | OVERRIDE DEF ID formals COLON TYPE EQ NATIVE SEMICOLON
+   18        | VAR ID EQ NATIVE SEMICOLON
+   19        | VAR ID COLON TYPE COLON expr SEMICOLON
+   20        | BRACK_OPEN block BRACK_CLOSE SEMICOLON
+
+   21 formals: PAR_OPEN form PAR_CLOSE
+
+   22 form: %empty
+   23     | ID COLON TYPE
+   24     | ID COLON TYPE COMMA form
+
+   25 actuals: PAR_OPEN actual PAR_CLOSE
+
+   26 actual: %empty
+   27       | expr
+   28       | expr COMMA actual
+
+   29 block: %empty
+   30      | blockpt expr
+
+   31 blockpt: %empty
+   32        | expr SEMICOLON blockpt
+   33        | VAR ID COLON TYPE EQ expr SEMICOLON blockpt
+
+   34 expr: ex primary exp
+
+   35 ex: %empty
+   36   | ID EQ ex
+   37   | EXM ex
+   38   | SUB ex
+   39   | IF PAR_OPEN expr PAR_CLOSE expr ELSE ex
+   40   | WHILE PAR_OPEN expr PAR_CLOSE ex
+
+   41 exp: %empty
+   42    | LTEQ expr exp
+   43    | LT expr exp
+   44    | EQEQ expr exp
+   45    | MULT expr exp
+   46    | DIV expr exp
+   47    | ADD expr exp
+   48    | SUB expr exp
+   49    | MATCH cases exp
+   50    | DOT ID actuals
+
+   51 primary: ID actuals
+   52        | SUPER DOT ID actuals
+   53        | NEW TYPE actuals
+   54        | BRACK_OPEN block BRACK_CLOSE
+   55        | PAR_OPEN expr PAR_CLOSE
+   56        | NULLVAL
+   57        | PAR_OPEN PAR_CLOSE
+   58        | ID
+   59        | INTEGER
+   60        | STRING
+   61        | BOOL
+   62        | THIS
+
+   63 cases: BRACK_OPEN ca cas BRACK_CLOSE
+
+   64 cas: %empty
+   65    | ca cas
+
+   66 ca: CASE ID COLON TYPE ARROW block
+   67   | CASE NULLVAL ARROW block
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+ID (258) 8 9 14 15 16 17 18 19 23 24 33 36 50 51 52 58 66
+EXM (259) 37
+THIS (260) 62
+SUPER (261) 52
+OVERRIDE (262) 15 17
+NULLVAL (263) 56 67
+NATIVE (264) 5 16 17 18
+EXTENDS (265) 4 5
+IF (266) 39
+ELSE (267) 39
+WHILE (268) 40
+MATCH (269) 49
+CASE (270) 66 67
+STRING (271) 60
+INTEGER (272) 59
+BOOL (273) 61
+CLASS (274) 3 4 5
+TYPE (275) 3 4 5 8 9 14 15 16 17 19 23 24 33 53 66
+SEMICOLON (276) 14 15 16 17 18 19 20 32 33
+COLON (277) 8 9 14 15 16 17 19 23 24 33 66
+EQEQ (278) 44
+LTEQ (279) 42
+LT (280) 43
+NEQ (281)
+EQ (282) 14 15 16 17 18 33 36
+NEW (283) 53
+DEF (284) 14 15 16 17
+PAR_OPEN (285) 6 21 25 39 40 55 57
+PAR_CLOSE (286) 6 21 25 39 40 55 57
+BRACE_OPEN (287)
+BRACE_CLOSE (288)
+BRACK_OPEN (289) 10 20 54 63
+BRACK_CLOSE (290) 10 20 54 63
+VAR (291) 8 9 18 19 33
+DOT (292) 50 52
+COMMA (293) 9 24 28
+ARROW (294) 66 67
+ADD (295) 47
+SUB (296) 38 48
+MULT (297) 45
+DIV (298) 46
+UMIN (299)
+
+
+Nonterminals, with rules where they appear
+
+$accept (45)
+    on left: 0
+program (46)
+    on left: 1 2, on right: 0 2
+classdecl (47)
+    on left: 3 4 5, on right: 2
+varformals (48)
+    on left: 6, on right: 3 4 5
+form (49)
+    on left: 7 8 9 22 23 24, on right: 6 9 21 24
+classbody (50)
+    on left: 10, on right: 3 4 5
+features (51)
+    on left: 11 12 13, on right: 10 13
+feature (52)
+    on left: 14 15 16 17 18 19 20, on right: 12 13
+formals (53)
+    on left: 21, on right: 14 15 16 17
+actuals (54)
+    on left: 25, on right: 4 50 51 52 53
+actual (55)
+    on left: 26 27 28, on right: 25 28
+block (56)
+    on left: 29 30, on right: 20 54 66 67
+blockpt (57)
+    on left: 31 32 33, on right: 30 32 33
+expr (58)
+    on left: 34, on right: 14 15 19 27 28 30 32 33 39 40 42 43 44 45
+    46 47 48 55
+ex (59)
+    on left: 35 36 37 38 39 40, on right: 34 36 37 38 39 40
+exp (60)
+    on left: 41 42 43 44 45 46 47 48 49 50, on right: 34 42 43 44 45
+    46 47 48 49
+primary (61)
+    on left: 51 52 53 54 55 56 57 58 59 60 61 62, on right: 34
+cases (62)
+    on left: 63, on right: 49
+cas (63)
+    on left: 64 65, on right: 63 65
+ca (64)
+    on left: 66 67, on right: 63 65
+
+
+State 0
+
+    0 $accept: . program $end
+
+    $default  reduce using rule 1 (program)
+
+    program  go to state 1
+
+
+State 1
+
+    0 $accept: program . $end
+    2 program: program . classdecl
+
+    $end   shift, and go to state 2
+    CLASS  shift, and go to state 3
+
+    classdecl  go to state 4
+
+
+State 2
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 3
+
+    3 classdecl: CLASS . TYPE varformals classbody
+    4          | CLASS . TYPE varformals EXTENDS TYPE actuals classbody
+    5          | CLASS . TYPE varformals EXTENDS NATIVE classbody
+
+    TYPE  shift, and go to state 5
+
+
+State 4
+
+    2 program: program classdecl .
+
+    $default  reduce using rule 2 (program)
+
+
+State 5
+
+    3 classdecl: CLASS TYPE . varformals classbody
+    4          | CLASS TYPE . varformals EXTENDS TYPE actuals classbody
+    5          | CLASS TYPE . varformals EXTENDS NATIVE classbody
+
+    PAR_OPEN  shift, and go to state 6
+
+    varformals  go to state 7
+
+
+State 6
+
+    6 varformals: PAR_OPEN . form PAR_CLOSE
+
+    ID   shift, and go to state 8
+    VAR  shift, and go to state 9
+
+    PAR_CLOSE  reduce using rule 7 (form)
+    PAR_CLOSE  [reduce using rule 22 (form)]
+    $default   reduce using rule 7 (form)
+
+    form  go to state 10
+
+
+State 7
+
+    3 classdecl: CLASS TYPE varformals . classbody
+    4          | CLASS TYPE varformals . EXTENDS TYPE actuals classbody
+    5          | CLASS TYPE varformals . EXTENDS NATIVE classbody
+
+    EXTENDS     shift, and go to state 11
+    BRACK_OPEN  shift, and go to state 12
+
+    classbody  go to state 13
+
+
+State 8
+
+   23 form: ID . COLON TYPE
+   24     | ID . COLON TYPE COMMA form
+
+    COLON  shift, and go to state 14
+
+
+State 9
+
+    8 form: VAR . ID COLON TYPE
+    9     | VAR . ID COLON TYPE COMMA form
+
+    ID  shift, and go to state 15
+
+
+State 10
+
+    6 varformals: PAR_OPEN form . PAR_CLOSE
+
+    PAR_CLOSE  shift, and go to state 16
+
+
+State 11
+
+    4 classdecl: CLASS TYPE varformals EXTENDS . TYPE actuals classbody
+    5          | CLASS TYPE varformals EXTENDS . NATIVE classbody
+
+    NATIVE  shift, and go to state 17
+    TYPE    shift, and go to state 18
+
+
+State 12
+
+   10 classbody: BRACK_OPEN . features BRACK_CLOSE
+
+    OVERRIDE    shift, and go to state 19
+    DEF         shift, and go to state 20
+    BRACK_OPEN  shift, and go to state 21
+    VAR         shift, and go to state 22
+
+    $default  reduce using rule 11 (features)
+
+    features  go to state 23
+    feature   go to state 24
+
+
+State 13
+
+    3 classdecl: CLASS TYPE varformals classbody .
+
+    $default  reduce using rule 3 (classdecl)
+
+
+State 14
+
+   23 form: ID COLON . TYPE
+   24     | ID COLON . TYPE COMMA form
+
+    TYPE  shift, and go to state 25
+
+
+State 15
+
+    8 form: VAR ID . COLON TYPE
+    9     | VAR ID . COLON TYPE COMMA form
+
+    COLON  shift, and go to state 26
+
+
+State 16
+
+    6 varformals: PAR_OPEN form PAR_CLOSE .
+
+    $default  reduce using rule 6 (varformals)
+
+
+State 17
+
+    5 classdecl: CLASS TYPE varformals EXTENDS NATIVE . classbody
+
+    BRACK_OPEN  shift, and go to state 12
+
+    classbody  go to state 27
+
+
+State 18
+
+    4 classdecl: CLASS TYPE varformals EXTENDS TYPE . actuals classbody
+
+    PAR_OPEN  shift, and go to state 28
+
+    actuals  go to state 29
+
+
+State 19
+
+   15 feature: OVERRIDE . DEF ID formals COLON TYPE EQ expr SEMICOLON
+   17        | OVERRIDE . DEF ID formals COLON TYPE EQ NATIVE SEMICOLON
+
+    DEF  shift, and go to state 30
+
+
+State 20
+
+   14 feature: DEF . ID formals COLON TYPE EQ expr SEMICOLON
+   16        | DEF . ID formals COLON TYPE EQ NATIVE SEMICOLON
+
+    ID  shift, and go to state 31
+
+
+State 21
+
+   20 feature: BRACK_OPEN . block BRACK_CLOSE SEMICOLON
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    VAR    shift, and go to state 36
+    SUB    shift, and go to state 37
+
+    ID           [reduce using rule 31 (blockpt)]
+    ID           [reduce using rule 35 (ex)]
+    EXM          [reduce using rule 31 (blockpt)]
+    THIS         reduce using rule 31 (blockpt)
+    THIS         [reduce using rule 35 (ex)]
+    SUPER        reduce using rule 31 (blockpt)
+    SUPER        [reduce using rule 35 (ex)]
+    NULLVAL      reduce using rule 31 (blockpt)
+    NULLVAL      [reduce using rule 35 (ex)]
+    IF           [reduce using rule 31 (blockpt)]
+    WHILE        [reduce using rule 31 (blockpt)]
+    STRING       reduce using rule 31 (blockpt)
+    STRING       [reduce using rule 35 (ex)]
+    INTEGER      reduce using rule 31 (blockpt)
+    INTEGER      [reduce using rule 35 (ex)]
+    BOOL         reduce using rule 31 (blockpt)
+    BOOL         [reduce using rule 35 (ex)]
+    NEW          reduce using rule 31 (blockpt)
+    NEW          [reduce using rule 35 (ex)]
+    PAR_OPEN     reduce using rule 31 (blockpt)
+    PAR_OPEN     [reduce using rule 35 (ex)]
+    BRACK_OPEN   reduce using rule 31 (blockpt)
+    BRACK_OPEN   [reduce using rule 35 (ex)]
+    BRACK_CLOSE  reduce using rule 29 (block)
+    SUB          [reduce using rule 31 (blockpt)]
+    $default     reduce using rule 31 (blockpt)
+
+    block    go to state 38
+    blockpt  go to state 39
+    expr     go to state 40
+    ex       go to state 41
+
+
+State 22
+
+   18 feature: VAR . ID EQ NATIVE SEMICOLON
+   19        | VAR . ID COLON TYPE COLON expr SEMICOLON
+
+    ID  shift, and go to state 42
+
+
+State 23
+
+   10 classbody: BRACK_OPEN features . BRACK_CLOSE
+
+    BRACK_CLOSE  shift, and go to state 43
+
+
+State 24
+
+   12 features: feature .
+   13         | feature . features
+
+    OVERRIDE    shift, and go to state 19
+    DEF         shift, and go to state 20
+    BRACK_OPEN  shift, and go to state 21
+    VAR         shift, and go to state 22
+
+    BRACK_CLOSE  reduce using rule 11 (features)
+    BRACK_CLOSE  [reduce using rule 12 (features)]
+    $default     reduce using rule 11 (features)
+
+    features  go to state 44
+    feature   go to state 24
+
+
+State 25
+
+   23 form: ID COLON TYPE .
+   24     | ID COLON TYPE . COMMA form
+
+    COMMA  shift, and go to state 45
+
+    $default  reduce using rule 23 (form)
+
+
+State 26
+
+    8 form: VAR ID COLON . TYPE
+    9     | VAR ID COLON . TYPE COMMA form
+
+    TYPE  shift, and go to state 46
+
+
+State 27
+
+    5 classdecl: CLASS TYPE varformals EXTENDS NATIVE classbody .
+
+    $default  reduce using rule 5 (classdecl)
+
+
+State 28
+
+   25 actuals: PAR_OPEN . actual PAR_CLOSE
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID         [reduce using rule 35 (ex)]
+    PAR_CLOSE  reduce using rule 26 (actual)
+    $default   reduce using rule 35 (ex)
+
+    actual  go to state 47
+    expr    go to state 48
+    ex      go to state 41
+
+
+State 29
+
+    4 classdecl: CLASS TYPE varformals EXTENDS TYPE actuals . classbody
+
+    BRACK_OPEN  shift, and go to state 12
+
+    classbody  go to state 49
+
+
+State 30
+
+   15 feature: OVERRIDE DEF . ID formals COLON TYPE EQ expr SEMICOLON
+   17        | OVERRIDE DEF . ID formals COLON TYPE EQ NATIVE SEMICOLON
+
+    ID  shift, and go to state 50
+
+
+State 31
+
+   14 feature: DEF ID . formals COLON TYPE EQ expr SEMICOLON
+   16        | DEF ID . formals COLON TYPE EQ NATIVE SEMICOLON
+
+    PAR_OPEN  shift, and go to state 51
+
+    formals  go to state 52
+
+
+State 32
+
+   36 ex: ID . EQ ex
+
+    EQ  shift, and go to state 53
+
+
+State 33
+
+   37 ex: EXM . ex
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    ex  go to state 54
+
+
+State 34
+
+   39 ex: IF . PAR_OPEN expr PAR_CLOSE expr ELSE ex
+
+    PAR_OPEN  shift, and go to state 55
+
+
+State 35
+
+   40 ex: WHILE . PAR_OPEN expr PAR_CLOSE ex
+
+    PAR_OPEN  shift, and go to state 56
+
+
+State 36
+
+   33 blockpt: VAR . ID COLON TYPE EQ expr SEMICOLON blockpt
+
+    ID  shift, and go to state 57
+
+
+State 37
+
+   38 ex: SUB . ex
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    ex  go to state 58
+
+
+State 38
+
+   20 feature: BRACK_OPEN block . BRACK_CLOSE SEMICOLON
+
+    BRACK_CLOSE  shift, and go to state 59
+
+
+State 39
+
+   30 block: blockpt . expr
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 60
+    ex    go to state 41
+
+
+State 40
+
+   32 blockpt: expr . SEMICOLON blockpt
+
+    SEMICOLON  shift, and go to state 61
+
+
+State 41
+
+   34 expr: ex . primary exp
+
+    ID          shift, and go to state 62
+    THIS        shift, and go to state 63
+    SUPER       shift, and go to state 64
+    NULLVAL     shift, and go to state 65
+    STRING      shift, and go to state 66
+    INTEGER     shift, and go to state 67
+    BOOL        shift, and go to state 68
+    NEW         shift, and go to state 69
+    PAR_OPEN    shift, and go to state 70
+    BRACK_OPEN  shift, and go to state 71
+
+    primary  go to state 72
+
+
+State 42
+
+   18 feature: VAR ID . EQ NATIVE SEMICOLON
+   19        | VAR ID . COLON TYPE COLON expr SEMICOLON
+
+    COLON  shift, and go to state 73
+    EQ     shift, and go to state 74
+
+
+State 43
+
+   10 classbody: BRACK_OPEN features BRACK_CLOSE .
+
+    $default  reduce using rule 10 (classbody)
+
+
+State 44
+
+   13 features: feature features .
+
+    $default  reduce using rule 13 (features)
+
+
+State 45
+
+   24 form: ID COLON TYPE COMMA . form
+
+    ID   shift, and go to state 8
+    VAR  shift, and go to state 9
+
+    PAR_CLOSE  reduce using rule 7 (form)
+    PAR_CLOSE  [reduce using rule 22 (form)]
+    $default   reduce using rule 7 (form)
+
+    form  go to state 75
+
+
+State 46
+
+    8 form: VAR ID COLON TYPE .
+    9     | VAR ID COLON TYPE . COMMA form
+
+    COMMA  shift, and go to state 76
+
+    $default  reduce using rule 8 (form)
+
+
+State 47
+
+   25 actuals: PAR_OPEN actual . PAR_CLOSE
+
+    PAR_CLOSE  shift, and go to state 77
+
+
+State 48
+
+   27 actual: expr .
+   28       | expr . COMMA actual
+
+    COMMA  shift, and go to state 78
+
+    $default  reduce using rule 27 (actual)
+
+
+State 49
+
+    4 classdecl: CLASS TYPE varformals EXTENDS TYPE actuals classbody .
+
+    $default  reduce using rule 4 (classdecl)
+
+
+State 50
+
+   15 feature: OVERRIDE DEF ID . formals COLON TYPE EQ expr SEMICOLON
+   17        | OVERRIDE DEF ID . formals COLON TYPE EQ NATIVE SEMICOLON
+
+    PAR_OPEN  shift, and go to state 51
+
+    formals  go to state 79
+
+
+State 51
+
+   21 formals: PAR_OPEN . form PAR_CLOSE
+
+    ID   shift, and go to state 8
+    VAR  shift, and go to state 9
+
+    PAR_CLOSE  reduce using rule 7 (form)
+    PAR_CLOSE  [reduce using rule 22 (form)]
+    $default   reduce using rule 7 (form)
+
+    form  go to state 80
+
+
+State 52
+
+   14 feature: DEF ID formals . COLON TYPE EQ expr SEMICOLON
+   16        | DEF ID formals . COLON TYPE EQ NATIVE SEMICOLON
+
+    COLON  shift, and go to state 81
+
+
+State 53
+
+   36 ex: ID EQ . ex
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    ex  go to state 82
+
+
+State 54
+
+   37 ex: EXM ex .
+
+    $default  reduce using rule 37 (ex)
+
+
+State 55
+
+   39 ex: IF PAR_OPEN . expr PAR_CLOSE expr ELSE ex
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 83
+    ex    go to state 41
+
+
+State 56
+
+   40 ex: WHILE PAR_OPEN . expr PAR_CLOSE ex
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 84
+    ex    go to state 41
+
+
+State 57
+
+   33 blockpt: VAR ID . COLON TYPE EQ expr SEMICOLON blockpt
+
+    COLON  shift, and go to state 85
+
+
+State 58
+
+   38 ex: SUB ex .
+
+    $default  reduce using rule 38 (ex)
+
+
+State 59
+
+   20 feature: BRACK_OPEN block BRACK_CLOSE . SEMICOLON
+
+    SEMICOLON  shift, and go to state 86
+
+
+State 60
+
+   30 block: blockpt expr .
+
+    $default  reduce using rule 30 (block)
+
+
+State 61
+
+   32 blockpt: expr SEMICOLON . blockpt
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    VAR    shift, and go to state 36
+    SUB    shift, and go to state 37
+
+    ID          [reduce using rule 31 (blockpt)]
+    ID          [reduce using rule 35 (ex)]
+    EXM         [reduce using rule 31 (blockpt)]
+    THIS        reduce using rule 31 (blockpt)
+    THIS        [reduce using rule 35 (ex)]
+    SUPER       reduce using rule 31 (blockpt)
+    SUPER       [reduce using rule 35 (ex)]
+    NULLVAL     reduce using rule 31 (blockpt)
+    NULLVAL     [reduce using rule 35 (ex)]
+    IF          [reduce using rule 31 (blockpt)]
+    WHILE       [reduce using rule 31 (blockpt)]
+    STRING      reduce using rule 31 (blockpt)
+    STRING      [reduce using rule 35 (ex)]
+    INTEGER     reduce using rule 31 (blockpt)
+    INTEGER     [reduce using rule 35 (ex)]
+    BOOL        reduce using rule 31 (blockpt)
+    BOOL        [reduce using rule 35 (ex)]
+    NEW         reduce using rule 31 (blockpt)
+    NEW         [reduce using rule 35 (ex)]
+    PAR_OPEN    reduce using rule 31 (blockpt)
+    PAR_OPEN    [reduce using rule 35 (ex)]
+    BRACK_OPEN  reduce using rule 31 (blockpt)
+    BRACK_OPEN  [reduce using rule 35 (ex)]
+    SUB         [reduce using rule 31 (blockpt)]
+    $default    reduce using rule 31 (blockpt)
+
+    blockpt  go to state 87
+    expr     go to state 40
+    ex       go to state 41
+
+
+State 62
+
+   51 primary: ID . actuals
+   58        | ID .
+
+    PAR_OPEN  shift, and go to state 28
+
+    $default  reduce using rule 58 (primary)
+
+    actuals  go to state 88
+
+
+State 63
+
+   62 primary: THIS .
+
+    $default  reduce using rule 62 (primary)
+
+
+State 64
+
+   52 primary: SUPER . DOT ID actuals
+
+    DOT  shift, and go to state 89
+
+
+State 65
+
+   56 primary: NULLVAL .
+
+    $default  reduce using rule 56 (primary)
+
+
+State 66
+
+   60 primary: STRING .
+
+    $default  reduce using rule 60 (primary)
+
+
+State 67
+
+   59 primary: INTEGER .
+
+    $default  reduce using rule 59 (primary)
+
+
+State 68
+
+   61 primary: BOOL .
+
+    $default  reduce using rule 61 (primary)
+
+
+State 69
+
+   53 primary: NEW . TYPE actuals
+
+    TYPE  shift, and go to state 90
+
+
+State 70
+
+   55 primary: PAR_OPEN . expr PAR_CLOSE
+   57        | PAR_OPEN . PAR_CLOSE
+
+    ID         shift, and go to state 32
+    EXM        shift, and go to state 33
+    IF         shift, and go to state 34
+    WHILE      shift, and go to state 35
+    PAR_CLOSE  shift, and go to state 91
+    SUB        shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 92
+    ex    go to state 41
+
+
+State 71
+
+   54 primary: BRACK_OPEN . block BRACK_CLOSE
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    VAR    shift, and go to state 36
+    SUB    shift, and go to state 37
+
+    ID           [reduce using rule 31 (blockpt)]
+    ID           [reduce using rule 35 (ex)]
+    EXM          [reduce using rule 31 (blockpt)]
+    THIS         reduce using rule 31 (blockpt)
+    THIS         [reduce using rule 35 (ex)]
+    SUPER        reduce using rule 31 (blockpt)
+    SUPER        [reduce using rule 35 (ex)]
+    NULLVAL      reduce using rule 31 (blockpt)
+    NULLVAL      [reduce using rule 35 (ex)]
+    IF           [reduce using rule 31 (blockpt)]
+    WHILE        [reduce using rule 31 (blockpt)]
+    STRING       reduce using rule 31 (blockpt)
+    STRING       [reduce using rule 35 (ex)]
+    INTEGER      reduce using rule 31 (blockpt)
+    INTEGER      [reduce using rule 35 (ex)]
+    BOOL         reduce using rule 31 (blockpt)
+    BOOL         [reduce using rule 35 (ex)]
+    NEW          reduce using rule 31 (blockpt)
+    NEW          [reduce using rule 35 (ex)]
+    PAR_OPEN     reduce using rule 31 (blockpt)
+    PAR_OPEN     [reduce using rule 35 (ex)]
+    BRACK_OPEN   reduce using rule 31 (blockpt)
+    BRACK_OPEN   [reduce using rule 35 (ex)]
+    BRACK_CLOSE  reduce using rule 29 (block)
+    SUB          [reduce using rule 31 (blockpt)]
+    $default     reduce using rule 31 (blockpt)
+
+    block    go to state 93
+    blockpt  go to state 39
+    expr     go to state 40
+    ex       go to state 41
+
+
+State 72
+
+   34 expr: ex primary . exp
+
+    MATCH  shift, and go to state 94
+    EQEQ   shift, and go to state 95
+    LTEQ   shift, and go to state 96
+    LT     shift, and go to state 97
+    DOT    shift, and go to state 98
+    ADD    shift, and go to state 99
+    SUB    shift, and go to state 100
+    MULT   shift, and go to state 101
+    DIV    shift, and go to state 102
+
+    MATCH     [reduce using rule 41 (exp)]
+    EQEQ      [reduce using rule 41 (exp)]
+    LTEQ      [reduce using rule 41 (exp)]
+    LT        [reduce using rule 41 (exp)]
+    DOT       [reduce using rule 41 (exp)]
+    ADD       [reduce using rule 41 (exp)]
+    SUB       [reduce using rule 41 (exp)]
+    MULT      [reduce using rule 41 (exp)]
+    DIV       [reduce using rule 41 (exp)]
+    $default  reduce using rule 41 (exp)
+
+    exp  go to state 103
+
+
+State 73
+
+   19 feature: VAR ID COLON . TYPE COLON expr SEMICOLON
+
+    TYPE  shift, and go to state 104
+
+
+State 74
+
+   18 feature: VAR ID EQ . NATIVE SEMICOLON
+
+    NATIVE  shift, and go to state 105
+
+
+State 75
+
+   24 form: ID COLON TYPE COMMA form .
+
+    $default  reduce using rule 24 (form)
+
+
+State 76
+
+    9 form: VAR ID COLON TYPE COMMA . form
+
+    ID   shift, and go to state 8
+    VAR  shift, and go to state 9
+
+    PAR_CLOSE  reduce using rule 7 (form)
+    PAR_CLOSE  [reduce using rule 22 (form)]
+    $default   reduce using rule 7 (form)
+
+    form  go to state 106
+
+
+State 77
+
+   25 actuals: PAR_OPEN actual PAR_CLOSE .
+
+    $default  reduce using rule 25 (actuals)
+
+
+State 78
+
+   28 actual: expr COMMA . actual
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID         [reduce using rule 35 (ex)]
+    PAR_CLOSE  reduce using rule 26 (actual)
+    $default   reduce using rule 35 (ex)
+
+    actual  go to state 107
+    expr    go to state 48
+    ex      go to state 41
+
+
+State 79
+
+   15 feature: OVERRIDE DEF ID formals . COLON TYPE EQ expr SEMICOLON
+   17        | OVERRIDE DEF ID formals . COLON TYPE EQ NATIVE SEMICOLON
+
+    COLON  shift, and go to state 108
+
+
+State 80
+
+   21 formals: PAR_OPEN form . PAR_CLOSE
+
+    PAR_CLOSE  shift, and go to state 109
+
+
+State 81
+
+   14 feature: DEF ID formals COLON . TYPE EQ expr SEMICOLON
+   16        | DEF ID formals COLON . TYPE EQ NATIVE SEMICOLON
+
+    TYPE  shift, and go to state 110
+
+
+State 82
+
+   36 ex: ID EQ ex .
+
+    $default  reduce using rule 36 (ex)
+
+
+State 83
+
+   39 ex: IF PAR_OPEN expr . PAR_CLOSE expr ELSE ex
+
+    PAR_CLOSE  shift, and go to state 111
+
+
+State 84
+
+   40 ex: WHILE PAR_OPEN expr . PAR_CLOSE ex
+
+    PAR_CLOSE  shift, and go to state 112
+
+
+State 85
+
+   33 blockpt: VAR ID COLON . TYPE EQ expr SEMICOLON blockpt
+
+    TYPE  shift, and go to state 113
+
+
+State 86
+
+   20 feature: BRACK_OPEN block BRACK_CLOSE SEMICOLON .
+
+    $default  reduce using rule 20 (feature)
+
+
+State 87
+
+   32 blockpt: expr SEMICOLON blockpt .
+
+    $default  reduce using rule 32 (blockpt)
+
+
+State 88
+
+   51 primary: ID actuals .
+
+    $default  reduce using rule 51 (primary)
+
+
+State 89
+
+   52 primary: SUPER DOT . ID actuals
+
+    ID  shift, and go to state 114
+
+
+State 90
+
+   53 primary: NEW TYPE . actuals
+
+    PAR_OPEN  shift, and go to state 28
+
+    actuals  go to state 115
+
+
+State 91
+
+   57 primary: PAR_OPEN PAR_CLOSE .
+
+    $default  reduce using rule 57 (primary)
+
+
+State 92
+
+   55 primary: PAR_OPEN expr . PAR_CLOSE
+
+    PAR_CLOSE  shift, and go to state 116
+
+
+State 93
+
+   54 primary: BRACK_OPEN block . BRACK_CLOSE
+
+    BRACK_CLOSE  shift, and go to state 117
+
+
+State 94
+
+   49 exp: MATCH . cases exp
+
+    BRACK_OPEN  shift, and go to state 118
+
+    cases  go to state 119
+
+
+State 95
+
+   44 exp: EQEQ . expr exp
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 120
+    ex    go to state 41
+
+
+State 96
+
+   42 exp: LTEQ . expr exp
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 121
+    ex    go to state 41
+
+
+State 97
+
+   43 exp: LT . expr exp
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 122
+    ex    go to state 41
+
+
+State 98
+
+   50 exp: DOT . ID actuals
+
+    ID  shift, and go to state 123
+
+
+State 99
+
+   47 exp: ADD . expr exp
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 124
+    ex    go to state 41
+
+
+State 100
+
+   48 exp: SUB . expr exp
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 125
+    ex    go to state 41
+
+
+State 101
+
+   45 exp: MULT . expr exp
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 126
+    ex    go to state 41
+
+
+State 102
+
+   46 exp: DIV . expr exp
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 127
+    ex    go to state 41
+
+
+State 103
+
+   34 expr: ex primary exp .
+
+    $default  reduce using rule 34 (expr)
+
+
+State 104
+
+   19 feature: VAR ID COLON TYPE . COLON expr SEMICOLON
+
+    COLON  shift, and go to state 128
+
+
+State 105
+
+   18 feature: VAR ID EQ NATIVE . SEMICOLON
+
+    SEMICOLON  shift, and go to state 129
+
+
+State 106
+
+    9 form: VAR ID COLON TYPE COMMA form .
+
+    $default  reduce using rule 9 (form)
+
+
+State 107
+
+   28 actual: expr COMMA actual .
+
+    $default  reduce using rule 28 (actual)
+
+
+State 108
+
+   15 feature: OVERRIDE DEF ID formals COLON . TYPE EQ expr SEMICOLON
+   17        | OVERRIDE DEF ID formals COLON . TYPE EQ NATIVE SEMICOLON
+
+    TYPE  shift, and go to state 130
+
+
+State 109
+
+   21 formals: PAR_OPEN form PAR_CLOSE .
+
+    $default  reduce using rule 21 (formals)
+
+
+State 110
+
+   14 feature: DEF ID formals COLON TYPE . EQ expr SEMICOLON
+   16        | DEF ID formals COLON TYPE . EQ NATIVE SEMICOLON
+
+    EQ  shift, and go to state 131
+
+
+State 111
+
+   39 ex: IF PAR_OPEN expr PAR_CLOSE . expr ELSE ex
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 132
+    ex    go to state 41
+
+
+State 112
+
+   40 ex: WHILE PAR_OPEN expr PAR_CLOSE . ex
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    ex  go to state 133
+
+
+State 113
+
+   33 blockpt: VAR ID COLON TYPE . EQ expr SEMICOLON blockpt
+
+    EQ  shift, and go to state 134
+
+
+State 114
+
+   52 primary: SUPER DOT ID . actuals
+
+    PAR_OPEN  shift, and go to state 28
+
+    actuals  go to state 135
+
+
+State 115
+
+   53 primary: NEW TYPE actuals .
+
+    $default  reduce using rule 53 (primary)
+
+
+State 116
+
+   55 primary: PAR_OPEN expr PAR_CLOSE .
+
+    $default  reduce using rule 55 (primary)
+
+
+State 117
+
+   54 primary: BRACK_OPEN block BRACK_CLOSE .
+
+    $default  reduce using rule 54 (primary)
+
+
+State 118
+
+   63 cases: BRACK_OPEN . ca cas BRACK_CLOSE
+
+    CASE  shift, and go to state 136
+
+    ca  go to state 137
+
+
+State 119
+
+   49 exp: MATCH cases . exp
+
+    MATCH  shift, and go to state 94
+    EQEQ   shift, and go to state 95
+    LTEQ   shift, and go to state 96
+    LT     shift, and go to state 97
+    DOT    shift, and go to state 98
+    ADD    shift, and go to state 99
+    SUB    shift, and go to state 100
+    MULT   shift, and go to state 101
+    DIV    shift, and go to state 102
+
+    MATCH     [reduce using rule 41 (exp)]
+    EQEQ      [reduce using rule 41 (exp)]
+    LTEQ      [reduce using rule 41 (exp)]
+    LT        [reduce using rule 41 (exp)]
+    DOT       [reduce using rule 41 (exp)]
+    ADD       [reduce using rule 41 (exp)]
+    SUB       [reduce using rule 41 (exp)]
+    MULT      [reduce using rule 41 (exp)]
+    DIV       [reduce using rule 41 (exp)]
+    $default  reduce using rule 41 (exp)
+
+    exp  go to state 138
+
+
+State 120
+
+   44 exp: EQEQ expr . exp
+
+    MATCH  shift, and go to state 94
+    EQEQ   shift, and go to state 95
+    LTEQ   shift, and go to state 96
+    LT     shift, and go to state 97
+    DOT    shift, and go to state 98
+    ADD    shift, and go to state 99
+    SUB    shift, and go to state 100
+    MULT   shift, and go to state 101
+    DIV    shift, and go to state 102
+
+    MATCH     [reduce using rule 41 (exp)]
+    EQEQ      [reduce using rule 41 (exp)]
+    LTEQ      [reduce using rule 41 (exp)]
+    LT        [reduce using rule 41 (exp)]
+    DOT       [reduce using rule 41 (exp)]
+    ADD       [reduce using rule 41 (exp)]
+    SUB       [reduce using rule 41 (exp)]
+    MULT      [reduce using rule 41 (exp)]
+    DIV       [reduce using rule 41 (exp)]
+    $default  reduce using rule 41 (exp)
+
+    exp  go to state 139
+
+
+State 121
+
+   42 exp: LTEQ expr . exp
+
+    MATCH  shift, and go to state 94
+    EQEQ   shift, and go to state 95
+    LTEQ   shift, and go to state 96
+    LT     shift, and go to state 97
+    DOT    shift, and go to state 98
+    ADD    shift, and go to state 99
+    SUB    shift, and go to state 100
+    MULT   shift, and go to state 101
+    DIV    shift, and go to state 102
+
+    MATCH     [reduce using rule 41 (exp)]
+    EQEQ      [reduce using rule 41 (exp)]
+    LTEQ      [reduce using rule 41 (exp)]
+    LT        [reduce using rule 41 (exp)]
+    DOT       [reduce using rule 41 (exp)]
+    ADD       [reduce using rule 41 (exp)]
+    SUB       [reduce using rule 41 (exp)]
+    MULT      [reduce using rule 41 (exp)]
+    DIV       [reduce using rule 41 (exp)]
+    $default  reduce using rule 41 (exp)
+
+    exp  go to state 140
+
+
+State 122
+
+   43 exp: LT expr . exp
+
+    MATCH  shift, and go to state 94
+    EQEQ   shift, and go to state 95
+    LTEQ   shift, and go to state 96
+    LT     shift, and go to state 97
+    DOT    shift, and go to state 98
+    ADD    shift, and go to state 99
+    SUB    shift, and go to state 100
+    MULT   shift, and go to state 101
+    DIV    shift, and go to state 102
+
+    MATCH     [reduce using rule 41 (exp)]
+    EQEQ      [reduce using rule 41 (exp)]
+    LTEQ      [reduce using rule 41 (exp)]
+    LT        [reduce using rule 41 (exp)]
+    DOT       [reduce using rule 41 (exp)]
+    ADD       [reduce using rule 41 (exp)]
+    SUB       [reduce using rule 41 (exp)]
+    MULT      [reduce using rule 41 (exp)]
+    DIV       [reduce using rule 41 (exp)]
+    $default  reduce using rule 41 (exp)
+
+    exp  go to state 141
+
+
+State 123
+
+   50 exp: DOT ID . actuals
+
+    PAR_OPEN  shift, and go to state 28
+
+    actuals  go to state 142
+
+
+State 124
+
+   47 exp: ADD expr . exp
+
+    MATCH  shift, and go to state 94
+    EQEQ   shift, and go to state 95
+    LTEQ   shift, and go to state 96
+    LT     shift, and go to state 97
+    DOT    shift, and go to state 98
+    ADD    shift, and go to state 99
+    SUB    shift, and go to state 100
+    MULT   shift, and go to state 101
+    DIV    shift, and go to state 102
+
+    MATCH     [reduce using rule 41 (exp)]
+    EQEQ      [reduce using rule 41 (exp)]
+    LTEQ      [reduce using rule 41 (exp)]
+    LT        [reduce using rule 41 (exp)]
+    DOT       [reduce using rule 41 (exp)]
+    ADD       [reduce using rule 41 (exp)]
+    SUB       [reduce using rule 41 (exp)]
+    MULT      [reduce using rule 41 (exp)]
+    DIV       [reduce using rule 41 (exp)]
+    $default  reduce using rule 41 (exp)
+
+    exp  go to state 143
+
+
+State 125
+
+   48 exp: SUB expr . exp
+
+    MATCH  shift, and go to state 94
+    EQEQ   shift, and go to state 95
+    LTEQ   shift, and go to state 96
+    LT     shift, and go to state 97
+    DOT    shift, and go to state 98
+    ADD    shift, and go to state 99
+    SUB    shift, and go to state 100
+    MULT   shift, and go to state 101
+    DIV    shift, and go to state 102
+
+    MATCH     [reduce using rule 41 (exp)]
+    EQEQ      [reduce using rule 41 (exp)]
+    LTEQ      [reduce using rule 41 (exp)]
+    LT        [reduce using rule 41 (exp)]
+    DOT       [reduce using rule 41 (exp)]
+    ADD       [reduce using rule 41 (exp)]
+    SUB       [reduce using rule 41 (exp)]
+    MULT      [reduce using rule 41 (exp)]
+    DIV       [reduce using rule 41 (exp)]
+    $default  reduce using rule 41 (exp)
+
+    exp  go to state 144
+
+
+State 126
+
+   45 exp: MULT expr . exp
+
+    MATCH  shift, and go to state 94
+    EQEQ   shift, and go to state 95
+    LTEQ   shift, and go to state 96
+    LT     shift, and go to state 97
+    DOT    shift, and go to state 98
+    ADD    shift, and go to state 99
+    SUB    shift, and go to state 100
+    MULT   shift, and go to state 101
+    DIV    shift, and go to state 102
+
+    MATCH     [reduce using rule 41 (exp)]
+    EQEQ      [reduce using rule 41 (exp)]
+    LTEQ      [reduce using rule 41 (exp)]
+    LT        [reduce using rule 41 (exp)]
+    DOT       [reduce using rule 41 (exp)]
+    ADD       [reduce using rule 41 (exp)]
+    SUB       [reduce using rule 41 (exp)]
+    MULT      [reduce using rule 41 (exp)]
+    DIV       [reduce using rule 41 (exp)]
+    $default  reduce using rule 41 (exp)
+
+    exp  go to state 145
+
+
+State 127
+
+   46 exp: DIV expr . exp
+
+    MATCH  shift, and go to state 94
+    EQEQ   shift, and go to state 95
+    LTEQ   shift, and go to state 96
+    LT     shift, and go to state 97
+    DOT    shift, and go to state 98
+    ADD    shift, and go to state 99
+    SUB    shift, and go to state 100
+    MULT   shift, and go to state 101
+    DIV    shift, and go to state 102
+
+    MATCH     [reduce using rule 41 (exp)]
+    EQEQ      [reduce using rule 41 (exp)]
+    LTEQ      [reduce using rule 41 (exp)]
+    LT        [reduce using rule 41 (exp)]
+    DOT       [reduce using rule 41 (exp)]
+    ADD       [reduce using rule 41 (exp)]
+    SUB       [reduce using rule 41 (exp)]
+    MULT      [reduce using rule 41 (exp)]
+    DIV       [reduce using rule 41 (exp)]
+    $default  reduce using rule 41 (exp)
+
+    exp  go to state 146
+
+
+State 128
+
+   19 feature: VAR ID COLON TYPE COLON . expr SEMICOLON
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 147
+    ex    go to state 41
+
+
+State 129
+
+   18 feature: VAR ID EQ NATIVE SEMICOLON .
+
+    $default  reduce using rule 18 (feature)
+
+
+State 130
+
+   15 feature: OVERRIDE DEF ID formals COLON TYPE . EQ expr SEMICOLON
+   17        | OVERRIDE DEF ID formals COLON TYPE . EQ NATIVE SEMICOLON
+
+    EQ  shift, and go to state 148
+
+
+State 131
+
+   14 feature: DEF ID formals COLON TYPE EQ . expr SEMICOLON
+   16        | DEF ID formals COLON TYPE EQ . NATIVE SEMICOLON
+
+    ID      shift, and go to state 32
+    EXM     shift, and go to state 33
+    NATIVE  shift, and go to state 149
+    IF      shift, and go to state 34
+    WHILE   shift, and go to state 35
+    SUB     shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 150
+    ex    go to state 41
+
+
+State 132
+
+   39 ex: IF PAR_OPEN expr PAR_CLOSE expr . ELSE ex
+
+    ELSE  shift, and go to state 151
+
+
+State 133
+
+   40 ex: WHILE PAR_OPEN expr PAR_CLOSE ex .
+
+    $default  reduce using rule 40 (ex)
+
+
+State 134
+
+   33 blockpt: VAR ID COLON TYPE EQ . expr SEMICOLON blockpt
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 152
+    ex    go to state 41
+
+
+State 135
+
+   52 primary: SUPER DOT ID actuals .
+
+    $default  reduce using rule 52 (primary)
+
+
+State 136
+
+   66 ca: CASE . ID COLON TYPE ARROW block
+   67   | CASE . NULLVAL ARROW block
+
+    ID       shift, and go to state 153
+    NULLVAL  shift, and go to state 154
+
+
+State 137
+
+   63 cases: BRACK_OPEN ca . cas BRACK_CLOSE
+
+    CASE  shift, and go to state 136
+
+    $default  reduce using rule 64 (cas)
+
+    cas  go to state 155
+    ca   go to state 156
+
+
+State 138
+
+   49 exp: MATCH cases exp .
+
+    $default  reduce using rule 49 (exp)
+
+
+State 139
+
+   44 exp: EQEQ expr exp .
+
+    $default  reduce using rule 44 (exp)
+
+
+State 140
+
+   42 exp: LTEQ expr exp .
+
+    $default  reduce using rule 42 (exp)
+
+
+State 141
+
+   43 exp: LT expr exp .
+
+    $default  reduce using rule 43 (exp)
+
+
+State 142
+
+   50 exp: DOT ID actuals .
+
+    $default  reduce using rule 50 (exp)
+
+
+State 143
+
+   47 exp: ADD expr exp .
+
+    $default  reduce using rule 47 (exp)
+
+
+State 144
+
+   48 exp: SUB expr exp .
+
+    $default  reduce using rule 48 (exp)
+
+
+State 145
+
+   45 exp: MULT expr exp .
+
+    $default  reduce using rule 45 (exp)
+
+
+State 146
+
+   46 exp: DIV expr exp .
+
+    $default  reduce using rule 46 (exp)
+
+
+State 147
+
+   19 feature: VAR ID COLON TYPE COLON expr . SEMICOLON
+
+    SEMICOLON  shift, and go to state 157
+
+
+State 148
+
+   15 feature: OVERRIDE DEF ID formals COLON TYPE EQ . expr SEMICOLON
+   17        | OVERRIDE DEF ID formals COLON TYPE EQ . NATIVE SEMICOLON
+
+    ID      shift, and go to state 32
+    EXM     shift, and go to state 33
+    NATIVE  shift, and go to state 158
+    IF      shift, and go to state 34
+    WHILE   shift, and go to state 35
+    SUB     shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    expr  go to state 159
+    ex    go to state 41
+
+
+State 149
+
+   16 feature: DEF ID formals COLON TYPE EQ NATIVE . SEMICOLON
+
+    SEMICOLON  shift, and go to state 160
+
+
+State 150
+
+   14 feature: DEF ID formals COLON TYPE EQ expr . SEMICOLON
+
+    SEMICOLON  shift, and go to state 161
+
+
+State 151
+
+   39 ex: IF PAR_OPEN expr PAR_CLOSE expr ELSE . ex
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    SUB    shift, and go to state 37
+
+    ID        [reduce using rule 35 (ex)]
+    $default  reduce using rule 35 (ex)
+
+    ex  go to state 162
+
+
+State 152
+
+   33 blockpt: VAR ID COLON TYPE EQ expr . SEMICOLON blockpt
+
+    SEMICOLON  shift, and go to state 163
+
+
+State 153
+
+   66 ca: CASE ID . COLON TYPE ARROW block
+
+    COLON  shift, and go to state 164
+
+
+State 154
+
+   67 ca: CASE NULLVAL . ARROW block
+
+    ARROW  shift, and go to state 165
+
+
+State 155
+
+   63 cases: BRACK_OPEN ca cas . BRACK_CLOSE
+
+    BRACK_CLOSE  shift, and go to state 166
+
+
+State 156
+
+   65 cas: ca . cas
+
+    CASE  shift, and go to state 136
+
+    $default  reduce using rule 64 (cas)
+
+    cas  go to state 167
+    ca   go to state 156
+
+
+State 157
+
+   19 feature: VAR ID COLON TYPE COLON expr SEMICOLON .
+
+    $default  reduce using rule 19 (feature)
+
+
+State 158
+
+   17 feature: OVERRIDE DEF ID formals COLON TYPE EQ NATIVE . SEMICOLON
+
+    SEMICOLON  shift, and go to state 168
+
+
+State 159
+
+   15 feature: OVERRIDE DEF ID formals COLON TYPE EQ expr . SEMICOLON
+
+    SEMICOLON  shift, and go to state 169
+
+
+State 160
+
+   16 feature: DEF ID formals COLON TYPE EQ NATIVE SEMICOLON .
+
+    $default  reduce using rule 16 (feature)
+
+
+State 161
+
+   14 feature: DEF ID formals COLON TYPE EQ expr SEMICOLON .
+
+    $default  reduce using rule 14 (feature)
+
+
+State 162
+
+   39 ex: IF PAR_OPEN expr PAR_CLOSE expr ELSE ex .
+
+    $default  reduce using rule 39 (ex)
+
+
+State 163
+
+   33 blockpt: VAR ID COLON TYPE EQ expr SEMICOLON . blockpt
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    VAR    shift, and go to state 36
+    SUB    shift, and go to state 37
+
+    ID          [reduce using rule 31 (blockpt)]
+    ID          [reduce using rule 35 (ex)]
+    EXM         [reduce using rule 31 (blockpt)]
+    THIS        reduce using rule 31 (blockpt)
+    THIS        [reduce using rule 35 (ex)]
+    SUPER       reduce using rule 31 (blockpt)
+    SUPER       [reduce using rule 35 (ex)]
+    NULLVAL     reduce using rule 31 (blockpt)
+    NULLVAL     [reduce using rule 35 (ex)]
+    IF          [reduce using rule 31 (blockpt)]
+    WHILE       [reduce using rule 31 (blockpt)]
+    STRING      reduce using rule 31 (blockpt)
+    STRING      [reduce using rule 35 (ex)]
+    INTEGER     reduce using rule 31 (blockpt)
+    INTEGER     [reduce using rule 35 (ex)]
+    BOOL        reduce using rule 31 (blockpt)
+    BOOL        [reduce using rule 35 (ex)]
+    NEW         reduce using rule 31 (blockpt)
+    NEW         [reduce using rule 35 (ex)]
+    PAR_OPEN    reduce using rule 31 (blockpt)
+    PAR_OPEN    [reduce using rule 35 (ex)]
+    BRACK_OPEN  reduce using rule 31 (blockpt)
+    BRACK_OPEN  [reduce using rule 35 (ex)]
+    SUB         [reduce using rule 31 (blockpt)]
+    $default    reduce using rule 31 (blockpt)
+
+    blockpt  go to state 170
+    expr     go to state 40
+    ex       go to state 41
+
+
+State 164
+
+   66 ca: CASE ID COLON . TYPE ARROW block
+
+    TYPE  shift, and go to state 171
+
+
+State 165
+
+   67 ca: CASE NULLVAL ARROW . block
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    VAR    shift, and go to state 36
+    SUB    shift, and go to state 37
+
+    ID           [reduce using rule 31 (blockpt)]
+    ID           [reduce using rule 35 (ex)]
+    EXM          [reduce using rule 31 (blockpt)]
+    THIS         reduce using rule 31 (blockpt)
+    THIS         [reduce using rule 35 (ex)]
+    SUPER        reduce using rule 31 (blockpt)
+    SUPER        [reduce using rule 35 (ex)]
+    NULLVAL      reduce using rule 31 (blockpt)
+    NULLVAL      [reduce using rule 35 (ex)]
+    IF           [reduce using rule 31 (blockpt)]
+    WHILE        [reduce using rule 31 (blockpt)]
+    CASE         reduce using rule 29 (block)
+    STRING       reduce using rule 31 (blockpt)
+    STRING       [reduce using rule 35 (ex)]
+    INTEGER      reduce using rule 31 (blockpt)
+    INTEGER      [reduce using rule 35 (ex)]
+    BOOL         reduce using rule 31 (blockpt)
+    BOOL         [reduce using rule 35 (ex)]
+    NEW          reduce using rule 31 (blockpt)
+    NEW          [reduce using rule 35 (ex)]
+    PAR_OPEN     reduce using rule 31 (blockpt)
+    PAR_OPEN     [reduce using rule 35 (ex)]
+    BRACK_OPEN   reduce using rule 31 (blockpt)
+    BRACK_OPEN   [reduce using rule 35 (ex)]
+    BRACK_CLOSE  reduce using rule 29 (block)
+    SUB          [reduce using rule 31 (blockpt)]
+    $default     reduce using rule 31 (blockpt)
+
+    block    go to state 172
+    blockpt  go to state 39
+    expr     go to state 40
+    ex       go to state 41
+
+
+State 166
+
+   63 cases: BRACK_OPEN ca cas BRACK_CLOSE .
+
+    $default  reduce using rule 63 (cases)
+
+
+State 167
+
+   65 cas: ca cas .
+
+    $default  reduce using rule 65 (cas)
+
+
+State 168
+
+   17 feature: OVERRIDE DEF ID formals COLON TYPE EQ NATIVE SEMICOLON .
+
+    $default  reduce using rule 17 (feature)
+
+
+State 169
+
+   15 feature: OVERRIDE DEF ID formals COLON TYPE EQ expr SEMICOLON .
+
+    $default  reduce using rule 15 (feature)
+
+
+State 170
+
+   33 blockpt: VAR ID COLON TYPE EQ expr SEMICOLON blockpt .
+
+    $default  reduce using rule 33 (blockpt)
+
+
+State 171
+
+   66 ca: CASE ID COLON TYPE . ARROW block
+
+    ARROW  shift, and go to state 173
+
+
+State 172
+
+   67 ca: CASE NULLVAL ARROW block .
+
+    $default  reduce using rule 67 (ca)
+
+
+State 173
+
+   66 ca: CASE ID COLON TYPE ARROW . block
+
+    ID     shift, and go to state 32
+    EXM    shift, and go to state 33
+    IF     shift, and go to state 34
+    WHILE  shift, and go to state 35
+    VAR    shift, and go to state 36
+    SUB    shift, and go to state 37
+
+    ID           [reduce using rule 31 (blockpt)]
+    ID           [reduce using rule 35 (ex)]
+    EXM          [reduce using rule 31 (blockpt)]
+    THIS         reduce using rule 31 (blockpt)
+    THIS         [reduce using rule 35 (ex)]
+    SUPER        reduce using rule 31 (blockpt)
+    SUPER        [reduce using rule 35 (ex)]
+    NULLVAL      reduce using rule 31 (blockpt)
+    NULLVAL      [reduce using rule 35 (ex)]
+    IF           [reduce using rule 31 (blockpt)]
+    WHILE        [reduce using rule 31 (blockpt)]
+    CASE         reduce using rule 29 (block)
+    STRING       reduce using rule 31 (blockpt)
+    STRING       [reduce using rule 35 (ex)]
+    INTEGER      reduce using rule 31 (blockpt)
+    INTEGER      [reduce using rule 35 (ex)]
+    BOOL         reduce using rule 31 (blockpt)
+    BOOL         [reduce using rule 35 (ex)]
+    NEW          reduce using rule 31 (blockpt)
+    NEW          [reduce using rule 35 (ex)]
+    PAR_OPEN     reduce using rule 31 (blockpt)
+    PAR_OPEN     [reduce using rule 35 (ex)]
+    BRACK_OPEN   reduce using rule 31 (blockpt)
+    BRACK_OPEN   [reduce using rule 35 (ex)]
+    BRACK_CLOSE  reduce using rule 29 (block)
+    SUB          [reduce using rule 31 (blockpt)]
+    $default     reduce using rule 31 (blockpt)
+
+    block    go to state 174
+    blockpt  go to state 39
+    expr     go to state 40
+    ex       go to state 41
+
+
+State 174
+
+   66 ca: CASE ID COLON TYPE ARROW block .
+
+    $default  reduce using rule 66 (ca)

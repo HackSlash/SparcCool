@@ -1,6 +1,8 @@
 %{
 	#define _GNU_SOURCE
 	#include "cool.h"
+
+	typedef Node YYSTYPE;
 %}
 
 %define parse.error verbose
@@ -19,17 +21,18 @@
 %left	EXM UMIN
 %left	DOT
 
-%union {
+/*%union {
 	std::string Str;
 	int Int;
 	Boolean Bool;
-}
+
+	Node node;
+}*/
 
 /** TODO:
  * Create class "Node()", FILL ZEH FILEZ
  * %union, valid values ^^
  * Create tables (Vectors), id's; int's; string's.
- * Types: are they declared? (Int, String, Boolean)
  */
 
 %%
@@ -138,10 +141,6 @@ cas 		: /* empty */													{}
 		
 ca			: CASE ID COLON TYPE ARROW block 								{}
 			| CASE NULLVAL ARROW block 										{}
-			;
-
-term		: INTEGER                										{$$ = $1;}
-			| ID															{$$ = symbolVal($1);}
 			;
 
 %%

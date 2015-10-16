@@ -1,8 +1,5 @@
-typedef char bool;
-#define true 1
-#define false 0
-
 #include <vector>
+#include <string.h>
 
 int filecount;
 int currfile;
@@ -11,13 +8,12 @@ char path[1024];
 int indent;
 int identifierCount;
 int comIndent=0;
-token* savedTokens;
+//token* savedTokens;
 char* stringBuffer;
 int stringBufferLoc=0;
 char charbuff;
-
-int errCount;
 int warnCount;
+char* filePath;
 
 void strcopy(char* yytext) {
 	strncpy(stringBuffer+stringBufferLoc,yytext,1);
@@ -27,21 +23,17 @@ void strdone() {
 	stringBufferLoc=0;
 }
 
-void printToken(token type);
-void genError(int line, char* characters);
-void getNextToken();
-int yywrap();
 void nextFile();
 
 typedef struct {
-	int id,
-	char* data
+	int id;
+	char* data;
 } stringTableEntry;
 
 typedef struct {
-	int id,
-	char* name,
-	void* data
+	int id;
+	char* name;
+	void* data;
 } varTableEntry;
 
 std::vector<stringTableEntry> stringTable;

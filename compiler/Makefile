@@ -4,7 +4,7 @@ CFILES=lex.yy.c
 CC=g++
 YACC=bison
 LEX=flex
-CFLAGS=-lfl -Wall -g
+CFLAGS=-std=gnu++11 -lfl -Wall -g
 YFLAGS=-kdv
 TARGET=scanner
 
