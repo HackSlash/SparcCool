@@ -1,8 +1,6 @@
 %{
 	#define _GNU_SOURCE
 	#include "cool.h"
-	#include <string>
-
 	//typedef Node YYSTYPE;
 %}
 
@@ -26,7 +24,7 @@
 	std::string String;
 	int Int;
 	bool Bool;
-
+	
 	Node node;
 }
 
@@ -47,12 +45,12 @@ classdecl  	: CLASS TYPE varformals classbody								{}
 			| CLASS TYPE varformals EXTENDS NATIVE classbody				{}
 	        ;
 
-varformals	: PAR_OPEN form PAR_CLOSE										{}
+varformals	: PAR_OPEN varform PAR_CLOSE									{}
 			;
 
-form		: /* empty */													{}
+varform		: /* empty */													{}
 			| VAR ID COLON TYPE												{}
-			| VAR ID COLON TYPE COMMA form 									{}
+			| VAR ID COLON TYPE COMMA varform 								{}
 			;
 
 classbody	: BRACK_OPEN features BRACK_CLOSE								{}
@@ -100,10 +98,10 @@ expr		: ex primary exp 												{}
 			;
 
 ex 			: /* empty */													{}
-			| ID EQ ex 														{$$.node = $3}
-			| EXM ex 														{$$.node = !$2}
-			| SUB ex %prec UMIN 											{$$.node = -$2}
-			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{$$.node = ($3)?$5:$7}
+			| ID EQ ex 														//{$$.node = $3}
+			| EXM ex 														//{$$.node = !$2}
+			| SUB ex %prec UMIN 											//{$$.node = -$2}
+			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						//{$$.node = ($3)?$5:$7}
 			| WHILE PAR_OPEN expr PAR_CLOSE ex 								{}
 			;
 

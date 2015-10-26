@@ -14,19 +14,19 @@ all: bison flex tree c
 bison:
 	$(YACC) $(YFLAGS) $(BISONFILES)
 
-flex:
+flex: bison
 	$(LEX) $(FLEXFILES)
 
 tree:
 	python2 create_tree.py
 
-c:
+c: flex bison tree
 	$(CC) $(CFILES) $(CFLAGS) -o $(TARGET)
 
-test: bison flex c
+test: bison flex tree c
 	cat test.cl | ./$(TARGET)
 
-test2: bison flex c
+test2: bison flex tree c
 	cat test2.cl | ./$(TARGET)
 
 clean:

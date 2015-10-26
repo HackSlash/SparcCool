@@ -16,8 +16,8 @@
 
 	extern YYSTYPE yylval;
 
-	#define SAVE_STRING strcpy(yylval.string,stringBuffer)
-	#define SAVE_CHAR strcpy(yylval.string,charbuff)
+	#define SAVE_STRING yylval.string.assign(stringBuffer)
+	#define SAVE_CHAR yylval.string.assign(charbuff)
 	#define TOKEN(t) t
 	//(yylval.token = t)
 }
@@ -139,7 +139,7 @@ WS									[" "|"\t"|"\n"]
 
 %%
 
-int main(int argc, char const *argv[])
+/*int main(int argc, char const *argv[])
 {
 	if (argc > 1) {
 		memcpy(args,argv,128*1024);
@@ -155,7 +155,7 @@ int main(int argc, char const *argv[])
 	printf("%d",yylex());
 	//free(savedTokens);
 	return 0;
-}
+}*/
 
 void nextFile() {
 	getcwd(path, sizeof(path));
