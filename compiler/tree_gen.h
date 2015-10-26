@@ -98,8 +98,3 @@ public:
 	ca() : Node() {}
 	~ca() {}
 };
-class term : Node {
-public:
-	term() : Node() {}
-	~term() {}
-};
