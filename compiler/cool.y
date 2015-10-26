@@ -1,6 +1,7 @@
 %{
 	#define _GNU_SOURCE
 	#include "cool.h"
+	#include <string>
 
 	//typedef Node YYSTYPE;
 %}
@@ -22,9 +23,9 @@
 %left	DOT
 
 %union {
-	std::string string;
+	std::string String;
 	int Int;
-	Boolean Bool;
+	bool Bool;
 
 	Node node;
 }
