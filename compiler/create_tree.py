@@ -15,8 +15,8 @@ with open('cool.y') as infile:
 
 with open('tree_gen.h','w') as outfile:
 	for nd in nondets:
-		print >> outfile, """class %s : Node {
+		print >> outfile, """class %sNode : Node {
 public:
-	%s() : Node() {}
-	~%s() {}
+	%sNode() : Node() {}
+	~%sNode() {}
 };""" % (nd,nd,nd)
