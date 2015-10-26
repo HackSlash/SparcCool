@@ -13,10 +13,10 @@ public:
 	varformalsNode() : Node() {}
 	~varformalsNode() {}
 };
-class formNode : Node {
+class varformNode : Node {
 public:
-	formNode() : Node() {}
-	~formNode() {}
+	varformNode() : Node() {}
+	~varformNode() {}
 };
 class classbodyNode : Node {
 public:

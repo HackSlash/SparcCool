@@ -1,5 +1,10 @@
 #include <vector>
 #include <string.h>
+#include <string>
+#include "tree.h"
+#include "tree_gen.h"
+
+int yylex (void);
 
 int filecount;
 int currfile;
