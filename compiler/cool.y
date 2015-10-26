@@ -21,10 +21,10 @@
 %left	DOT
 
 %union {
-	std::string String;
+	std::string string;
 	int Int;
 	bool Bool;
-	
+
 	Node node;
 }
 
