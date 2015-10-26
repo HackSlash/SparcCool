@@ -9,13 +9,16 @@ YFLAGS=-kdv
 TARGET=scanner
 
 
-all: bison flex c
+all: bison flex tree c
 
 bison:
 	$(YACC) $(YFLAGS) $(BISONFILES)
 
 flex:
 	$(LEX) $(FLEXFILES)
+
+tree:
+	python2 create_tree.py
 
 c:
 	$(CC) $(CFILES) $(CFLAGS) -o $(TARGET)

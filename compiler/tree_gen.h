@@ -1,100 +1,100 @@
-class program : Node {
+class programNode : Node {
 public:
-	program() : Node() {}
-	~program() {}
+	programNode() : Node() {}
+	~programNode() {}
 };
-class classdecl : Node {
+class classdeclNode : Node {
 public:
-	classdecl() : Node() {}
-	~classdecl() {}
+	classdeclNode() : Node() {}
+	~classdeclNode() {}
 };
-class varformals : Node {
+class varformalsNode : Node {
 public:
-	varformals() : Node() {}
-	~varformals() {}
+	varformalsNode() : Node() {}
+	~varformalsNode() {}
 };
-class form : Node {
+class formNode : Node {
 public:
-	form() : Node() {}
-	~form() {}
+	formNode() : Node() {}
+	~formNode() {}
 };
-class classbody : Node {
+class classbodyNode : Node {
 public:
-	classbody() : Node() {}
-	~classbody() {}
+	classbodyNode() : Node() {}
+	~classbodyNode() {}
 };
-class features : Node {
+class featuresNode : Node {
 public:
-	features() : Node() {}
-	~features() {}
+	featuresNode() : Node() {}
+	~featuresNode() {}
 };
-class feature : Node {
+class featureNode : Node {
 public:
-	feature() : Node() {}
-	~feature() {}
+	featureNode() : Node() {}
+	~featureNode() {}
 };
-class formals : Node {
+class formalsNode : Node {
 public:
-	formals() : Node() {}
-	~formals() {}
+	formalsNode() : Node() {}
+	~formalsNode() {}
 };
-class form : Node {
+class formNode : Node {
 public:
-	form() : Node() {}
-	~form() {}
+	formNode() : Node() {}
+	~formNode() {}
 };
-class actuals : Node {
+class actualsNode : Node {
 public:
-	actuals() : Node() {}
-	~actuals() {}
+	actualsNode() : Node() {}
+	~actualsNode() {}
 };
-class actual : Node {
+class actualNode : Node {
 public:
-	actual() : Node() {}
-	~actual() {}
+	actualNode() : Node() {}
+	~actualNode() {}
 };
-class block : Node {
+class blockNode : Node {
 public:
-	block() : Node() {}
-	~block() {}
+	blockNode() : Node() {}
+	~blockNode() {}
 };
-class blockpt : Node {
+class blockptNode : Node {
 public:
-	blockpt() : Node() {}
-	~blockpt() {}
+	blockptNode() : Node() {}
+	~blockptNode() {}
 };
-class expr : Node {
+class exprNode : Node {
 public:
-	expr() : Node() {}
-	~expr() {}
+	exprNode() : Node() {}
+	~exprNode() {}
 };
-class ex : Node {
+class exNode : Node {
 public:
-	ex() : Node() {}
-	~ex() {}
+	exNode() : Node() {}
+	~exNode() {}
 };
-class exp : Node {
+class expNode : Node {
 public:
-	exp() : Node() {}
-	~exp() {}
+	expNode() : Node() {}
+	~expNode() {}
 };
-class primary : Node {
+class primaryNode : Node {
 public:
-	primary() : Node() {}
-	~primary() {}
+	primaryNode() : Node() {}
+	~primaryNode() {}
 };
-class cases : Node {
+class casesNode : Node {
 public:
-	cases() : Node() {}
-	~cases() {}
+	casesNode() : Node() {}
+	~casesNode() {}
 };
-class cas : Node {
+class casNode : Node {
 public:
-	cas() : Node() {}
-	~cas() {}
+	casNode() : Node() {}
+	~casNode() {}
 };
-class ca : Node {
+class caNode : Node {
 public:
-	ca() : Node() {}
-	~ca() {}
+	caNode() : Node() {}
+	~caNode() {}
 };

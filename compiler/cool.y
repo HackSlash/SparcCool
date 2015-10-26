@@ -2,7 +2,7 @@
 	#define _GNU_SOURCE
 	#include "cool.h"
 
-	typedef Node YYSTYPE;
+	//typedef Node YYSTYPE;
 %}
 
 %define parse.error verbose
@@ -21,13 +21,13 @@
 %left	EXM UMIN
 %left	DOT
 
-/*%union {
-	std::string Str;
+%union {
+	std::string string;
 	int Int;
 	Boolean Bool;
 
 	Node node;
-}*/
+}
 
 /** TODO:
  * Create class "Node()", FILL ZEH FILEZ
@@ -99,10 +99,10 @@ expr		: ex primary exp 												{}
 			;
 
 ex 			: /* empty */													{}
-			| ID EQ ex 														{$$ = $3}
-			| EXM ex 														{$$ = !$2}
-			| SUB ex %prec UMIN 											{$$ = -$2}
-			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{$$ = ($3)?$5:$7}
+			| ID EQ ex 														{$$.node = $3}
+			| EXM ex 														{$$.node = !$2}
+			| SUB ex %prec UMIN 											{$$.node = -$2}
+			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{$$.node = ($3)?$5:$7}
 			| WHILE PAR_OPEN expr PAR_CLOSE ex 								{}
 			;
 
