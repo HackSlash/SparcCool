@@ -1,7 +1,6 @@
 %{
 	#define _GNU_SOURCE
 	#include "cool.h"
-	//#include <string>
 %}
 
 %define parse.error verbose
