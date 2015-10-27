@@ -15,8 +15,10 @@ with open('cool.y') as infile:
 
 with open('tree_gen.h','w') as outfile:
 	for nd in nondets:
-		print >> outfile, """class %sNode : Node {
+		print >> outfile, """template <class T>
+class %sNode : public Node<T> {
 public:
-	%sNode() : Node() {}
-	~%sNode() {}
-};""" % (nd,nd,nd)
+	using Node<T>::Node;
+};""" % nd
+
+print "done!"

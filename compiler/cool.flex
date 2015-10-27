@@ -16,8 +16,8 @@
 
 	extern YYSTYPE yylval;
 
-	#define SAVE_STRING yylval.string.assign(stringBuffer)
-	#define SAVE_CHAR yylval.string.assign(charbuff)
+	#define SAVE_STRING yylval = new Node<char*>(stringBuffer)
+	#define SAVE_CHAR yylval = new Node<char*>(charbuff)
 	#define TOKEN(t) t
 	//(yylval.token = t)
 }

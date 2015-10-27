@@ -4,6 +4,8 @@
 #include "tree.h"
 #include "tree_gen.h"
 
+typedef Node<void*> YYSTYPE;
+
 int yylex (void);
 
 int filecount;

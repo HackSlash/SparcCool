@@ -1,11 +1,11 @@
+template <class T>
 class Node
 {
 public:
-	Node();
+	Node(T value);
 	~Node();
-	bool addChild(Node c);
-	
-private:
-	std::vector<Node> children;
-	
+	bool addChild(Node c, bool r);
+	Node* left;
+	Node* right;
+	T* val;
 };
