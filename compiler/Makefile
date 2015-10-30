@@ -1,7 +1,8 @@
 FLEXFILES=cool.flex
 BISONFILES=cool.y
 CFILES=lex.yy.c
-CC=g++
+CC=gcc
+CXX=g++
 YACC=bison
 LEX=flex
 CFLAGS=-std=gnu++11 -lfl -Wall -g
@@ -9,7 +10,7 @@ YFLAGS=-kdv
 TARGET=scanner
 
 
-all: bison flex tree c
+all: bison flex tree cpp
 
 bison:
 	$(YACC) $(YFLAGS) $(BISONFILES)
@@ -22,6 +23,9 @@ tree:
 
 c: flex bison tree
 	$(CC) $(CFILES) $(CFLAGS) -o $(TARGET)
+
+cpp: flex bison tree
+	$(CXX) $(CFILES) $(CXXFLAGS) 
 
 test: bison flex tree c
 	cat test.cl | ./$(TARGET)

@@ -1,100 +1,80 @@
-template <class T>
-class programNode : public Node<T> {
+class programNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class classdeclNode : public Node<T> {
+class classdeclNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class varformalsNode : public Node<T> {
+class varformalsNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class varformNode : public Node<T> {
+class varformNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class classbodyNode : public Node<T> {
+class classbodyNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class featuresNode : public Node<T> {
+class featuresNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class featureNode : public Node<T> {
+class featureNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class formalsNode : public Node<T> {
+class formalsNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class formNode : public Node<T> {
+class formNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class actualsNode : public Node<T> {
+class actualsNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class actualNode : public Node<T> {
+class actualNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class blockNode : public Node<T> {
+class blockNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class blockptNode : public Node<T> {
+class blockptNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class exprNode : public Node<T> {
+class exprNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class exNode : public Node<T> {
+class exNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class expNode : public Node<T> {
+class expNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class primaryNode : public Node<T> {
+class primaryNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class casesNode : public Node<T> {
+class casesNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class casNode : public Node<T> {
+class casNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };
-template <class T>
-class caNode : public Node<T> {
+class caNode : public Node {
 public:
-	using Node<T>::Node;
+	using Node::Node;
 };

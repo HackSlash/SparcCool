@@ -7,7 +7,7 @@
 
 %start program
 
-%token ID EXM THIS SUPER OVERRIDE NULLVAL NATIVE EXTENDS IF ELSE WHILE MATCH CASE STRING INTEGER BOOL CLASS TYPE SEMICOLON COLON EQEQ LTEQ LT NEQ EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE BRACK_OPEN BRACK_CLOSE VAR DOT COMMA ARROW
+%token UMIN MULT DIV ADD SUB ID EXM THIS SUPER OVERRIDE NULLVAL NATIVE EXTENDS IF ELSE WHILE MATCH CASE STRING INTEGER BOOL CLASS TYPE SEMICOLON COLON EQEQ LTEQ LT NEQ EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE BRACK_OPEN BRACK_CLOSE VAR DOT COMMA ARROW
 
 %left	EQ
 %left	IF WHILE
@@ -19,12 +19,54 @@
 %left	EXM UMIN
 %left	DOT
 
-// %union {
-// 	std::string string;
-// 	int Int;
-// 	bool Bool;
-// 	Node node;
-// }
+%union {
+	StringNode* string;
+	IntNode* Int;
+	BoolNode* Bool;
+	Node* node;
+	programNode* program;
+	classdeclNode* classdecl;
+	varformalsNode* varformals;
+	varformNode* varform;
+	classbodyNode* classbody;
+	featuresNode* features;
+	featureNode* feature;
+	formalsNode* formals;
+	formNode* form;
+	actualsNode* actuals;
+	actualNode* actual;
+	blockNode* block;
+	blockptNode* blockpt;
+	exprNode* expr;
+	exNode* ex;
+	expNode* exp;
+	primaryNode* primary;
+	casesNode* cases;
+	casNode* cas;
+	caNode* ca;
+}
+
+%type <program> program
+%type <classdecl> classdecl
+%type <varformals> varformals
+%type <varform> varform
+%type <classbody> classbody
+%type <features> features
+%type <feature> feature
+%type <formals> formals
+%type <form> form
+%type <actuals> actuals
+%type <actual> actual
+%type <block> block
+%type <blockpt> blockpt
+%type <expr> expr
+%type <ex> ex
+%type <exp> exp
+%type <primary> primary
+%type <cases> cases
+%type <cas> cas
+%type <ca> ca
+
 
 /** TODO:
  * Create class "Node()", FILL ZEH FILEZ
@@ -97,9 +139,9 @@ expr		: ex primary exp 												{}
 
 ex 			: /* empty */													{}
 			| ID EQ ex 														{$$ = $3}
-			| EXM ex 														{$$.node = !$2}
-			| SUB ex %prec UMIN 											{$$.node = -$2}
-			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{$$.node = ($3)?$5:$7}
+			| EXM ex 														{$$ = !$2}
+			| SUB ex %prec UMIN 											{$$ = -$2}
+			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{$$ = ($3)?$5:$7}
 			| WHILE PAR_OPEN expr PAR_CLOSE ex 								{}
 			;
 

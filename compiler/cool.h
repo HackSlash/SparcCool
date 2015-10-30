@@ -1,10 +1,8 @@
-#include <vector>
 #include <string.h>
-#include <string>
 #include "tree.h"
 #include "tree_gen.h"
 
-typedef Node<void*> YYSTYPE;
+//typedef Node<void*> YYSTYPE;
 
 int yylex (void);
 
@@ -31,17 +29,3 @@ void strdone() {
 }
 
 void nextFile();
-
-typedef struct {
-	int id;
-	char* data;
-} stringTableEntry;
-
-typedef struct {
-	int id;
-	char* name;
-	void* data;
-} varTableEntry;
-
-std::vector<stringTableEntry> stringTable;
-std::vector<varTableEntry> varTable;
