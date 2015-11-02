@@ -1,5 +1,4 @@
 %{
-	#define _GNU_SOURCE
 	#include "cool.h"
 %}
 
@@ -138,10 +137,10 @@ expr		: ex primary exp 												{}
 			;
 
 ex 			: /* empty */													{}
-			| ID EQ ex 														{$$ = $3}
-			| EXM ex 														{$$ = !$2}
-			| SUB ex %prec UMIN 											{$$ = -$2}
-			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{$$ = ($3)?$5:$7}
+			| ID EQ ex 														{}
+			| EXM ex 														{}
+			| SUB ex %prec UMIN 											{}
+			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{}
 			| WHILE PAR_OPEN expr PAR_CLOSE ex 								{}
 			;
 

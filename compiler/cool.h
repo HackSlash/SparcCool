@@ -1,6 +1,10 @@
+#ifndef COOL_H
+#define COOL_H
+
 #include <string.h>
 #include "tree.h"
 #include "tree_gen.h"
+#include <stdio.h>
 
 //typedef Node<void*> YYSTYPE;
 
@@ -29,3 +33,10 @@ void strdone() {
 }
 
 void nextFile();
+
+void yyerror(const char *s)
+{
+	fprintf(stderr, "%s\n", s);
+}
+
+#endif // COOL_H
