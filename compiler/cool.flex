@@ -7,7 +7,9 @@
 %option yylineno
 
 %top{
+	#ifndef COOL_H
 	#include "cool.h"
+	#endif
 	#include <stdio.h>
 	#include <unistd.h>
 	#include <string.h>

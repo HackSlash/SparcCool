@@ -1,5 +1,7 @@
 %{
+	#ifndef COOL_H
 	#include "cool.h"
+	#endif
 %}
 
 %define parse.error verbose
