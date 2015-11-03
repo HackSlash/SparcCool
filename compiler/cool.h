@@ -1,6 +1,10 @@
+#ifndef COOL_H
+#define COOL_H
+
 #include <string.h>
 #include "tree.h"
 #include "tree_gen.h"
+#include <stdio.h>
 
 //typedef Node<void*> YYSTYPE;
 
@@ -12,10 +16,9 @@ char const *args[128];
 char path[1024];
 int indent;
 int identifierCount;
-int comIndent=0;
-//token* savedTokens;
+int comIndent;
 char* stringBuffer;
-int stringBufferLoc=0;
+int stringBufferLoc;
 char charbuff;
 int warnCount;
 char* filePath;
@@ -29,3 +32,10 @@ void strdone() {
 }
 
 void nextFile();
+
+void yyerror(const char *s)
+{
+	fprintf(stderr, "%s\n", s);
+}
+
+#endif // COOL_H

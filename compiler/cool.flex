@@ -7,16 +7,21 @@
 %option yylineno
 
 %top{
+	#ifndef COOL_H
 	#include "cool.h"
+	#endif
 	#include <stdio.h>
 	#include <unistd.h>
 	#include <string.h>
 	#include "cool.tab.h"
 	#include "error.h"
-
+	//#define YYSTYPE int
+	
+	//extern YYSTYPE yyltype
 	extern YYSTYPE yylval;
 
 	#define SAVE_STRING yylval.string = new StringNode(stringBuffer)
+	#define SAVE_INT yylval.Int = new IntNode(atoi(yytext))
 	#define TOKEN(t) t
 	//(yylval.token = t)
 }
@@ -72,7 +77,7 @@ WS									[" "|"\t"|"\n"]
 <STRESCAPE>"\\"						strcopy((char*)"\\");BEGIN(STRING);
 <STRESCAPE>.						genError(inv_syn, yytext, yylineno);BEGIN(STRING);
 <STRING>.							strcopy(yytext);
-<INITIAL>{INT}						return TOKEN(INTEGER);
+<INITIAL>{INT}						SAVE_INT;return TOKEN(INTEGER);
 <INITIAL>"true"|"false"				return TOKEN(BOOL);
 <INITIAL>"class"					return TOKEN(CLASS);
 <INITIAL>{CLASS_ID}					return TOKEN(TYPE);
@@ -92,9 +97,12 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"new"						return TOKEN(NEW);
 <INITIAL>"def"						return TOKEN(DEF);
 <INITIAL>"("						return TOKEN(PAR_OPEN);
-<INITIAL>")"						return TOKEN(PAR_CLOSE);
-<INITIAL>"{"						return TOKEN(BRACE_OPEN);
-<INITIAL>"}"						return TOKEN(BRACE_CLOSE);
+<INITIAL>")"						return TOKEN(PAR_CLOSE);				
+<INITIAL>"{"						indent++;return TOKEN(BRACE_OPEN);
+<INITIAL>"}"						{
+										if (indent > 0) {indent--; return TOKEN(BRACE_CLOSE);} 
+										else genError(ill_chr, (char*)"}", yylineno);
+									}
 <INITIAL>"["						return TOKEN(BRACK_OPEN);
 <INITIAL>"]"						return TOKEN(BRACK_CLOSE);
 <INITIAL>"var"						return TOKEN(VAR);
@@ -127,11 +135,6 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"with"						genError(ill_key, yytext, yylineno); //Ilegal keyword
 <INITIAL>"yield"					genError(ill_key, yytext, yylineno); //Ilegal keyword
 <INITIAL>{ID}						return TOKEN(ID);
-<INITIAL>"{"						indent++;
-<INITIAL>"}"						{
-										if (indent > 0) indent--; 
-										else genError(ill_chr, (char*)"}", yylineno);
-									}
 <*>"\n"								printf("\n");
 <*>{WS}								{}
 <*>.								genError(ill_chr, yytext, yylineno);
