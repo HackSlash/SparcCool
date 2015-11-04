@@ -10,32 +10,25 @@
 
 int yylex (void);
 
-int filecount;
-int currfile;
-char const *args[128];
-char path[1024];
-int indent;
-int identifierCount;
-int comIndent;
-char* stringBuffer;
-int stringBufferLoc;
-char charbuff;
-int warnCount;
-char* filePath;
+extern int filecount;
+extern int currfile;
+extern char const *args[128];
+extern char path[1024];
+extern int indent;
+extern int identifierCount;
+extern int comIndent;
+extern char* stringBuffer;
+extern int stringBufferLoc;
+extern char charbuff;
+extern int warnCount;
+extern char* filePath;
 
-void strcopy(char* yytext) {
-	strncpy(stringBuffer+stringBufferLoc,yytext,1);
-	stringBufferLoc++;
-}
-void strdone() {
-	stringBufferLoc=0;
-}
+void strcopy(char* yytext);
+
+void strdone();
 
 void nextFile();
 
-void yyerror(const char *s)
-{
-	fprintf(stderr, "%s\n", s);
-}
+void yyerror(const char *s);
 
-#endif // COOL_H
+#endif COOL_H

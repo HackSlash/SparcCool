@@ -14,10 +14,12 @@ with open('cool.y') as infile:
 	nondets = filter(lambda x: x != None, nondets)
 
 with open('tree_gen.h','w') as outfile:
+	print >> outfile, "#ifndef TREE_GEN_H\n#define TREE_GEN_H"
 	for nd in nondets:
 		print >> outfile, """class %sNode : public Node {
 public:
 	using Node::Node;
 };""" % nd
+	print >> outfile, "#endif TREE_GEN_H"
 
 print "done!"

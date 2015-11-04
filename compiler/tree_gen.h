@@ -1,3 +1,5 @@
+#ifndef TREE_GEN_H
+#define TREE_GEN_H
 class programNode : public Node {
 public:
 	using Node::Node;
@@ -78,3 +80,4 @@ class caNode : public Node {
 public:
 	using Node::Node;
 };
+#endif TREE_GEN_H

@@ -141,24 +141,6 @@ WS									[" "|"\t"|"\n"]
 
 %%
 
-/*int main(int argc, char const *argv[])
-{
-	if (argc > 1) {
-		memcpy(args,argv,128*1024);
-		filecount = argc-1;
-		currfile = 1;
-		nextFile();
-	}
-	printf(WHITE);
-	stringBuffer = (char*)calloc(1000, sizeof(char));
-	//savedTokens = (token*)calloc(1000000, sizeof(token));
-	indent = 0;
-	identifierCount = 0;
-	printf("%d",yylex());
-	//free(savedTokens);
-	return 0;
-}*/
-
 void nextFile() {
 	getcwd(path, sizeof(path));
 	strcat(path,"/");

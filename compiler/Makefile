@@ -1,6 +1,6 @@
 FLEXFILES=cool.flex
 BISONFILES=cool.y
-CFILES=cool.tab.c lex.yy.cc
+CFILES=cool.tab.c lex.yy.cc cool.c
 CC=gcc
 CXX=g++
 YACC=bison
