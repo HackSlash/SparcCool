@@ -3,16 +3,16 @@ YFLAGS=-kdv
 YTARGET=parser.cpp
 YFILES=parser.ypp
 
-LL=flex++
-LTARGET=scanner.cpp
+LL=flex
+LTARGET=scanner.c
 LFILES=scanner.l
 
 PY=python2
 PFILES=create_tree.py
 
 CC=g++
-CFILES=parser.cpp scanner.cpp compiler.cpp
-CFLAGS=-std=c++11 -lfl -Wall -g
+CFILES=$(YTARGET) $(LTARGET) compiler.cpp
+CFLAGS=-std=c++11 -Wall -g -lfl
 COBJ=parser.o scanner.o compiler.o
 TARGET=compiler
 
@@ -37,4 +37,4 @@ cpp_exe: cpp_obj
 clean:
 	rm -rf $(TARGET) $(LTARGET) parser.hpp $(YTARGET) parser.output tree_gen.h $(COBJ)
 
-.PHONY: clean
+.PHONY: clean all

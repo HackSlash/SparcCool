@@ -5,7 +5,6 @@
  */
 %pointer
 %option yylineno
-%option c++
 
 %top{
 	#ifndef COOL_H
