@@ -9,7 +9,7 @@ def proc_line(line):
 		match = re.search(r'(\w*)(?=\s+:)',line)
 		if match: return match.group(0)
 
-with open('cool.y') as infile:
+with open('parser.ypp') as infile:
 	nondets = map(proc_line,infile)
 	nondets = filter(lambda x: x != None, nondets)
 
@@ -20,6 +20,6 @@ with open('tree_gen.h','w') as outfile:
 public:
 	using Node::Node;
 };""" % nd
-	print >> outfile, "#endif TREE_GEN_H"
+	print >> outfile, "#endif //TREE_GEN_H"
 
 print "done!"

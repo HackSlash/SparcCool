@@ -1,31 +1,40 @@
-FLEXFILES=cool.flex
-BISONFILES=cool.y
-CFILES=cool.tab.c lex.yy.cc cool.c
-CC=gcc
-CXX=g++
-YACC=bison
-LEX=flex++
-CFLAGS=-std=c++11 -lfl -Wall -g
+YY=bison
 YFLAGS=-kdv
-TARGET=scanner
+YTARGET=parser.cpp
+YFILES=parser.ypp
+
+LL=flex++
+LTARGET=scanner.cpp
+LFILES=scanner.l
+
+PY=python2
+PFILES=create_tree.py
+
+CC=g++
+CFILES=parser.cpp scanner.cpp compiler.cpp
+CFLAGS=-std=c++11 -lfl -Wall -g
+COBJ=parser.o scanner.o compiler.o
+TARGET=compiler
 
 
-all: bison flex tree cpp
+all: parser scanner tree cpp_obj cpp_exe
 
-bison:
-	$(YACC) $(YFLAGS) $(BISONFILES)
+parser:
+	$(YY) $(YFLAGS) -o $(YTARGET) $(YFILES)
 
-flex: bison
-	$(LEX) $(FLEXFILES)
+scanner: parser
+	$(LL) -o $(LTARGET) $(LFILES)
 
 tree:
-	python2 create_tree.py
+	$(PY) $(PFILES)
 
-c: flex bison tree
-	$(CC) $(CFILES) $(CFLAGS) -o $(TARGET)
+cpp_obj: scanner parser tree
+	$(CC) $(CFILES) -c $(CFLAGS)
 
-cpp: flex bison tree
-	$(CXX) $(CFILES) $(CXXFLAGS) -o $(TARGET) 
+cpp_exe: cpp_obj
+	$(CC) $(COBJ) -o $(TARGET) $(CFLAGS)
 
 clean:
-	rm $(TARGET) lex.yy.cc cool.tab.h cool.tab.c cool.output
+	rm -rf $(TARGET) $(LTARGET) parser.hpp $(YTARGET) parser.output tree_gen.h $(COBJ)
+
+.PHONY: clean

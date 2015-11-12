@@ -31,4 +31,4 @@ void nextFile();
 
 void yyerror(const char *s);
 
-#endif COOL_H
+#endif //COOL_H

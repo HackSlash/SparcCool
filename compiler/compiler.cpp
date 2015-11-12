@@ -1,4 +1,4 @@
-#include "cool.h"
+#include "compiler.h"
 
 int filecount;
 int currfile;

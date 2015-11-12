@@ -1,6 +1,6 @@
 %{
 	#ifndef COOL_H
-	#include "cool.h"
+	#include "compiler.h"
 	#endif
 %}
 

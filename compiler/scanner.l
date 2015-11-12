@@ -5,19 +5,17 @@
  */
 %pointer
 %option yylineno
+%option c++
 
 %top{
 	#ifndef COOL_H
-	#include "cool.h"
+	#include "compiler.h"
 	#endif
 	#include <stdio.h>
 	#include <unistd.h>
 	#include <string.h>
-	#include "cool.tab.h"
+	#include "parser.hpp"
 	#include "error.h"
-	//#define YYSTYPE int
-	
-	//extern YYSTYPE yyltype
 	extern YYSTYPE yylval;
 
 	#define SAVE_STRING yylval.string = new StringNode(stringBuffer)

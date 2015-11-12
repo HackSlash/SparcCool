@@ -1,34 +1,6 @@
-# Compiled Object files
-*.slo
-*.lo
+scanner.cpp
+parser.hpp
+parser.cpp
+*.output
+tree_gen.h
 *.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-#FLEX & BISON
-lex.yy.c
-cool.tab.c
-cool.tab.h
-cool.output
