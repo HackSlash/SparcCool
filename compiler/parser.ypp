@@ -139,28 +139,33 @@ blockpt		: /* empty */													{}
 			| VAR ID COLON TYPE EQ expr SEMICOLON blockpt					{}
 			;
 
-expr		: ex primary exp 												{}
-			;
-
-ex 			: /* empty */													{}
-			| ID EQ ex 														{}
-			| EXM ex 														{}
-			| SUB ex %prec UMIN 											{}
-			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{}
-			| WHILE PAR_OPEN expr PAR_CLOSE ex 								{}
-			;
-
-exp			: /* empty */													{}
-			| LTEQ expr exp 												{}
-			| LT expr exp 													{}
-			| EQEQ expr exp 												{}
-			| MULT expr exp 												{}
-			| DIV expr exp 													{}
-			| ADD expr exp 													{}
-			| SUB expr exp 													{}
-			| MATCH cases exp 												{}
-			| DOT ID actuals 												{}
-			;
+expr 			: ID = expr
+     			| ! expr
+     			| - expr
+     			| IF ( expr ) expr ELSE expr
+     			| WHILE ( expr ) expr
+     			| SUPER . ID actuals
+     			| ID actuals
+     			| NEW TYPE actuals
+     			| { block }
+     			| ( expr )
+     			| expr . ID actuals
+     			| expr MATCH cases
+     			| expr <= expr
+     			| expr < expr
+     			| expr == expr
+     			| expr * expr
+     			| expr / expr
+     			| expr + expr
+     			| expr - expr
+     			| NULL
+     			| ( )
+     			| ID
+     			| INTEGER
+     			| STRING
+     			| BOOLEAN
+     			| THIS
+     			;
 
 primary		: ID actuals 													{}
 			| SUPER DOT ID actuals											{}
