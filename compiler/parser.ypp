@@ -43,8 +43,6 @@
 	blockNode* block;
 	blockptNode* blockpt;
 	exprNode* expr;
-	exNode* ex;
-	expNode* exp;
 	primaryNode* primary;
 	casesNode* cases;
 	casNode* cas;
@@ -65,8 +63,6 @@
 %type <block> block
 %type <blockpt> blockpt
 %type <expr> expr
-%type <ex> ex
-%type <exp> exp
 %type <primary> primary
 %type <cases> cases
 %type <cas> cas
@@ -139,33 +135,33 @@ blockpt		: /* empty */													{}
 			| VAR ID COLON TYPE EQ expr SEMICOLON blockpt					{}
 			;
 
-expr 			: ID = expr
-     			| ! expr
-     			| - expr
-     			| IF ( expr ) expr ELSE expr
-     			| WHILE ( expr ) expr
-     			| SUPER . ID actuals
-     			| ID actuals
-     			| NEW TYPE actuals
-     			| { block }
-     			| ( expr )
-     			| expr . ID actuals
-     			| expr MATCH cases
-     			| expr <= expr
-     			| expr < expr
-     			| expr == expr
-     			| expr * expr
-     			| expr / expr
-     			| expr + expr
-     			| expr - expr
-     			| NULL
-     			| ( )
-     			| ID
-     			| INTEGER
-     			| STRING
-     			| BOOLEAN
-     			| THIS
-     			;
+expr		: ID EQ expr													{}
+			| EXM expr														{}
+			| UMIN expr														{}
+			| IF BRACK_OPEN expr BRACK_CLOSE expr ELSE expr					{}
+			| WHILE BRACK_OPEN expr BRACK_CLOSE expr						{}
+			| SUPER DOT ID actuals											{}
+			| ID actuals													{}
+			| NEW TYPE actuals												{}
+			| BRACE_OPEN block BRACE_CLOSE									{}
+			| BRACK_OPEN expr BRACK_CLOSE									{}
+			| expr DOT ID actuals											{}
+			| expr MATCH cases												{}
+			| expr LTEQ expr												{}
+			| expr LT expr													{}
+			| expr EQEQ expr												{}
+			| expr MULT expr												{}
+			| expr DIV expr													{}
+			| expr ADD expr													{}
+			| expr SUB expr													{}
+			| NULLVAL														{}
+			| BRACK_OPEN BRACK_CLOSE										{}
+			| ID															{}
+			| INTEGER														{}
+			| STRING														{}
+			| BOOL															{}
+			| THIS															{}
+			;
 
 primary		: ID actuals 													{}
 			| SUPER DOT ID actuals											{}
