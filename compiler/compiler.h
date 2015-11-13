@@ -8,7 +8,7 @@
 
 //typedef Node<void*> YYSTYPE;
 
-//int yylex (void);
+extern "C" int yylex (void);
 
 extern int filecount;
 extern int currfile;
