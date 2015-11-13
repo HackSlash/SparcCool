@@ -4,3 +4,5 @@ parser.cpp
 *.output
 tree_gen.h
 *.o
+scanner.c
+compiler
