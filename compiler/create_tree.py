@@ -30,6 +30,6 @@ class %sNode : public Node {
 public:
 	using Node::Node;
 };""" % nd
-	print >> outfile, "\n#endif TREE_GEN_H"
+	print >> outfile, "\n#endif //TREE_GEN_H"
 
 print "done!"
