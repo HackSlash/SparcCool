@@ -100,8 +100,6 @@ WS									[" "|"\t"|"\n"]
 										if (indent > 0) {indent--; return TOKEN(BRACE_CLOSE);} 
 										else genError(ill_chr, (char*)"}", yylineno);
 									}
-<INITIAL>"["						return TOKEN(BRACK_OPEN);
-<INITIAL>"]"						return TOKEN(BRACK_CLOSE);
 <INITIAL>"var"						return TOKEN(VAR);
 <INITIAL>"native"					{
 										if (strcmp(filePath, "$CLASSHOME/lib/basic.cool")) return TOKEN(NATIVE);

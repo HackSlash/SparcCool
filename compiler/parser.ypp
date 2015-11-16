@@ -12,7 +12,7 @@
 
 %start program
 
-%token UMIN MULT DIV ADD SUB ID EXM THIS SUPER OVERRIDE NULLVAL NATIVE EXTENDS IF ELSE WHILE MATCH CASE STRING INTEGER BOOL CLASS TYPE SEMICOLON COLON EQEQ LTEQ LT NEQ EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE BRACK_OPEN BRACK_CLOSE VAR DOT COMMA ARROW
+%token UMIN MULT DIV ADD SUB ID EXM THIS SUPER OVERRIDE NULLVAL NATIVE EXTENDS IF ELSE WHILE MATCH CASE STRING INTEGER BOOL CLASS TYPE SEMICOLON COLON EQEQ LTEQ LT NEQ EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE VAR DOT COMMA ARROW
 
 %left	EQ
 %left	IF WHILE
@@ -48,7 +48,6 @@
 	primaryNode* primary;
 	casesNode* cases;
 	casNode* cas;
-	caNode* ca;
 }
 
 %type <program> program
@@ -70,7 +69,6 @@
 %type <primary> primary
 %type <cases> cases
 %type <cas> cas
-%type <ca> ca
 
 
 /** TODO:
@@ -81,8 +79,11 @@
 
 %%
 		
-program		:/* empty */													{}
-        	| program classdecl												{}
+program		: classdecls													{}
+			;
+
+classdecls	: classdecl														{}
+			| classdecl classdecls											{}
 			;
 
 classdecl  	: CLASS TYPE varformals classbody								{}
@@ -90,19 +91,19 @@ classdecl  	: CLASS TYPE varformals classbody								{}
 			| CLASS TYPE varformals EXTENDS NATIVE classbody				{}
 	        ;
 
-varformals	: PAR_OPEN varform PAR_CLOSE									{}
+varformals	: PAR_OPEN PAR_CLOSE											{}
+			| PAR_OPEN varform PAR_CLOSE									{}
 			;
 
-varform		: /* empty */													{}
-			| VAR ID COLON TYPE												{}
+varform		: VAR ID COLON TYPE												{}
 			| VAR ID COLON TYPE COMMA varform 								{}
 			;
 
-classbody	: BRACK_OPEN features BRACK_CLOSE								{}
+classbody	: BRACE_OPEN BRACE_CLOSE										{}
+			| BRACE_OPEN features BRACE_CLOSE								{}
 			;
 
-features	: /* empty */													{}
-			| feature 														{}
+features	: feature 														{}
 			| feature features 												{}
 			;
 
@@ -112,60 +113,79 @@ feature 	: DEF ID formals COLON TYPE EQ expr SEMICOLON					{}
 			| OVERRIDE DEF ID formals COLON TYPE EQ NATIVE SEMICOLON		{}
 			| VAR ID EQ NATIVE SEMICOLON									{}
 			| VAR ID COLON TYPE COLON expr SEMICOLON						{}
-			| BRACK_OPEN block BRACK_CLOSE SEMICOLON						{}
+			| BRACE_OPEN block BRACE_CLOSE SEMICOLON						{}
+			;
 	
-formals		: PAR_OPEN form PAR_CLOSE										{}
+formals		: PAR_OPEN PAR_CLOSE											{}
+			| PAR_OPEN form PAR_CLOSE										{}
 			;
 
-form 		: /* empty */													{}
-			| ID COLON TYPE													{}
+form 		: ID COLON TYPE													{}
 			| ID COLON TYPE COMMA form 										{}
 			;
 
-actuals		: PAR_OPEN actual PAR_CLOSE										{}
+actuals		: PAR_OPEN PAR_CLOSE											{}
+			| PAR_OPEN actual PAR_CLOSE										{}
 			;
 
-actual 		: /* empty */													{}
-			| expr															{}
+actual 		: expr															{}
 			| expr COMMA actual 											{}
 			;
 
 block 		: /* empty */													{}
-			| blockpt expr													{}
+			| expr															{}
+			| blockpt														{}
 			;
 
-blockpt		: /* empty */													{}
+blockpt		: expr SEMICOLON												{}
 			| expr SEMICOLON blockpt										{}
+			| VAR ID COLON TYPE EQ expr SEMICOLON 							{}
 			| VAR ID COLON TYPE EQ expr SEMICOLON blockpt					{}
 			;
 
-expr		: ex primary exp 												{}
+expr		: primary exp													{}
+			| ex primary													{}
+			| ex primary exp 												{}
 			;
 
-ex 			: /* empty */													{}
+ex 			: ID EQ 														{}
 			| ID EQ ex 														{}
+			| EXM 															{}
 			| EXM ex 														{}
+			| SUB %prec UMIN 												{}
 			| SUB ex %prec UMIN 											{}
+			| IF PAR_OPEN expr PAR_CLOSE expr ELSE	 						{}
 			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{}
+			| WHILE PAR_OPEN expr PAR_CLOSE 								{}
 			| WHILE PAR_OPEN expr PAR_CLOSE ex 								{}
 			;
 
-exp			: /* empty */													{}
-			| LTEQ expr exp 												{}
+exp			: LTEQ expr		 												{}
+			| LTEQ expr exp	 												{}
+			| LT expr	 													{}
 			| LT expr exp 													{}
+			| EQEQ expr		 												{}
 			| EQEQ expr exp 												{}
+			| NEQ expr														{}
+			| NEQ expr exp													{}
+			| MULT expr		 												{}
 			| MULT expr exp 												{}
+			| DIV expr	 													{}
 			| DIV expr exp 													{}
+			| ADD expr	 													{}
 			| ADD expr exp 													{}
+			| SUB expr	 													{}
 			| SUB expr exp 													{}
+			| MATCH cases	 												{}
 			| MATCH cases exp 												{}
 			| DOT ID actuals 												{}
+			| DOT ID actuals exp											{}
 			;
 
 primary		: ID actuals 													{}
 			| SUPER DOT ID actuals											{}
 			| NEW TYPE actuals												{}
-			| BRACK_OPEN block BRACK_CLOSE 									{}
+			| BRACE_OPEN block BRACE_CLOSE 									{}
 			| PAR_OPEN expr PAR_CLOSE										{}
 			| NULLVAL														{}
 			| PAR_OPEN PAR_CLOSE											{}
@@ -176,15 +196,14 @@ primary		: ID actuals 													{}
 			| THIS 															{}
 			;
 
-cases		: BRACK_OPEN ca cas BRACK_CLOSE 								{}
+cases		: BRACE_OPEN cas BRACE_CLOSE 									{}
 			;
 
-cas 		: /* empty */													{}
-			| ca cas 														{}
-			;
-		
-ca			: CASE ID COLON TYPE ARROW block 								{}
+cas 		: CASE ID COLON TYPE ARROW block								{}
+			| CASE ID COLON TYPE ARROW block cas							{}
 			| CASE NULLVAL ARROW block 										{}
+			| CASE NULLVAL ARROW block cas									{}
 			;
+
 
 %%
