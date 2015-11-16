@@ -143,9 +143,9 @@ blockpt		: expr SEMICOLON												{}
 			| VAR ID COLON TYPE EQ expr SEMICOLON blockpt					{}
 			;
 
-expr		: primary exp													{}
-			| ex primary													{}
-			| ex primary exp 												{}
+expr		: ex primary exp 												{}
+			| primary exp													{}
+			| ex primary													{}												{}
 			;
 
 ex 			: ID EQ 														{}

@@ -1,0 +1,16 @@
+State 33 conflicts: 1 shift/reduce
+State 35 conflicts: 1 shift/reduce
+State 66 conflicts: 1 shift/reduce
+State 80 conflicts: 10 shift/reduce
+State 114 conflicts: 1 shift/reduce
+State 115 conflicts: 1 shift/reduce
+State 116 conflicts: 1 shift/reduce
+State 117 conflicts: 1 shift/reduce
+State 119 conflicts: 1 shift/reduce
+State 120 conflicts: 1 shift/reduce
+State 121 conflicts: 1 shift/reduce
+State 122 conflicts: 1 shift/reduce
+State 123 conflicts: 10 shift/reduce
+State 135 conflicts: 1 shift/reduce
+State 148 conflicts: 10 shift/reduce
+State 166 conflicts: 1 shift/reduce
