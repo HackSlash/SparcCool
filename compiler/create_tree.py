@@ -1,6 +1,11 @@
-import re,inspect
+#!/usr/bin/env python2
 
+import re,inspect,sys,getopt
+
+scriptname = inspect.getfile(inspect.currentframe())
 bison_start = False
+infilename  = 'parser.ypp'
+outfilename = 'tree_gen.h'
 
 def proc_line(line):
 	global bison_start
@@ -9,11 +14,25 @@ def proc_line(line):
 		match = re.search(r'(\w*)(?=\s+:)',line)
 		if match: return match.group(0)
 
-with open('parser.ypp') as infile:
+try:
+	opts, args = getopt.getopt(sys.argv[1:],"hi:o:",["infile=","outfile="])
+except getopt.GetoptError:
+	print "%s -i <inputfile> -o <outputfile>" % scriptname
+	sys.exit(2)
+for opt, arg in opts:
+	if opt == '-h':
+		print "%s -i <inputfile> -o <outputfile>" % scriptname
+		sys.exit()
+	elif opt in ("-i", "--infile"):
+		infilename = arg
+	elif opt in ("-o", "--outfile"):
+		outfilename = arg
+
+with open(infilename) as infile:
 	nondets = map(proc_line,infile)
 	nondets = filter(lambda x: x != None, nondets)
 
-with open('tree_gen.h','w') as outfile:
+with open(outfilename,'w') as outfile:
 	print >> outfile, """#ifndef TREE_GEN_H
 #define TREE_GEN_H
 
@@ -23,7 +42,7 @@ with open('tree_gen.h','w') as outfile:
  *
  *	Manual edits will be overwritten next compilation!
  *
- */""" % inspect.getfile(inspect.currentframe())
+ */""" % scriptname
 	for nd in nondets:
 		print >> outfile, """
 class %sNode : public Node {
@@ -32,4 +51,4 @@ public:
 };""" % nd
 	print >> outfile, "\n#endif //TREE_GEN_H"
 
-print "done!"
+print "Generated %d classes in %s from %s!" % (len(nondets), outfilename, infilename)

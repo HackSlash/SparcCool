@@ -41,5 +41,5 @@ module SparCool(output clock);			// Top module
 	core core2(.c(clock));						// Second "core"
 	core core3(.c(clock));						// Third core
 	core core4(.c(clock));
-	assign #5 clock=~clock;						// 5 time units clock delay
+	assign clock=~clock;						// No clock delay
 endmodule

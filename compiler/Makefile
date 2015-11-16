@@ -9,6 +9,7 @@ LFILES=scanner.l
 
 PY=python2
 PFILES=create_tree.py
+PYTARGET=tree_gen.h
 
 CC=g++
 CFILES=$(YTARGET) $(LTARGET) compiler.cpp
@@ -26,7 +27,7 @@ scanner: parser
 	$(LL) -o $(LTARGET) $(LFILES)
 
 tree:
-	$(PY) $(PFILES)
+	./create_tree.py -i $(YFILES) -o $(PYTARGET)
 
 cpp_obj: scanner parser tree
 	$(CC) $(CFILES) -c $(CFLAGS)
@@ -35,6 +36,6 @@ cpp_exe: cpp_obj
 	$(CC) $(COBJ) -o $(TARGET) $(CFLAGS)
 
 clean:
-	rm -rf $(TARGET) $(LTARGET) parser.hpp $(YTARGET) parser.output tree_gen.h $(COBJ)
+	rm -rf $(TARGET) $(LTARGET) parser.hpp $(YTARGET) parser.output $(PYTARGET) $(COBJ)
 
 .PHONY: clean all
