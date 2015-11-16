@@ -1,6 +1,8 @@
 scanner.cpp
+scanner.c
 parser.hpp
 parser.cpp
 *.output
 tree_gen.h
 *.o
+compiler
