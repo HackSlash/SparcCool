@@ -26,7 +26,7 @@ public:
 class StringNode : Node
 {
 public:
-	StringNode(char* s) : val(s) {
+	StringNode(std::string s) : val(s) {
 	}
 	~StringNode(){
 	}

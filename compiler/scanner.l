@@ -17,17 +17,17 @@
 	#include "error.h"
 	extern YYSTYPE yylval;
 
-	#define SAVE_STRING printf("%s\n",stringBuffer); /*(yylval.string = new StringNode(stringBuffer))*/
+	#define SAVE_STRING (yylval.string = new StringNode(stringBuffer))
 	#define SAVE_INT (yylval.Int = new IntNode(atoi(yytext)))
 	#define TOKEN(t) t
 	//(yylval.token = t)
 }
 
 CLASS_ID							[A-Z][A-Za-z0-9]*
-ID									[a-z][A-Za-z0-9]*
+ID									[_a-z][_A-Za-z0-9]*
 SIGN 								[+|-]
 INT 								0|[1-9][0-9]*
-WS									[" "|"\t"|"\n"]
+WS									[" "|"\t"|"\n"|"\r"]
 
 %s COMMENT STRING STRESCAPE CHAR CHARESCAPE TRSTRING
 %%
@@ -129,11 +129,11 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"with"						genError(ill_key, yytext, yylineno); //Ilegal keyword
 <INITIAL>"yield"					genError(ill_key, yytext, yylineno); //Ilegal keyword
 <INITIAL>{ID}						return TOKEN(ID);
-<*>"\n"								printf("\n");
 <*>{WS}								{}
-<*>.								genError(ill_chr, yytext, yylineno);
+<*>.								genError(ill_chr, yytext, yylineno);// Generates correct and incorrect errors.
 
 %%
+
 
 void nextFile() {
 	getcwd(path, sizeof(path));

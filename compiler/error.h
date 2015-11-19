@@ -1,8 +1,11 @@
 #include <cstdarg>
+#include <string>
+#include <iostream>
 
 #define RED "\x1B[31m"
 #define WHITE "\x1B[37m"
 
+const std::string error = " [\x1B[31mERROR\x1B[37m]";
 int nrErrors = 0;
 
 typedef enum {
@@ -20,28 +23,27 @@ void genError(errorType er, char* text, int lineNr, ...)
 	switch (er)
 	{
 	case ill_chr:
-		printf("[%sError%s: Ilegal character \'%s\', in line %d.\n", RED, WHITE, text, lineNr);
+		std::cerr << error << " Ilegal character '" << text << "', in line "<<  lineNr << "." << std::endl;// Used by flex if an unknown character is detected.
 		break;
 	case ill_key:
-		printf("%sError%s: Ilegal keyword \"%s\", in line  %d.\n", RED, WHITE, text, lineNr);
+		std::cerr << error << " Ilegal keyword \"" << text << "\", in line  " << lineNr << "." << std::endl;// Used by bison
 		break;
 	case ill_nln:
-		printf("[%sError%s: Ilegal newline found in string, in line %d.\n", RED, WHITE, lineNr);
+		std::cerr << error + " Ilegal newline found in string, in line " << lineNr << "." << std::endl;
 		break;
 	case inv_syn:
-		printf("%sError%s: Ilegal syntax \"%s\", in line %d.\n", RED, WHITE, text, lineNr);
+		std::cerr << error << " Ilegal syntax \"" << text << "\", in line " << lineNr << "." << std::endl;
 		break;
 	case typ_err:
 		va_list args;
 		va_start(args, lineNr);
-		printf("%sError%s: Incorrect type, expected \"%s\" but got \"%s\", at word \"%s\", in line %d.", RED, WHITE, va_arg(args, char*), va_arg(args, char*), text, lineNr);
-		va_end(args);
+		std::cerr << error << " Incorrect type, expected \"" << va_arg(args, char*) << "\" but got \"" << va_arg(args, char*) << "\", at word \"" << text << "\", in line " << lineNr << "." << std::endl;
 		break;
 	case ill_nat:
-		printf("%sError%s: Found keyword \"native\" outside basic.cool, in line %d.", RED, WHITE, lineNr);
+		std::cerr << error << " Found keyword \"native\" outside basic.cool, in line " << lineNr << "." << std::endl;
 		break;
 	default:
-		printf("%sAn unexpected error occured!%s\n", RED, WHITE);
+		std::cerr << error << " An unexpected error occured!" << std::endl;
 		break;
 	}
 	++nrErrors;

@@ -8,7 +8,6 @@ class Main {
 	var stringTest : String = "Hello World!";
 	var boolTest : Bool = true;
 	var floatTest : Float = 3.14159265f;
-	var charTest : Char = 'c';
 	
 
 	""" I shall be while u.
@@ -22,7 +21,6 @@ class Main {
 	var testMult : Int = 2 * 8;
 
 	var escapeString : String = "\n\nnew lines\n\n\n";
-	var escapeChar : Char = '\n';
 
 	if(boolTest) {
 		boolTest = false;
