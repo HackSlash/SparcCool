@@ -26,8 +26,7 @@ public:
 class StringNode : Node
 {
 public:
-	StringNode(char* s){
-		val = s;
+	StringNode(char* s) : val(s) {
 	}
 	~StringNode(){
 	}
@@ -39,8 +38,7 @@ private:
 class IntNode : Node
 {
 public:
-	IntNode(int i) {
-		val = i;
+	IntNode(int i) : val(i) {
 	}
 	~IntNode() {
 	}
@@ -51,8 +49,7 @@ private:
 class BoolNode : Node
 {
 public:
-	BoolNode(bool i) {
-		val = i;
+	BoolNode(bool b) : val(b) {
 	}
 	~BoolNode() {
 	}

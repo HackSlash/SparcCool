@@ -17,8 +17,8 @@
 	#include "error.h"
 	extern YYSTYPE yylval;
 
-	#define SAVE_STRING yylval.string = new StringNode(stringBuffer)
-	#define SAVE_INT yylval.Int = new IntNode(atoi(yytext))
+	#define SAVE_STRING printf("%s\n",stringBuffer); /*(yylval.string = new StringNode(stringBuffer))*/
+	#define SAVE_INT (yylval.Int = new IntNode(atoi(yytext)))
 	#define TOKEN(t) t
 	//(yylval.token = t)
 }
