@@ -1,4 +1,5 @@
 #include "compiler.h"
+#include <string>
 
 int filecount;
 int currfile;
@@ -7,15 +8,16 @@ char path[1024];
 int indent;
 int identifierCount;
 int comIndent;
-char* stringBuffer;
+std::string stringBuffer;
 int stringBufferLoc;
 char charbuff;
 int warnCount;
 char* filePath;
 
 void strcopy(char* yytext) {
-	strncpy(stringBuffer+stringBufferLoc,yytext,1);
-	stringBufferLoc++;
+	/*strncpy(stringBuffer+stringBufferLoc,yytext,1);
+	stringBufferLoc++;*/
+	stringBuffer += yytext;
 }
 void strdone() {
 	stringBufferLoc=0;
