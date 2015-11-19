@@ -7,8 +7,6 @@
 #include <stdio.h>
 #include <string>
 
-//typedef Node<void*> YYSTYPE;
-
 extern "C" int yylex (void);
 
 extern int filecount;

@@ -43,7 +43,7 @@ typedef struct
 } strTableEntry;
 
 int addStrEntry(std::string v) {
-	
+
 }
 
 std::vector<int> idList;

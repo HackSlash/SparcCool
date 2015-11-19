@@ -64,7 +64,7 @@
 
 
 %%
-		
+
 program		: classdecls															{}
 			;
 
@@ -97,7 +97,7 @@ features	: /* empty */															{}
 			| features VAR id COLON type COLON expr SEMICOLON						{}
 			| features BRACE_OPEN block BRACE_CLOSE SEMICOLON						{}
 			;
-	
+
 formals		: PAR_OPEN PAR_CLOSE													{}
 			| PAR_OPEN form PAR_CLOSE												{}
 			;

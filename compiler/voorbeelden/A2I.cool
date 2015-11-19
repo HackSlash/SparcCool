@@ -1,5 +1,5 @@
 class A2I() {
-  
+
   // Convert a string of digits into an integer.
   // return a negative number if something went wrong.
   def a2i(s : String) : Int = {

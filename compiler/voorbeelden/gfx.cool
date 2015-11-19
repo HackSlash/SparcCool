@@ -11,9 +11,9 @@ class Useful() extends IO()
 
 class Canvas(var width : Int, var height : Int) extends Useful()
 {
-  
+
   var marks : ArrayAny = new ArrayAny(width); // Array of Array of String
-  
+
   {
     var i : Int = 0;
     while (i < width) {
@@ -27,10 +27,10 @@ class Canvas(var width : Int, var height : Int) extends Useful()
       i = i + 1
     }
   };
-  
+
   def get_width() : Int = width;
   def get_height() : Int = height;
-  
+
   def get_column(x : Int) : ArrayAny =
     marks.get(x) match {
       case a:ArrayAny => a
@@ -70,22 +70,22 @@ class Delta(var dx : Int, var dy : Int) extends Useful()
 
   def get_delta_x() : Int = dx;
   def get_delta_y() : Int = dy;
-  
+
   def add(d : Delta) : Delta = {
     dx = dx + d.get_delta_x();
     dy = dy + d.get_delta_y();
     this
   };
-  
+
   def plus(d : Delta) : Delta = {
     new Delta(dx + d.get_delta_x(),
 	      dy + d.get_delta_y())
   };
-  
+
   def divide(i : Int) : Delta = {
     new Delta(dx / i,dy / i)
   };
-  
+
   override def equals(other : Any) : Boolean = {
     other match {
       case d : Delta =>
@@ -98,11 +98,11 @@ class Delta(var dx : Int, var dy : Int) extends Useful()
 
 class Shape(var color : Color) extends Useful()
 {
-  
+
   def get_color() : Color = color;
-  
+
   def draw(c : Canvas) : Canvas = abort("draw is abstract");
-  
+
   def move(d : Delta) : Shape = abort("move is abstract");
 
 }
@@ -122,15 +122,15 @@ extends Shape(c)
     y = y + d.get_delta_y();
     this
   };
-  
+
   def plus(d:Delta) : Point = {
     new Point(color,x,y).move(d)
   };
-  
+
   def minus(p:Point) : Delta = {
     new Delta(x-p.get_x(),y-p.get_y())
   };
-  
+
   override def equals(o : Any) : Boolean = {
     o match {
       case p : Point => and(x==p.get_x(),y==p.get_y())
@@ -149,26 +149,26 @@ class CenteredShape(var c : Color, var center : Point) extends Shape(c)
 }
 
 class Group() extends
-CenteredShape(new Color(" "),new Point(new Color(" "),0,0)) 
+CenteredShape(new Color(" "),new Point(new Color(" "),0,0))
 {
   var shapes : ArrayList = new ArrayList();
-  
+
   def get(i : Int) : CenteredShape = {
     shapes.get(i) match {
       case s:CenteredShape => s
     }
   };
-  
+
   def add(s : CenteredShape) : Group = {
     shapes.add(s);
     compute_center();
     this
   };
-  
+
   def compute_center() : Point = {
     var n : Int = shapes.size();
     var origin : Point = new Point(color,0,0);
-    var sum : Delta = new Delta(0,0); 
+    var sum : Delta = new Delta(0,0);
     var i : Int = 0;
     while (i < n) {
       var p1 : Point = get(i).get_center();
@@ -181,7 +181,7 @@ CenteredShape(new Color(" "),new Point(new Color(" "),0,0))
       center // unchanged
     }
   };
-  
+
   override def move(d:Delta) : Group = {
     super.move(d);
     var n : Int = shapes.size();
@@ -192,19 +192,19 @@ CenteredShape(new Color(" "),new Point(new Color(" "),0,0))
     };
     this
   };
-  
+
   override def draw(can:Canvas) : Canvas = {
     var n : Int = shapes.size();
-    var i : Int = 0; 
+    var i : Int = 0;
     while (i < n) {
       get(i).draw(can);
       i = i+1
     };
     can
   };
-}  
-  
-class Line(var cl:Color, var p1:Point, var p2:Point) 
+}
+
+class Line(var cl:Color, var p1:Point, var p2:Point)
 extends CenteredShape(cl,p1.plus(p2.minus(p1).divide(2)))
 {
   var length : Int = 0;
@@ -239,7 +239,7 @@ extends CenteredShape(cl,p1.plus(p2.minus(p1).divide(2)))
     var p : Point = get_point1();
     var pend : Point = get_point2();
     var d : Delta = new Delta(if (horiz) 1 else 0,
-			      if (horiz) 0 else 1); 
+			      if (horiz) 0 else 1);
     p.draw(can);
     while (!(p == pend)) {
       p.move(d);
@@ -249,7 +249,7 @@ extends CenteredShape(cl,p1.plus(p2.minus(p1).divide(2)))
   };
 }
 
-class Rectangle(var cl:Color, var cp:Point, 
+class Rectangle(var cl:Color, var cp:Point,
 		var width:Int, var height:Int)
 extends CenteredShape(cl,cp)
 {
@@ -272,12 +272,12 @@ extends CenteredShape(cl,cp)
   def get_upper_right() : Point = {
    get_center().plus(new Delta(width-width / 2, height-height / 2))
   };
-  
+
   override def draw(can:Canvas) : Canvas = {
     var ll : Point = get_lower_left();
     var lr : Point = get_lower_right();
     var ul : Point = get_upper_left();
-    var ur : Point = get_upper_right(); 
+    var ur : Point = get_upper_right();
 
     new Line(color,ul,ur).draw(can);
     new Line(color,ll,lr).draw(can);
@@ -287,14 +287,14 @@ extends CenteredShape(cl,cp)
 }
 
 
-class Square(var cs:Color, var cps:Point, var size:Int) 
+class Square(var cs:Color, var cps:Point, var size:Int)
 extends Rectangle(cs,cps,size,size)
 {
   def get_size() : Int = size;
 }
 
 
-class  Block(var cb : Color, var p : Point, var w : Int, var h : Int) 
+class  Block(var cb : Color, var p : Point, var w : Int, var h : Int)
 extends Rectangle(cb,p,w,h)
 {
   // create block (filled rectangle)
@@ -329,7 +329,7 @@ class Main() extends IO()
 
   var canvas : Canvas = new Canvas(79,40);
 
-  {    
+  {
     var g:Group = new Group();
     g.add(new Line(gray4,new Point(gray4,7,0),new Point(gray4,50,0)));
     g.add(new Line(gray5,new Point(gray5,50,4),new Point(gray5,50,40)));
@@ -337,7 +337,7 @@ class Main() extends IO()
     g.add(new Line(gray1,new Point(gray1,7,1),new Point(gray1,7,15)));
     g.draw(canvas)
   };
-    
+
   {
     var g:Group = new Group();
     g.add(new Rectangle(gray3,new Point(gray3,40,15),50,5));
@@ -365,11 +365,11 @@ class ArrayList() extends IO()
   var size : Int = 0;	// the numbers of values used (not the capacity)
 
   //Add an item to the } of the list
-  def add(item : Any) : ArrayList = { 
+  def add(item : Any) : ArrayList = {
     insert(size, item)
   };
 
-  //Given an index, returns the item stored at that index. 
+  //Given an index, returns the item stored at that index.
   //Reports error for bad indices
   def get(index : Int) : Any = {
     if (index < 0) {
@@ -401,7 +401,7 @@ class ArrayList() extends IO()
   def size(): Int = size;
 
   //Changes the size (number of elements stored) of the ArrayList to the number
-  //provided.  May grow the capacity to encompass a larger size, but never 
+  //provided.  May grow the capacity to encompass a larger size, but never
   //reduces capacity.  Reports negative size errors.
   def resize(n : Int) : ArrayList = {
     if (n < 0) {

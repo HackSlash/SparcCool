@@ -43,7 +43,7 @@ public:
 	~IntNode() {
 	}
 private:
-	int val;	
+	int val;
 };
 
 class BoolNode : Node
@@ -54,5 +54,5 @@ public:
 	~BoolNode() {
 	}
 private:
-	bool val;	
+	bool val;
 };

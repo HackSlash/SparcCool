@@ -30,6 +30,8 @@ INT 								0|[1-9][0-9]*
 WS									[" "|"\t"|"\n"|"\r"]
 
 %s COMMENT STRING STRESCAPE CHAR CHARESCAPE TRSTRING
+
+
 %%
 <INITIAL,COMMENT>"/*"				{
 										if(comIndent==0)
@@ -93,10 +95,10 @@ WS									[" "|"\t"|"\n"|"\r"]
 <INITIAL>"new"						return TOKEN(NEW);
 <INITIAL>"def"						return TOKEN(DEF);
 <INITIAL>"("						return TOKEN(PAR_OPEN);
-<INITIAL>")"						return TOKEN(PAR_CLOSE);				
+<INITIAL>")"						return TOKEN(PAR_CLOSE);
 <INITIAL>"{"						indent++;return TOKEN(BRACE_OPEN);
 <INITIAL>"}"						{
-										if (indent > 0) {indent--; return TOKEN(BRACE_CLOSE);} 
+										if (indent > 0) {indent--; return TOKEN(BRACE_CLOSE);}
 										else genError(ill_chr, (char*)"}", yylineno);
 									}
 <INITIAL>"var"						return TOKEN(VAR);
