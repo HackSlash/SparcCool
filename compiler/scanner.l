@@ -88,7 +88,6 @@ WS									[" "|"\t"|"\n"]
 <INITIAL>"=>"						return TOKEN(ARROW);
 <INITIAL>"<="						return TOKEN(LTEQ);
 <INITIAL>"<"						return TOKEN(LT);
-<INITIAL>"!="						return TOKEN(NEQ);
 <INITIAL>"="						return TOKEN(EQ);
 <INITIAL>"!"						return TOKEN(EXM);
 <INITIAL>"new"						return TOKEN(NEW);

@@ -3,8 +3,6 @@
 	#include "compiler.h"
 	#endif
 
-	//extern "C" int yylex (void);
-	//int yylex(void);
 	void yyerror(const char *);
 %}
 
@@ -12,17 +10,19 @@
 
 %start program
 
-%token UMIN MULT DIV ADD SUB ID EXM THIS SUPER OVERRIDE NULLVAL NATIVE EXTENDS IF ELSE WHILE MATCH CASE STRING INTEGER BOOL CLASS TYPE SEMICOLON COLON EQEQ LTEQ LT NEQ EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE VAR DOT COMMA ARROW
+%token UMIN MULT DIV ADD SUB ID EXM THIS SUPER OVERRIDE NULLVAL NATIVE EXTENDS IF ELSE WHILE MATCH CASE STRING INTEGER BOOL CLASS TYPE SEMICOLON COLON EQEQ LTEQ LT EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE VAR DOT COMMA ARROW
 
-%left	EQ
-%left	IF WHILE
-%left	MATCH
-%left	LTEQ LT
-%left	EQEQ
-%left	ADD SUB
-%left	MULT DIV
-%left	EXM UMIN
-%left	DOT
+%left EQ
+%left IF WHILE
+%left MATCH
+%left LTEQ LT
+%left EQEQ
+%left ADD SUB
+%left MULT DIV
+%left EXM UMIN
+%left DOT
+%left ELSE
+%left W
 
 %union {
 	StringNode* string;
@@ -35,7 +35,6 @@
 	varformNode* varform;
 	classbodyNode* classbody;
 	featuresNode* features;
-	featureNode* feature;
 	formalsNode* formals;
 	formNode* form;
 	actualsNode* actuals;
@@ -43,9 +42,6 @@
 	blockNode* block;
 	blockptNode* blockpt;
 	exprNode* expr;
-	exNode* ex;
-	expNode* exp;
-	primaryNode* primary;
 	casesNode* cases;
 	casNode* cas;
 }
@@ -56,7 +52,6 @@
 %type <varform> varform
 %type <classbody> classbody
 %type <features> features
-%type <feature> feature
 %type <formals> formals
 %type <form> form
 %type <actuals> actuals
@@ -64,145 +59,113 @@
 %type <block> block
 %type <blockpt> blockpt
 %type <expr> expr
-%type <ex> ex
-%type <exp> exp
-%type <primary> primary
 %type <cases> cases
 %type <cas> cas
 
 
-/** TODO:
- * Create class "Node()", FILL ZEH FILEZ
- * %union, valid values ^^
- * Create tables (Vectors), id's; int's; string's.
- */
-
 %%
 		
-program		: classdecls													{}
+program		: classdecls															{}
 			;
 
-classdecls	: classdecl														{}
-			| classdecl classdecls											{}
+classdecls	: classdecl																{}
+			| classdecl classdecls													{}
 			;
 
-classdecl  	: CLASS TYPE varformals classbody								{}
-			| CLASS TYPE varformals EXTENDS TYPE actuals classbody			{}
-			| CLASS TYPE varformals EXTENDS NATIVE classbody				{}
+classdecl  	: CLASS type varformals classbody										{}
+			| CLASS type varformals EXTENDS type actuals classbody					{}
+			| CLASS type varformals EXTENDS NATIVE classbody						{}
 	        ;
 
-varformals	: PAR_OPEN PAR_CLOSE											{}
-			| PAR_OPEN varform PAR_CLOSE									{}
+varformals	: PAR_OPEN PAR_CLOSE													{}
+			| PAR_OPEN varform PAR_CLOSE											{}
 			;
 
-varform		: VAR ID COLON TYPE												{}
-			| VAR ID COLON TYPE COMMA varform 								{}
+varform		: VAR id COLON type														{}
+			| varform COMMA VAR id COLON type 										{}
 			;
 
-classbody	: BRACE_OPEN BRACE_CLOSE										{}
-			| BRACE_OPEN features BRACE_CLOSE								{}
+classbody	: BRACE_OPEN features BRACE_CLOSE										{}
 			;
 
-features	: feature 														{}
-			| feature features 												{}
-			;
-
-feature 	: DEF ID formals COLON TYPE EQ expr SEMICOLON					{}
-			| OVERRIDE DEF ID formals COLON TYPE EQ expr SEMICOLON			{}
-			| DEF ID formals COLON TYPE EQ NATIVE SEMICOLON					{}
-			| OVERRIDE DEF ID formals COLON TYPE EQ NATIVE SEMICOLON		{}
-			| VAR ID EQ NATIVE SEMICOLON									{}
-			| VAR ID COLON TYPE COLON expr SEMICOLON						{}
-			| BRACE_OPEN block BRACE_CLOSE SEMICOLON						{}
+features	: /* empty */															{}
+			| features DEF id formals COLON type EQ expr SEMICOLON					{}
+			| features OVERRIDE DEF id formals COLON type EQ expr SEMICOLON			{}
+			| features DEF id formals COLON type EQ NATIVE SEMICOLON				{}
+			| features OVERRIDE DEF id formals COLON type EQ NATIVE SEMICOLON		{}
+			| features VAR id EQ NATIVE SEMICOLON									{}
+			| features VAR id COLON type COLON expr SEMICOLON						{}
+			| features BRACE_OPEN block BRACE_CLOSE SEMICOLON						{}
 			;
 	
-formals		: PAR_OPEN PAR_CLOSE											{}
-			| PAR_OPEN form PAR_CLOSE										{}
+formals		: PAR_OPEN PAR_CLOSE													{}
+			| PAR_OPEN form PAR_CLOSE												{}
 			;
 
-form 		: ID COLON TYPE													{}
-			| ID COLON TYPE COMMA form 										{}
+form 		: id COLON type															{}
+			| form COMMA id COLON type 												{}
 			;
 
-actuals		: PAR_OPEN PAR_CLOSE											{}
-			| PAR_OPEN actual PAR_CLOSE										{}
+actuals		: PAR_OPEN PAR_CLOSE													{}
+			| PAR_OPEN actual PAR_CLOSE												{}
 			;
 
-actual 		: expr															{}
-			| expr COMMA actual 											{}
+actual 		: expr																	{}
+			| actual COMMA expr 													{}
 			;
 
-block 		: /* empty */													{}
-			| expr															{}
-			| blockpt														{}
+block 		: /* empty */															{}
+			| expr																	{}
+			| blockpt																{}
 			;
 
-blockpt		: expr SEMICOLON												{}
-			| expr SEMICOLON blockpt										{}
-			| VAR ID COLON TYPE EQ expr SEMICOLON 							{}
-			| VAR ID COLON TYPE EQ expr SEMICOLON blockpt					{}
+blockpt		: expr SEMICOLON expr													{}
+			| expr SEMICOLON blockpt												{}
+			| VAR id COLON type EQ expr SEMICOLON expr								{}
+			| VAR id COLON type EQ expr SEMICOLON blockpt							{}
 			;
 
-expr		: ex primary exp 												{}
-			| primary exp													{}
-			| ex primary													{}												{}
+id			: ID																	{}
 			;
 
-ex 			: ID EQ 														{}
-			| ID EQ ex 														{}
-			| EXM 															{}
-			| EXM ex 														{}
-			| SUB %prec UMIN 												{}
-			| SUB ex %prec UMIN 											{}
-			| IF PAR_OPEN expr PAR_CLOSE expr ELSE	 						{}
-			| IF PAR_OPEN expr PAR_CLOSE expr ELSE ex 						{}
-			| WHILE PAR_OPEN expr PAR_CLOSE 								{}
-			| WHILE PAR_OPEN expr PAR_CLOSE ex 								{}
+type		: TYPE																	{}
 			;
 
-exp			: LTEQ expr		 												{}
-			| LTEQ expr exp	 												{}
-			| LT expr	 													{}
-			| LT expr exp 													{}
-			| EQEQ expr		 												{}
-			| EQEQ expr exp 												{}
-			| NEQ expr														{}
-			| NEQ expr exp													{}
-			| MULT expr		 												{}
-			| MULT expr exp 												{}
-			| DIV expr	 													{}
-			| DIV expr exp 													{}
-			| ADD expr	 													{}
-			| ADD expr exp 													{}
-			| SUB expr	 													{}
-			| SUB expr exp 													{}
-			| MATCH cases	 												{}
-			| MATCH cases exp 												{}
-			| DOT ID actuals 												{}
-			| DOT ID actuals exp											{}
+expr		: id EQ expr															{}
+			| EXM expr																{}
+			| SUB expr %prec UMIN													{}
+			| IF PAR_OPEN expr PAR_CLOSE expr ELSE expr %prec W								{}
+			| WHILE PAR_OPEN expr PAR_CLOSE expr %prec W							{}
+			| SUPER DOT id actuals													{}
+			| id actuals															{}
+			| NEW type actuals														{}
+			| BRACE_OPEN block BRACE_CLOSE											{}
+			| PAR_OPEN expr PAR_CLOSE												{}
+			| expr DOT id actuals													{}
+			| expr MATCH cases														{}
+			| expr LTEQ expr 														{}
+			| expr LT expr															{}
+			| expr EQEQ expr														{}
+			| expr MULT expr														{}
+			| expr DIV expr															{}
+			| expr ADD expr															{}
+			| expr SUB expr															{}
+			| NULLVAL																{}
+			| PAR_OPEN PAR_CLOSE													{}
+			| id																	{}
+			| INTEGER																{}
+			| STRING																{}
+			| BOOL																	{}
+			| THIS																	{}
 			;
 
-primary		: ID actuals 													{}
-			| SUPER DOT ID actuals											{}
-			| NEW TYPE actuals												{}
-			| BRACE_OPEN block BRACE_CLOSE 									{}
-			| PAR_OPEN expr PAR_CLOSE										{}
-			| NULLVAL														{}
-			| PAR_OPEN PAR_CLOSE											{}
-			| ID 															{}
-			| INTEGER 														{}
-			| STRING 														{}
-			| BOOL	 														{}
-			| THIS 															{}
+cases		: BRACE_OPEN cas BRACE_CLOSE 											{}
 			;
 
-cases		: BRACE_OPEN cas BRACE_CLOSE 									{}
-			;
-
-cas 		: CASE ID COLON TYPE ARROW block								{}
-			| CASE ID COLON TYPE ARROW block cas							{}
-			| CASE NULLVAL ARROW block 										{}
-			| CASE NULLVAL ARROW block cas									{}
+cas 		: CASE id COLON type ARROW block										{}
+			| cas CASE id COLON type ARROW block									{}
+			| CASE NULLVAL ARROW block 												{}
+			| cas CASE NULLVAL ARROW block											{}
 			;
 
 
