@@ -3,12 +3,11 @@
 class Node
 {
 public:
-	Node() {
-		left = right = NULL;
+	Node() : left(NULL), right(NULL) {
 	}
 	~Node() {
 	}
-	bool addChild(Node c, bool r) {
+	/*bool addChild(Node c, bool r) {
 		if (r) {
 			if (right!=NULL) return right->addChild(c,r);
 			right = &c;
@@ -17,6 +16,18 @@ public:
 			if (left!=NULL) return left->addChild(c,r);
 			left = &c;
 		}
+		return true;
+	}*/
+
+	bool addLeft(Node c) {
+		if (left!=NULL) return left->addChild(c,r);
+		left = &c;
+		return true;
+	}
+
+	bool addRight(Node c) {
+		if (right!=NULL) return right->addChild(c,r);
+		right = &c;
 		return true;
 	}
 	Node* left;
@@ -56,3 +67,13 @@ public:
 private:
 	bool val;
 };
+
+class ErrorNode : Node
+{
+public:
+	ErrorNode(std::string txt, int line) : text(txt), lineno(line) {}
+	~ErrorNode() {}
+private:
+	std::string text;
+	int lineno;
+}

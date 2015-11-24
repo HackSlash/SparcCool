@@ -65,11 +65,11 @@
 
 %%
 
-program		: classdecls															{}
+program		: classdecls															{$$ = new pogramNode();}
 			;
 
-classdecls	: classdecl																{}
-			| classdecl classdecls													{}
+classdecls	: classdecl																{$$ = new classdeclsNode();}
+			| classdecl classdecls													{$$ = new classdeclsNode();}
 			;
 
 classdecl  	: CLASS type varformals classbody										{}
