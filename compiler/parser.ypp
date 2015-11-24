@@ -3,6 +3,9 @@
 	#ifndef COOL_H
 	#include "compiler.h"
 	#endif
+	extern char* yytext;
+	extern int yylineno;
+	#include <iostream>
 %}
 /** Sets bison's error generation to be verbose **/
 %define parse.error verbose
@@ -84,6 +87,10 @@
 	exprNode* expr;
 	casesNode* cases;
 	casNode* cas;
+	ErrorNode* error;
+	typeNode* type;
+	idNode* id;
+	classdeclsNode* classdecls;
 }
 
 /** Declaration of all non-terminals **/
@@ -102,6 +109,10 @@
 %type <expr> expr
 %type <cases> cases
 %type <cas> cas
+%type <error> error
+%type <type> type
+%type <id> id
+%type <classdecls> classdecls
 
 /** BISON GRAMMAR LOGIC **/
 %%

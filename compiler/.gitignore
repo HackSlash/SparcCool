@@ -4,5 +4,6 @@ parser.hpp
 parser.cpp
 *.output
 tree_gen.h
+parser_gen.ypp
 *.o
 compiler

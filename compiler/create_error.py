@@ -5,7 +5,7 @@ scriptname = inspect.getfile(inspect.currentframe())
 bison_start = False
 debug = False
 infilename  = 'parser.ypp'
-outfilename = 'error.output'
+outfilename = 'parser_gen.yyp'
 worker = []
 
 def proc_line(line):
@@ -38,7 +38,7 @@ def proc_line(line):
 					tmp[x] = "error"
 					s = reduce(lambda x,y: x+" "+y, tmp)
 					s = "/* error */ | " + s
-					s += " {$$ = new ErrorNode(yytext, yylineno);}"
+					s += " {std::cerr << yytext << std::endl;}"
 					#if debug: print s
 					worker += [s]
 				return worker
