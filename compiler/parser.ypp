@@ -105,12 +105,11 @@
 
 /** BISON GRAMMAR LOGIC **/
 %%
-
-program		: classdecls															{}
+program		: classdecls															{$$ = new programNode();}
 			;
 
-classdecls	: classdecl																{}
-			| classdecl classdecls													{}
+classdecls	: classdecl																{$$ = new classdeclsNode();}
+			| classdecl classdecls													{$$ = new classdeclsNode();}
 			;
 
 classdecl  	: CLASS type varformals classbody										{}
