@@ -1,15 +1,56 @@
 %{
+	/** Imports && Headers **/
 	#ifndef COOL_H
 	#include "compiler.h"
 	#endif
 %}
-
+/** Sets bison's error generation to be verbose **/
 %define parse.error verbose
-
+/** Define start of a cool program **/
 %start program
 
-%token UMIN MULT DIV ADD SUB ID EXM THIS SUPER OVERRIDE NULLVAL NATIVE EXTENDS IF ELSE WHILE MATCH CASE STRING INTEGER BOOL CLASS TYPE SEMICOLON COLON EQEQ LTEQ LT EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE VAR DOT COMMA ARROW
+/** Token List **/
+%token UMIN
+%token MULT
+%token DIV
+%token ADD
+%token SUB
+%token ID
+%token EXM
+%token THIS
+%token SUPER
+%token OVERRIDE
+%token NULLVAL
+%token NATIVE
+%token EXTENDS
+%token IF
+%token ELSE
+%token WHILE
+%token MATCH
+%token CASE
+%token STRING
+%token INTEGER
+%token BOOL
+%token CLASS
+%token TYPE
+%token SEMICOLON
+%token COLON
+%token EQEQ
+%token LTEQ
+%token LT
+%token EQ
+%token NEW
+%token DEF
+%token PAR_OPEN
+%token PAR_CLOSE
+%token BRACE_OPEN
+%token BRACE_CLOSE
+%token VAR
+%token DOT
+%token COMMA
+%token ARROW
 
+/** Precidence **/
 %left EQ
 %left IF WHILE
 %left MATCH
@@ -22,6 +63,7 @@
 %left ELSE
 %left W
 
+/** Declaration of different Nodes **/
 %union {
 	StringNode* string;
 	IntNode* Int;
@@ -44,6 +86,7 @@
 	casNode* cas;
 }
 
+/** Declaration of all non-terminals **/
 %type <program> program
 %type <classdecl> classdecl
 %type <varformals> varformals
@@ -60,51 +103,27 @@
 %type <cases> cases
 %type <cas> cas
 
-//stmt: error ';'  /* On error, skip until ';' is read.  */
-
+/** BISON GRAMMAR LOGIC **/
 %%
 
 program		: classdecls															{}
-/* error */ | error																	{}
 			;
 
 classdecls	: classdecl																{}
 			| classdecl classdecls													{}
-/* error */ | error classdecls														{}
 			;
 
 classdecl  	: CLASS type varformals classbody										{}
 			| CLASS type varformals EXTENDS type actuals classbody					{}
 			| CLASS type varformals EXTENDS NATIVE classbody						{}
-/* error */ |  error type varformals classbody										{}
-/* error */ | CLASS error varformals classbody										{}
-/* error */ | CLASS type error classbody											{}
-/* error */ | error type varformals EXTENDS type actuals classbody					{}
-/* error */ | CLASS error varformals EXTENDS type actuals classbody					{}
-/* error */ | CLASS type error EXTENDS type actuals classbody						{}
-/* error */ | CLASS type varformals error type actuals classbody					{}
-/* error */ | CLASS type varformals EXTENDS error actuals classbody					{}
-/* error */ | CLASS type varformals EXTENDS type error classbody					{}
-/* error */ | error type varformals EXTENDS NATIVE classbody						{}
-/* error */ | CLASS error varformals EXTENDS NATIVE classbody						{}
-/* error */ | CLASS type error EXTENDS NATIVE classbody								{}
-/* error */ | CLASS type varformals error NATIVE classbody							{}
-/* error */ | CLASS type varformals EXTENDS error classbody							{}
 	        ;
 
 varformals	: PAR_OPEN PAR_CLOSE													{}
 			| PAR_OPEN varform PAR_CLOSE											{}
-/* error */ | error PAR_CLOSE														{}
-/* error */ | error varform PAR_CLOSE												{}
-/* error */ | PAR_OPEN error PAR_CLOSE												{}
 			;
 
 varform		: VAR id COLON type														{}
 			| varform COMMA VAR id COLON type 										{}
-/* error */ | error id COLON type													{}
-/* error */ | VAR error COLON type													{}
-/* error */ | VAR id error type														{}
-/* error */ | error COMMA VAR														{}
 			;
 
 classbody	: BRACE_OPEN features BRACE_CLOSE										{}
@@ -189,6 +208,4 @@ cas 		: CASE id COLON type ARROW block										{}
 			| CASE NULLVAL ARROW block 												{}
 			| cas CASE NULLVAL ARROW block											{}
 			;
-
-
 %%

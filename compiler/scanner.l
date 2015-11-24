@@ -1,12 +1,13 @@
 /*
  * Main FLEX file
- * TODO: define COOL language based on documentation
- * Start point: recognise classes as such
  */
+
+ /** FLEX Imports **/
 %pointer
 %option yylineno
 
 %top{
+	/** C/C++ Imports && Headers **/
 	#ifndef COOL_H
 	#include "compiler.h"
 	#endif
@@ -20,18 +21,19 @@
 	#define SAVE_STRING (yylval.string = new StringNode(stringBuffer))
 	#define SAVE_INT (yylval.Int = new IntNode(atoi(yytext)))
 	#define TOKEN(t) t
-	//(yylval.token = t)
 }
 
+/** FLEX Declarations **/
 CLASS_ID							[A-Z][_A-Za-z0-9]*
 ID									[_a-z][_A-Za-z0-9]*
 SIGN 								[+|-]
 INT 								0|[1-9][0-9]*
 WS									[" "|"\t"|"\n"|"\r"]
 
+/** Declaration of all States **/
 %s COMMENT STRING STRESCAPE CHAR CHARESCAPE TRSTRING
 
-
+/** FLEX LEXICON LOGIC **/
 %%
 <INITIAL,COMMENT>"/*"				{
 										if(comIndent==0)
@@ -132,11 +134,12 @@ WS									[" "|"\t"|"\n"|"\r"]
 <INITIAL>"yield"					genError(ill_key, yytext, yylineno); //Ilegal keyword
 <INITIAL>{ID}						return TOKEN(ID);
 <*>{WS}								{}
-<*>.								genError(ill_chr, yytext, yylineno);// Generates correct and incorrect errors.
+<*>.								genError(ill_chr, yytext, yylineno); //Generates correct and incorrect errors.
 
 %%
+/** C/C++ Functions **/
 
-
+/* Grabs the next file to process */
 void nextFile() {
 	getcwd(path, sizeof(path));
 	strcat(path,"/");
