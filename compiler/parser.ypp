@@ -2,8 +2,6 @@
 	#ifndef COOL_H
 	#include "compiler.h"
 	#endif
-
-	void yyerror(const char *);
 %}
 
 %define parse.error verbose
@@ -62,27 +60,51 @@
 %type <cases> cases
 %type <cas> cas
 
+//stmt: error ';'  /* On error, skip until ';' is read.  */
 
 %%
 
 program		: classdecls															{$$ = new pogramNode();}
+/* error */ | error																	{}
 			;
 
 classdecls	: classdecl																{$$ = new classdeclsNode();}
 			| classdecl classdecls													{$$ = new classdeclsNode();}
+/* error */ | error classdecls														{}
 			;
 
 classdecl  	: CLASS type varformals classbody										{}
 			| CLASS type varformals EXTENDS type actuals classbody					{}
 			| CLASS type varformals EXTENDS NATIVE classbody						{}
+/* error */ | error type varformals classbody										{}
+/* error */ | CLASS error varformals classbody										{}
+/* error */ | CLASS type error classbody											{}
+/* error */ | error type varformals EXTENDS type actuals classbody					{}
+/* error */ | CLASS error varformals EXTENDS type actuals classbody					{}
+/* error */ | CLASS type error EXTENDS type actuals classbody						{}
+/* error */ | CLASS type varformals error type actuals classbody					{}
+/* error */ | CLASS type varformals EXTENDS error actuals classbody					{}
+/* error */ | CLASS type varformals EXTENDS type error classbody					{}
+/* error */ | error type varformals EXTENDS NATIVE classbody						{}
+/* error */ | CLASS error varformals EXTENDS NATIVE classbody						{}
+/* error */ | CLASS type error EXTENDS NATIVE classbody								{}
+/* error */ | CLASS type varformals error NATIVE classbody							{}
+/* error */ | CLASS type varformals EXTENDS error classbody							{}
 	        ;
 
 varformals	: PAR_OPEN PAR_CLOSE													{}
 			| PAR_OPEN varform PAR_CLOSE											{}
+/* error */ | error PAR_CLOSE														{}
+/* error */ | error varform PAR_CLOSE												{}
+/* error */ | PAR_OPEN error PAR_CLOSE												{}
 			;
 
 varform		: VAR id COLON type														{}
 			| varform COMMA VAR id COLON type 										{}
+/* error */ | error id COLON type													{}
+/* error */ | VAR error COLON type													{}
+/* error */ | VAR id error type														{}
+/* error */ | error COMMA VAR														{}
 			;
 
 classbody	: BRACE_OPEN features BRACE_CLOSE										{}
@@ -134,7 +156,7 @@ type		: TYPE																	{}
 expr		: id EQ expr															{}
 			| EXM expr																{}
 			| SUB expr %prec UMIN													{}
-			| IF PAR_OPEN expr PAR_CLOSE expr ELSE expr %prec W								{}
+			| IF PAR_OPEN expr PAR_CLOSE expr ELSE expr %prec W						{}
 			| WHILE PAR_OPEN expr PAR_CLOSE expr %prec W							{}
 			| SUPER DOT id actuals													{}
 			| id actuals															{}

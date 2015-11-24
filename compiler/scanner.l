@@ -23,7 +23,7 @@
 	//(yylval.token = t)
 }
 
-CLASS_ID							[A-Z][A-Za-z0-9]*
+CLASS_ID							[A-Z][_A-Za-z0-9]*
 ID									[_a-z][_A-Za-z0-9]*
 SIGN 								[+|-]
 INT 								0|[1-9][0-9]*
