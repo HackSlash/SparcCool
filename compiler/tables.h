@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+#include <cstdlib>
 
 enum types { Int, Bool, String, Unit, Null, Nothing, Any };
 
@@ -15,7 +16,9 @@ public:
 	unsigned int ref;
 };
 
-extern std::vector<strTableEntry> stringList;
+extern std::vector<strTableEntry> stringTable;
+extern std::vector<intTableEntry> intTable;
+extern std::vector<symbol> idTable;
 
 class strTableEntry
 {
@@ -36,16 +39,21 @@ public:
 	std::string val;
 };
 
-typedef struct
+class intTableEntry
 {
+public:
+	intTableEntry(std::string v) {
+		bool foundInTable = false;
+		for (std::vector<strTableEntry>::iterator i = stringList.begin(); i != stringList.end(); ++i)
+		{
+			if (stringList[i] == v)
+			{
+				foundInTable = true;
+				break;
+			}
+		}
+	}
+	~intTableEntry();
 	int id;
-	std::string val;
-} strTableEntry;
-
-int addStrEntry(std::string v) {
-
-}
-
-std::vector<int> idList;
-bool True = true;
-bool False = false;
+	int val;
+};
