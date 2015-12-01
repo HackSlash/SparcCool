@@ -1,15 +1,59 @@
 %{
+	/** Imports && Headers **/
 	#ifndef COOL_H
 	#include "compiler.h"
 	#endif
+	extern char* yytext;
+	extern int yylineno;
+	#include <iostream>
 %}
-
+/** Sets bison's error generation to be verbose **/
 %define parse.error verbose
-
+/** Define start of a cool program **/
 %start program
 
-%token UMIN MULT DIV ADD SUB ID EXM THIS SUPER OVERRIDE NULLVAL NATIVE EXTENDS IF ELSE WHILE MATCH CASE STRING INTEGER BOOL CLASS TYPE SEMICOLON COLON EQEQ LTEQ LT EQ NEW DEF PAR_OPEN PAR_CLOSE BRACE_OPEN BRACE_CLOSE VAR DOT COMMA ARROW
+/** Token List **/
+%token UMIN
+%token MULT
+%token DIV
+%token ADD
+%token SUB
+%token ID
+%token EXM
+%token THIS
+%token SUPER
+%token OVERRIDE
+%token NULLVAL
+%token NATIVE
+%token EXTENDS
+%token IF
+%token ELSE
+%token WHILE
+%token MATCH
+%token CASE
+%token STRING
+%token INTEGER
+%token BOOL
+%token CLASS
+%token TYPE
+%token SEMICOLON
+%token COLON
+%token EQEQ
+%token LTEQ
+%token LT
+%token EQ
+%token NEW
+%token DEF
+%token PAR_OPEN
+%token PAR_CLOSE
+%token BRACE_OPEN
+%token BRACE_CLOSE
+%token VAR
+%token DOT
+%token COMMA
+%token ARROW
 
+/** Precidence **/
 %left EQ
 %left IF WHILE
 %left MATCH
@@ -22,6 +66,7 @@
 %left ELSE
 %left W
 
+/** Declaration of different Nodes **/
 %union {
 	StringNode* string;
 	IntNode* Int;
@@ -42,8 +87,12 @@
 	exprNode* expr;
 	casesNode* cases;
 	casNode* cas;
+	typeNode* type;
+	idNode* id;
+	classdeclsNode* classdecls;
 }
 
+/** Declaration of all non-terminals **/
 %type <program> program
 %type <classdecl> classdecl
 %type <varformals> varformals
@@ -59,136 +108,123 @@
 %type <expr> expr
 %type <cases> cases
 %type <cas> cas
+%type <type> type
+%type <id> id
+%type <classdecls> classdecls
 
-//stmt: error ';'  /* On error, skip until ';' is read.  */
-
+/** BISON GRAMMAR LOGIC **/
 %%
-
-program		: classdecls															{$$ = new pogramNode();}
-/* error */ | error																	{}
+program		: classdecls															{$$ = new programNode($1);}
 			;
 
-classdecls	: classdecl																{$$ = new classdeclsNode();}
-			| classdecl classdecls													{$$ = new classdeclsNode();}
-/* error */ | error classdecls														{}
+classdecls	: classdecl																{$$ = new classdeclsNode($1);}
+			| classdecl classdecls													{$$ = new classdeclsNode($1,$2);}
+			| error classdecls														{genError(inv_syn,yytext,yylineno);}
 			;
 
-classdecl  	: CLASS type varformals classbody										{}
-			| CLASS type varformals EXTENDS type actuals classbody					{}
-			| CLASS type varformals EXTENDS NATIVE classbody						{/* new classdeclNode(type,varformals,native,NULL,classbody)? */}
-/* error */ | error type varformals classbody										{}
-/* error */ | CLASS error varformals classbody										{}
-/* error */ | CLASS type error classbody											{}
-/* error */ | error type varformals EXTENDS type actuals classbody					{}
-/* error */ | CLASS error varformals EXTENDS type actuals classbody					{}
-/* error */ | CLASS type error EXTENDS type actuals classbody						{}
-/* error */ | CLASS type varformals error type actuals classbody					{}
-/* error */ | CLASS type varformals EXTENDS error actuals classbody					{}
-/* error */ | CLASS type varformals EXTENDS type error classbody					{}
-/* error */ | error type varformals EXTENDS NATIVE classbody						{}
-/* error */ | CLASS error varformals EXTENDS NATIVE classbody						{}
-/* error */ | CLASS type error EXTENDS NATIVE classbody								{}
-/* error */ | CLASS type varformals error NATIVE classbody							{}
-/* error */ | CLASS type varformals EXTENDS error classbody							{}
+classdecl  	: CLASS type varformals classbody										{$$ = new classdeclNode($2,$3,$4);}
+			| CLASS type varformals EXTENDS type actuals classbody					{$$ = new classdeclNode($2,$3,$5,$6,$7);}
+			| CLASS type varformals EXTENDS NATIVE classbody						{$$ = new classdeclNode($2,$3,$6); /* new classdeclNode(type,varformals,native,NULL,classbody)? */}
+			| error classbody														{genError(inv_syn,yytext,yylineno);}
 	        ;
 
-varformals	: PAR_OPEN PAR_CLOSE													{}
-			| PAR_OPEN varform PAR_CLOSE											{}
-/* error */ | error PAR_CLOSE														{}
-/* error */ | error varform PAR_CLOSE												{}
-/* error */ | PAR_OPEN error PAR_CLOSE												{}
+varformals	: PAR_OPEN PAR_CLOSE													{$$ = new varformalsNode();}
+			| PAR_OPEN varform PAR_CLOSE											{$$ = new varformalsNode($2);}
+			| PAR_OPEN error PAR_CLOSE												{genError(inv_syn,yytext,yylineno);}
 			;
 
-varform		: VAR id COLON type														{}
-			| varform COMMA VAR id COLON type 										{}
-/* error */ | error id COLON type													{}
-/* error */ | VAR error COLON type													{}
-/* error */ | VAR id error type														{}
-/* error */ | error COMMA VAR														{}
+varform		: VAR id COLON type														{$$ = new varformNode($2,$4);}
+			| varform COMMA VAR id COLON type 										{$$ = new varformNode($1,$4,$6);}
+			| error COLON type														{genError(inv_syn,yytext,yylineno);}
 			;
 
-classbody	: BRACE_OPEN features BRACE_CLOSE										{}
+classbody	: BRACE_OPEN features BRACE_CLOSE										{$$ = new classbodyNode($2);}
+			| BRACE_OPEN error BRACE_CLOSE											{genError(inv_syn,yytext,yylineno);}
 			;
 
 features	: /* empty */															{}
-			| features DEF id formals COLON type EQ expr SEMICOLON					{}
-			| features OVERRIDE DEF id formals COLON type EQ expr SEMICOLON			{}
-			| features DEF id formals COLON type EQ NATIVE SEMICOLON				{}
-			| features OVERRIDE DEF id formals COLON type EQ NATIVE SEMICOLON		{}
-			| features VAR id EQ NATIVE SEMICOLON									{}
-			| features VAR id COLON type COLON expr SEMICOLON						{}
-			| features BRACE_OPEN block BRACE_CLOSE SEMICOLON						{}
+			| features DEF id formals COLON type EQ expr SEMICOLON					{$$ = new featuresNode($1,$3,$4,$6,$8);}
+			| features OVERRIDE DEF id formals COLON type EQ expr SEMICOLON			{$$ = new featuresNode($1,$4,$5,$7,$9);}
+			| features DEF id formals COLON type EQ NATIVE SEMICOLON				{$$ = new featuresNode($1,$3,$4,$6);}
+			| features OVERRIDE DEF id formals COLON type EQ NATIVE SEMICOLON		{$$ = new featuresNode($1,$4,$5,$7);}
+			| features VAR id EQ NATIVE SEMICOLON									{$$ = new featuresNode($1,$3);}
+			| features VAR id COLON type COLON expr SEMICOLON						{$$ = new featuresNode($1,$3,$5,$7)}
+			| features BRACE_OPEN block BRACE_CLOSE SEMICOLON						{$$ = new featuresNode($1,$3);}
+			| error SEMICOLON														{genError(inv_syn,yytext,yylineno);}
 			;
 
-formals		: PAR_OPEN PAR_CLOSE													{}
-			| PAR_OPEN form PAR_CLOSE												{}
+formals		: PAR_OPEN PAR_CLOSE													{$$ = new formalsNode();}
+			| PAR_OPEN form PAR_CLOSE												{$$ = new formalsNode($2);}
 			;
 
-form 		: id COLON type															{}
-			| form COMMA id COLON type 												{}
+form 		: id COLON type															{$$ = new formNode($1,$3);}
+			| form COMMA id COLON type 												{$$ = new formNode($1,$3,$5);}
 			;
 
-actuals		: PAR_OPEN PAR_CLOSE													{}
-			| PAR_OPEN actual PAR_CLOSE												{}
+actuals		: PAR_OPEN PAR_CLOSE													{$$ = new actualsNode();}
+			| PAR_OPEN actual PAR_CLOSE												{$$ = new actualsNode($2);}
+			| PAR_OPEN error PAR_CLOSE												{genError(inv_syn,yytext,yylineno);}
 			;
 
-actual 		: expr																	{}
-			| actual COMMA expr 													{}
+actual 		: expr																	{$$ = new actualNode($1);}
+			| actual COMMA expr 													{$$ = new actualNode($1,$3);}
+			| error COMMA															{genError(inv_syn,yytext,yylineno);}
 			;
 
 block 		: /* empty */															{}
-			| expr																	{}
-			| blockpt																{}
+			| expr																	{$$ = new blockNode($1);}
+			| blockpt																{$$ = new blockNode($1);}
 			;
 
-blockpt		: expr SEMICOLON expr													{}
-			| expr SEMICOLON blockpt												{}
-			| VAR id COLON type EQ expr SEMICOLON expr								{}
-			| VAR id COLON type EQ expr SEMICOLON blockpt							{}
+blockpt		: expr SEMICOLON expr													{$$ = new blockptNode($1,$3);}
+			| expr SEMICOLON blockpt												{$$ = new blockptNode($1,$3);}
+			| VAR id COLON type EQ expr SEMICOLON expr								{$$ = new blockptNode($2,$4,$6,$8);}
+			| VAR id COLON type EQ expr SEMICOLON blockpt							{$$ = new blockptNode($2,$4,$6,$8);}
+			| error SEMICOLON														{genError(inv_syn,yytext,yylineno);}
 			;
 
-id			: ID																	{}
+id			: ID																	{$$ = new idNode($1);}
 			;
 
-type		: TYPE																	{}
+type		: TYPE																	{$$ = new typeNode($1);}
 			;
 
-expr		: id EQ expr															{}
-			| EXM expr																{}
-			| SUB expr %prec UMIN													{}
-			| IF PAR_OPEN expr PAR_CLOSE expr ELSE expr %prec W						{}
-			| WHILE PAR_OPEN expr PAR_CLOSE expr %prec W							{}
-			| SUPER DOT id actuals													{}
-			| id actuals															{}
-			| NEW type actuals														{}
-			| BRACE_OPEN block BRACE_CLOSE											{}
-			| PAR_OPEN expr PAR_CLOSE												{}
-			| expr DOT id actuals													{}
-			| expr MATCH cases														{}
-			| expr LTEQ expr 														{}
-			| expr LT expr															{}
-			| expr EQEQ expr														{}
-			| expr MULT expr														{}
-			| expr DIV expr															{}
-			| expr ADD expr															{}
-			| expr SUB expr															{}
-			| NULLVAL																{}
-			| PAR_OPEN PAR_CLOSE													{}
-			| id																	{}
-			| INTEGER																{}
-			| STRING																{}
-			| BOOL																	{}
-			| THIS																	{}
+expr		: id EQ expr															{$$ = new exprNode($1,$3);}
+			| EXM expr																{$$ = new exprNode($2);}
+			| SUB expr %prec UMIN													{$$ = new exprNode($2);}
+			| IF PAR_OPEN expr PAR_CLOSE expr ELSE expr %prec W						{$$ = new exprNode($3,$5,$7);}
+			| WHILE PAR_OPEN expr PAR_CLOSE expr %prec W							{$$ = new exprNode($3,$5);}
+			| SUPER DOT id actuals													{$$ = new exprNode($3,$4);}
+			| id actuals															{$$ = new exprNode($1,$2);}
+			| NEW type actuals														{$$ = new exprNode($2,$3);}
+			| BRACE_OPEN block BRACE_CLOSE											{$$ = new exprNode($2);}
+			| PAR_OPEN expr PAR_CLOSE												{$$ = new exprNode($2);}
+			| expr DOT id actuals													{$$ = new exprNode($1,$3,$4);}
+			| expr MATCH cases														{$$ = new exprNode($1,$3);}
+			| expr LTEQ expr 														{$$ = new exprNode($1,$3);}
+			| expr LT expr															{$$ = new exprNode($1,$3);}
+			| expr EQEQ expr														{$$ = new exprNode($1,$3);}
+			| expr MULT expr														{$$ = new exprNode($1,$3);}
+			| expr DIV expr															{$$ = new exprNode($1,$3);}
+			| expr ADD expr															{$$ = new exprNode($1,$3);}
+			| expr SUB expr															{$$ = new exprNode($1,$3);}
+			| NULLVAL																{$$ = new exprNode();}
+			| PAR_OPEN PAR_CLOSE													{$$ = new exprNode();}
+			| id																	{$$ = new exprNode($1);}
+			| INTEGER																{$$ = new exprNode($1);}
+			| STRING																{$$ = new exprNode($1);}
+			| BOOL																	{$$ = new exprNode($1);}
+			| THIS																	{$$ = new thisNode();}
 			;
 
-cases		: BRACE_OPEN cas BRACE_CLOSE 											{}
+cases		: BRACE_OPEN cas BRACE_CLOSE 											{$$ = new casesNode($2);}
+			| BRACE_OPEN error BRACE_CLOSE											{genError(inv_syn,yytext,yylineno);}
 			;
 
-cas 		: CASE id COLON type ARROW block										{}
-			| cas CASE id COLON type ARROW block									{}
-			| CASE NULLVAL ARROW block 												{}
-			| cas CASE NULLVAL ARROW block											{}
+cas 		: CASE id COLON type ARROW block										{$$ = new casNode($2,$4,$6);}
+			| cas CASE id COLON type ARROW block									{$$ = new casNode($1,$3,$5,$7);}
+			| CASE NULLVAL ARROW block 												{$$ = new casNode(new exprNode(),$4);}
+			| cas CASE NULLVAL ARROW block											{$$ = new casNode($1,new exprNode(),$5);}
+			| error ARROW block														{genError(inv_syn,yytext,yylineno);}
 			;
-
-
 %%

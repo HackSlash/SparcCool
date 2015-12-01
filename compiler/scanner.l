@@ -1,12 +1,13 @@
 /*
  * Main FLEX file
- * TODO: define COOL language based on documentation
- * Start point: recognise classes as such
  */
+
+ /** FLEX Imports **/
 %pointer
 %option yylineno
 
 %top{
+	/** C/C++ Imports && Headers **/
 	#ifndef COOL_H
 	#include "compiler.h"
 	#endif
@@ -15,23 +16,25 @@
 	#include <string.h>
 	#include "parser.hpp"
 	#include "error.h"
+	#include "tables.h"
 	extern YYSTYPE yylval;
 
-	#define SAVE_STRING (yylval.string = new StringNode(stringBuffer))
-	#define SAVE_INT (yylval.Int = new IntNode(atoi(yytext)))
+	#define SAVE_STRING (new StringNode(stringBuffer); yylval.symbol = stringTable.addString(stringBuffer))
+	#define SAVE_INT (new IntNode(atoi(yytext)); yylval.symbol = intTable.addString(yytext))
 	#define TOKEN(t) t
-	//(yylval.token = t)
 }
 
+/** FLEX Declarations **/
 CLASS_ID							[A-Z][_A-Za-z0-9]*
 ID									[_a-z][_A-Za-z0-9]*
 SIGN 								[+|-]
 INT 								0|[1-9][0-9]*
 WS									[" "|"\t"|"\n"|"\r"]
 
+/** Declaration of all States **/
 %s COMMENT STRING STRESCAPE CHAR CHARESCAPE TRSTRING
 
-
+/** FLEX LEXICON LOGIC **/
 %%
 <INITIAL,COMMENT>"/*"				{
 										if(comIndent==0)
@@ -47,8 +50,8 @@ WS									[" "|"\t"|"\n"|"\r"]
 										}
 									}
 <COMMENT>.
-<INITIAL>"this"						return TOKEN(THIS);
 <INITIAL>"super"					return TOKEN(SUPER);
+<INITIAL>"this"						return TOKEN(THIS);
 <INITIAL>"override"					return TOKEN(OVERRIDE);
 <INITIAL>"null"						return TOKEN(NULLVAL);
 <INITIAL>"extends"					return TOKEN(EXTENDS);
@@ -77,9 +80,9 @@ WS									[" "|"\t"|"\n"|"\r"]
 <STRESCAPE>.						genError(inv_syn, yytext, yylineno);BEGIN(STRING);
 <STRING>.							strcopy(yytext);
 <INITIAL>{INT}						SAVE_INT;return TOKEN(INTEGER);
-<INITIAL>"true"|"false"				return TOKEN(BOOL);
+<INITIAL>"true"|"false"				yylval.boolean = strcmp(yytext, "true") ? true : false; return TOKEN(BOOL);
 <INITIAL>"class"					return TOKEN(CLASS);
-<INITIAL>{CLASS_ID}					return TOKEN(TYPE);
+<INITIAL>{CLASS_ID}					yylval.symbol = idTable.addString(yytext); return TOKEN(TYPE);
 <INITIAL>";" 						return TOKEN(SEMICOLON);
 <INITIAL>":"						return TOKEN(COLON);
 <INITIAL>"+"						return TOKEN(ADD);
@@ -130,13 +133,14 @@ WS									[" "|"\t"|"\n"|"\r"]
 <INITIAL>"val"						genError(ill_key, yytext, yylineno); //Ilegal keyword
 <INITIAL>"with"						genError(ill_key, yytext, yylineno); //Ilegal keyword
 <INITIAL>"yield"					genError(ill_key, yytext, yylineno); //Ilegal keyword
-<INITIAL>{ID}						return TOKEN(ID);
+<INITIAL>{ID}						yylval.symbol = idtable.addString(yytext); return TOKEN(ID);
 <*>{WS}								{}
-<*>.								genError(ill_chr, yytext, yylineno);// Generates correct and incorrect errors.
+<*>.								genError(ill_chr, yytext, yylineno); //Generates correct and incorrect errors.
 
 %%
+/** C/C++ Functions **/
 
-
+/* Grabs the next file to process */
 void nextFile() {
 	getcwd(path, sizeof(path));
 	strcat(path,"/");

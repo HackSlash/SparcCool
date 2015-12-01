@@ -30,6 +30,6 @@ cpp_exe: cpp_obj
 	$(CC) $(COBJ) -o $(TARGET) $(CFLAGS)
 
 clean:
-	rm -rf $(TARGET) $(LTARGET) parser.hpp $(YTARGET) scanner.cpp  parser.output $(PYTARGET) $(COBJ)
+	rm -rf $(TARGET) $(LTARGET) parser.hpp $(YTARGET) scanner.cpp  parser.output $(TREE_TARGET) $(COBJ)
 
 .PHONY: clean all
