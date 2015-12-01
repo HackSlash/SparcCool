@@ -7,10 +7,6 @@ LL=flex
 LTARGET=scanner.c
 LFILES=scanner.l
 
-PY=python2
-PFILES=create_tree.py
-PYTARGET=tree_gen.h
-
 CC=g++
 CFILES=$(YTARGET) $(LTARGET) compiler.cpp
 CFLAGS=-std=c++11 -Wall -g -lfl
@@ -18,7 +14,7 @@ COBJ=parser.o scanner.o compiler.o
 TARGET=compiler
 
 
-all: parser scanner tree cpp_obj cpp_exe
+all: parser scanner cpp_obj cpp_exe
 
 parser:
 	$(YY) $(YFLAGS) -o $(YTARGET) $(YFILES)
@@ -26,10 +22,8 @@ parser:
 scanner: parser
 	$(LL) -o $(LTARGET) $(LFILES)
 
-tree:
-	./create_tree.py -i $(YFILES) -o $(PYTARGET)
 
-cpp_obj: scanner parser tree
+cpp_obj: scanner parser
 	$(CC) $(CFILES) -c $(CFLAGS)
 
 cpp_exe: cpp_obj

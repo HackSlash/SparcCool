@@ -34,7 +34,7 @@ def proc_line(line):
 			words_list = words.split()
 			if len(words_list) > 0:
 				for x in xrange(len(words_list)):
-					tmp = words_list
+					tmp = list(words_list)
 					tmp[x] = "error"
 					s = reduce(lambda x,y: x+" "+y, tmp)
 					s = "/* error */ | " + s

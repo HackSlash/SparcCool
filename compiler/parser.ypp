@@ -75,7 +75,7 @@ classdecls	: classdecl																{$$ = new classdeclsNode();}
 
 classdecl  	: CLASS type varformals classbody										{}
 			| CLASS type varformals EXTENDS type actuals classbody					{}
-			| CLASS type varformals EXTENDS NATIVE classbody						{}
+			| CLASS type varformals EXTENDS NATIVE classbody						{/* new classdeclNode(type,varformals,native,NULL,classbody)? */}
 /* error */ | error type varformals classbody										{}
 /* error */ | CLASS error varformals classbody										{}
 /* error */ | CLASS type error classbody											{}
