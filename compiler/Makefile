@@ -8,9 +8,9 @@ LTARGET=scanner.c
 LFILES=scanner.l
 
 CC=g++
-CFILES=$(YTARGET) $(LTARGET) compiler.cpp
+CFILES=$(YTARGET) $(LTARGET) compiler.cpp tree.cpp
 CFLAGS=-std=c++11 -Wall -g -lfl
-COBJ=parser.o scanner.o compiler.o
+COBJ=parser.o scanner.o compiler.o tree.o
 TARGET=compiler
 
 

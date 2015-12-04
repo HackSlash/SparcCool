@@ -124,7 +124,7 @@ classdecls	: classdecl																{$$ = new classdeclsNode($1);}
 
 classdecl  	: CLASS type varformals classbody										{$$ = new classdeclNode($2,$3,$4);}
 			| CLASS type varformals EXTENDS type actuals classbody					{$$ = new classdeclNode($2,$3,$5,$6,$7);}
-			| CLASS type varformals EXTENDS NATIVE classbody						{$$ = new classdeclNode($2,$3,$6); /* new classdeclNode(type,varformals,native,NULL,classbody)? */}
+			| CLASS type varformals EXTENDS NATIVE classbody						{$$ = new classdeclNode($2,$3,new typeNode(-1),NULL,$6); /* new classdeclNode(type,varformals,native,NULL,classbody)? */}
 			| error classbody														{genError(inv_syn,yytext,yylineno);}
 	        ;
 
@@ -143,12 +143,12 @@ classbody	: BRACE_OPEN features BRACE_CLOSE										{$$ = new classbodyNode($2)
 			;
 
 features	: /* empty */															{}
-			| features DEF id formals COLON type EQ expr SEMICOLON					{$$ = new featuresNode($1,$3,$4,$6,$8);}
-			| features OVERRIDE DEF id formals COLON type EQ expr SEMICOLON			{$$ = new featuresNode($1,$4,$5,$7,$9);}
-			| features DEF id formals COLON type EQ NATIVE SEMICOLON				{$$ = new featuresNode($1,$3,$4,$6);}
-			| features OVERRIDE DEF id formals COLON type EQ NATIVE SEMICOLON		{$$ = new featuresNode($1,$4,$5,$7);}
+			| features DEF id formals COLON type EQ expr SEMICOLON					{$$ = new featuresNode(false,$1,$3,$4,$6,$8);}
+			| features OVERRIDE DEF id formals COLON type EQ expr SEMICOLON			{$$ = new featuresNode(true,$1,$4,$5,$7,$9);}
+			| features DEF id formals COLON type EQ NATIVE SEMICOLON				{$$ = new featuresNode(false,$1,$3,$4,$6);}
+			| features OVERRIDE DEF id formals COLON type EQ NATIVE SEMICOLON		{$$ = new featuresNode(true,$1,$4,$5,$7);}
 			| features VAR id EQ NATIVE SEMICOLON									{$$ = new featuresNode($1,$3);}
-			| features VAR id COLON type COLON expr SEMICOLON						{$$ = new featuresNode($1,$3,$5,$7)}
+			| features VAR id COLON type EQ expr SEMICOLON							{$$ = new featuresNode($1,$3,$5,$7)}
 			| features BRACE_OPEN block BRACE_CLOSE SEMICOLON						{$$ = new featuresNode($1,$3);}
 			| error SEMICOLON														{genError(inv_syn,yytext,yylineno);}
 			;
@@ -183,38 +183,38 @@ blockpt		: expr SEMICOLON expr													{$$ = new blockptNode($1,$3);}
 			| error SEMICOLON														{genError(inv_syn,yytext,yylineno);}
 			;
 
-id			: ID																	{$$ = new idNode($1);}
+id			: ID																	{$$ = new idNode(yytext);}
 			;
 
-type		: TYPE																	{$$ = new typeNode($1);}
+type		: TYPE																	{$$ = new typeNode(yytext);}
 			;
 
-expr		: id EQ expr															{$$ = new exprNode($1,$3);}
-			| EXM expr																{$$ = new exprNode($2);}
-			| SUB expr %prec UMIN													{$$ = new exprNode($2);}
-			| IF PAR_OPEN expr PAR_CLOSE expr ELSE expr %prec W						{$$ = new exprNode($3,$5,$7);}
-			| WHILE PAR_OPEN expr PAR_CLOSE expr %prec W							{$$ = new exprNode($3,$5);}
-			| SUPER DOT id actuals													{$$ = new exprNode($3,$4);}
-			| id actuals															{$$ = new exprNode($1,$2);}
-			| NEW type actuals														{$$ = new exprNode($2,$3);}
-			| BRACE_OPEN block BRACE_CLOSE											{$$ = new exprNode($2);}
-			| PAR_OPEN expr PAR_CLOSE												{$$ = new exprNode($2);}
-			| expr DOT id actuals													{$$ = new exprNode($1,$3,$4);}
-			| expr MATCH cases														{$$ = new exprNode($1,$3);}
-			| expr LTEQ expr 														{$$ = new exprNode($1,$3);}
-			| expr LT expr															{$$ = new exprNode($1,$3);}
-			| expr EQEQ expr														{$$ = new exprNode($1,$3);}
-			| expr MULT expr														{$$ = new exprNode($1,$3);}
-			| expr DIV expr															{$$ = new exprNode($1,$3);}
-			| expr ADD expr															{$$ = new exprNode($1,$3);}
-			| expr SUB expr															{$$ = new exprNode($1,$3);}
-			| NULLVAL																{$$ = new exprNode();}
-			| PAR_OPEN PAR_CLOSE													{$$ = new exprNode();}
-			| id																	{$$ = new exprNode($1);}
-			| INTEGER																{$$ = new exprNode($1);}
-			| STRING																{$$ = new exprNode($1);}
-			| BOOL																	{$$ = new exprNode($1);}
-			| THIS																	{$$ = new thisNode();}
+expr		: id EQ expr															{$$ = new exprNode(assign,$1,$3);}
+			| EXM expr																{$$ = new exprNode(unary_not,$2);}
+			| SUB expr %prec UMIN													{$$ = new exprNode(unary_minus,$2);}
+			| IF PAR_OPEN expr PAR_CLOSE expr ELSE expr %prec W						{$$ = new exprNode(if_statement,$3,$5,$7);}
+			| WHILE PAR_OPEN expr PAR_CLOSE expr %prec W							{$$ = new exprNode(while_loop,$3,$5);}
+			| SUPER DOT id actuals													{$$ = new exprNode(super_call,$3,$4);}
+			| id actuals															{$$ = new exprNode(call,$1,$2);}
+			| NEW type actuals														{$$ = new exprNode(instantiation,$2,$3);}
+			| BRACE_OPEN block BRACE_CLOSE											{$$ = new exprNode(braced_block,$2);}
+			| PAR_OPEN expr PAR_CLOSE												{$$ = new exprNode(par_expr,$2);}
+			| expr DOT id actuals													{$$ = new exprNode(obj_call,$1,$3,$4);}
+			| expr MATCH cases														{$$ = new exprNode(match_cases,$1,$3);}
+			| expr LTEQ expr 														{$$ = new exprNode(cmp_lteq,$1,$3);}
+			| expr LT expr															{$$ = new exprNode(cmp_lt,$1,$3);}
+			| expr EQEQ expr														{$$ = new exprNode(cmp_eq,$1,$3);}
+			| expr MULT expr														{$$ = new exprNode(multiplication,$1,$3);}
+			| expr DIV expr															{$$ = new exprNode(division,$1,$3);}
+			| expr ADD expr															{$$ = new exprNode(addition,$1,$3);}
+			| expr SUB expr															{$$ = new exprNode(subtraction,$1,$3);}
+			| NULLVAL																{$$ = new exprNode(null);}
+			| PAR_OPEN PAR_CLOSE													{$$ = new exprNode(unit);}
+			| id																	{$$ = new exprNode(identifier,$1);}
+			| INTEGER																{$$ = new exprNode(lit_int,new IntNode(yytext));}
+			| STRING																{$$ = new exprNode(lit_string,new StringNode(yytext));}
+			| BOOL																	{$$ = new exprNode(lit_bool,new BoolNode(yytext));}
+			| THIS																	{$$ = new exprNode(this_reference);}
 			;
 
 cases		: BRACE_OPEN cas BRACE_CLOSE 											{$$ = new casesNode($2);}
