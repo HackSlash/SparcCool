@@ -1,3 +1,6 @@
+`define BYTESIZE 8
+`define WORDSIZE 4
+
 module alu(out,a,b,instr,c);				// 64 bit integer ALU
 	input[64:0]a,b;							// 64 bit input registers
 	input[32:0]instr;							// 32 bit instruction register
