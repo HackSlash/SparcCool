@@ -19,8 +19,8 @@
 	#include "tables.h"
 	extern YYSTYPE yylval;
 
-	#define SAVE_STRING (new StringNode(stringBuffer); yylval.symbol = stringTable.addString(stringBuffer))
-	#define SAVE_INT (new IntNode(atoi(yytext)); yylval.symbol = intTable.addString(yytext))
+	#define SAVE_STRING (new StringNode(stringBuffer); /*yylval.symbol = */new stringEntry(stringBuffer))
+	#define SAVE_INT (new IntNode(atoi(yytext)); /*yylval.symbol = */new intEntry(yytext);)
 	#define TOKEN(t) t
 }
 
@@ -42,7 +42,7 @@ WS									[" "|"\t"|"\n"|"\r"]
 										comIndent++;
 									}
 <INITIAL,COMMENT>"//"+.*$			;
-<COMMENT>[^"*/"]						{}
+<COMMENT>[^"*/"]					{}
 <COMMENT>"*/"						{
 										comIndent--;
 										if(comIndent==0) {
@@ -80,9 +80,9 @@ WS									[" "|"\t"|"\n"|"\r"]
 <STRESCAPE>.						genError(inv_syn, yytext, yylineno);BEGIN(STRING);
 <STRING>.							strcopy(yytext);
 <INITIAL>{INT}						SAVE_INT;return TOKEN(INTEGER);
-<INITIAL>"true"|"false"				yylval.boolean = strcmp(yytext, "true") ? true : false; return TOKEN(BOOL);
+<INITIAL>"true"|"false"				yylval.boolean = strcmp(yytext, "true") ? true : false; return TOKEN(BOOL); //prob
 <INITIAL>"class"					return TOKEN(CLASS);
-<INITIAL>{CLASS_ID}					yylval.symbol = idTable.addString(yytext); return TOKEN(TYPE);
+<INITIAL>{CLASS_ID}					return TOKEN(TYPE);
 <INITIAL>";" 						return TOKEN(SEMICOLON);
 <INITIAL>":"						return TOKEN(COLON);
 <INITIAL>"+"						return TOKEN(ADD);
@@ -133,7 +133,7 @@ WS									[" "|"\t"|"\n"|"\r"]
 <INITIAL>"val"						genError(ill_key, yytext, yylineno); //Ilegal keyword
 <INITIAL>"with"						genError(ill_key, yytext, yylineno); //Ilegal keyword
 <INITIAL>"yield"					genError(ill_key, yytext, yylineno); //Ilegal keyword
-<INITIAL>{ID}						yylval.symbol = idtable.addString(yytext); return TOKEN(ID);
+<INITIAL>{ID}						return TOKEN(ID);
 <*>{WS}								{}
 <*>.								genError(ill_chr, yytext, yylineno); //Generates correct and incorrect errors.
 

@@ -186,10 +186,12 @@ public:
 	varformNode (idNode, typeNode);
 	varformNode (varformNode, idNode, typeNode);
 	~varformNode () {
+		delete varform;
 		delete id;
 		delete type;
 	}
 private:
+	varformNode* varform;
 	idNode* id;
 	typeNode* type;
 };
