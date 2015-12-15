@@ -3,6 +3,8 @@
 	#ifndef COOL_H
 	#include "compiler.h"
 	#endif
+	#include "tables.h"
+	#include "error.h"
 	extern char* yytext;
 	extern int yylineno;
 	#include <iostream>
@@ -91,6 +93,7 @@
 	idNode* id;
 	classdeclsNode* classdecls;
 	symbol* sym;
+	bool boolean;
 }
 
 /** Declaration of all non-terminals **/
@@ -125,7 +128,7 @@ classdecls	: classdecl																{$$ = new classdeclsNode($1);}
 
 classdecl  	: CLASS type varformals classbody										{$$ = new classdeclNode($2,$3,$4);}
 			| CLASS type varformals EXTENDS type actuals classbody					{$$ = new classdeclNode($2,$3,$5,$6,$7);}
-			| CLASS type varformals EXTENDS NATIVE classbody						{$$ = new classdeclNode($2,$3,new typeNode(-1),NULL,$6); /* new classdeclNode(type,varformals,native,NULL,classbody)? */}
+			| CLASS type varformals EXTENDS NATIVE classbody						{$$ = new classdeclNode($2,$3,new typeNode(-1),NULL,$6);}
 			| error classbody														{genError(inv_syn,yytext,yylineno);}
 	        ;
 

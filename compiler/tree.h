@@ -93,33 +93,20 @@ class BoolNode : Node
 {
 	friend class Visitor;
 public:
-	/** Constructor & Destructor **/
+	/** Constructor *& Destructor **/
 	BoolNode(bool b) : val(b) {}
 	~BoolNode() {}
 private:
 	/** Declaration of the bool value **/
 	bool val;
 };
-/** A node for when an error occurs, used to build the GrammarTree **/
-// class ErrorNode : Node
-// {
-// 	friend class Visitor;
-// public:
-// 	/** Constructor & Destructor **/
-// 	ErrorNode(std::string txt, int line) : text(txt), lineno(line) {}
-// 	~ErrorNode() {}
-// private:
-// 	/** Declaration of the Text and LineNumber needed to generate the error message **/
-// 	std::string text;
-// 	int lineno;
-// };
 
 class programNode : public Node
 {
 	friend class Visitor;
 public:
 	programNode() {}
-	programNode(classdeclsNode);
+	programNode(classdeclsNode*&);
 	~programNode(){
 		delete classdecls;
 	}
@@ -132,8 +119,8 @@ class classdeclsNode : public Node
 	friend class Visitor;
 public:
 	classdeclsNode() {}
-	classdeclsNode(classdeclNode);
-	classdeclsNode(classdeclNode, classdeclsNode);
+	classdeclsNode(classdeclNode*&);
+	classdeclsNode(classdeclNode*&, classdeclsNode*&);
 	~classdeclsNode() {
 		delete classdecl;
 		delete classdecls;
@@ -148,8 +135,8 @@ class classdeclNode : public Node
 	friend class Visitor;
 public:
 	classdeclNode() {}
-	classdeclNode(typeNode, varformalsNode, classbodyNode);
-	classdeclNode(typeNode, varformalsNode, typeNode, actualsNode, classbodyNode);
+	classdeclNode(typeNode*&, varformalsNode*&, classbodyNode*&);
+	classdeclNode(typeNode*&, varformalsNode*&, typeNode*, actualsNode*&, classbodyNode*&);
 	~classdeclNode() {
 		delete type;
 		delete extendType;
@@ -170,7 +157,7 @@ class varformalsNode : public Node
 	friend class Visitor;
 public:
 	varformalsNode() {}
-	varformalsNode(varformNode);
+	varformalsNode(varformNode*&);
 	~varformalsNode() {
 		delete varform;
 	}
@@ -183,8 +170,8 @@ class varformNode : public Node
 	friend class Visitor;
 public:
 	varformNode() {}
-	varformNode (idNode, typeNode);
-	varformNode (varformNode, idNode, typeNode);
+	varformNode (idNode*&, typeNode*&);
+	varformNode (varformNode*&, idNode*&, typeNode*&);
 	~varformNode () {
 		delete varform;
 		delete id;
@@ -201,7 +188,7 @@ class classbodyNode : public Node
 	friend class Visitor;
 public:
 	classbodyNode() {}
-	classbodyNode(featuresNode);
+	classbodyNode(featuresNode*&);
 	~classbodyNode() {
 		delete features;
 	}
@@ -214,10 +201,10 @@ class featuresNode : public Node
 	friend class Visitor;
 public:
 	featuresNode() {}
-	featuresNode(bool, featuresNode, idNode, formalsNode, typeNode, exprNode);
-	featuresNode(featuresNode, idNode); // var id = native;
-	featuresNode(featuresNode, idNode, typeNode, exprNode);
-	featuresNode(featuresNode, blockNode);
+	featuresNode(bool, featuresNode*&, idNode*&, formalsNode*&, typeNode*&, exprNode*&);
+	featuresNode(featuresNode*&, idNode*&); // var id = native;
+	featuresNode(featuresNode*&, idNode*&, typeNode*&, exprNode*&);
+	featuresNode(featuresNode*&, blockNode*&);
 	~featuresNode() {
 		delete features;
 		delete id;
@@ -241,7 +228,7 @@ class formalsNode : public Node
 	friend class Visitor;
 public:
 	formalsNode() {}
-	formalsNode(formNode);
+	formalsNode(formNode*&);
 	~formalsNode() {
 		delete form;
 	}
@@ -254,8 +241,8 @@ class formNode : public Node
 	friend class Visitor;
 public:
 	formNode() {}
-	formNode(idNode, typeNode);
-	formNode(formNode, idNode, typeNode);
+	formNode(idNode*&, typeNode*&);
+	formNode(formNode*&, idNode*&, typeNode*&);
 	~formNode() {
 		delete form;
 		delete id;
@@ -272,7 +259,7 @@ class actualsNode : public Node
 	friend class Visitor;
 public:
 	actualsNode() {}
-	actualsNode(actualNode);
+	actualsNode(actualNode*&);
 	~actualsNode() {
 		delete actual;
 	}
@@ -285,8 +272,8 @@ class actualNode : public Node
 	friend class Visitor;
 public:
 	actualNode() {}
-	actualNode(exprNode);
-	actualNode(actualNode, exprNode);
+	actualNode(exprNode*&);
+	actualNode(actualNode*&, exprNode*&);
 	~actualNode() {
 		delete actual;
 		delete expr;
@@ -301,8 +288,8 @@ class blockNode : public Node
 	friend class Visitor;
 public:
 	blockNode() {}
-	blockNode(exprNode);
-	blockNode(blockptNode);
+	blockNode(exprNode*&);
+	blockNode(blockptNode*&);
 	~blockNode() {
 		delete expr;
 		delete blockpt;
@@ -317,10 +304,10 @@ class blockptNode : public Node
 	friend class Visitor;
 public:
 	blockptNode() {}
-	blockptNode(exprNode, exprNode);
-	blockptNode(exprNode, blockptNode);
-	blockptNode(idNode, typeNode, exprNode, exprNode);
-	blockptNode(idNode, typeNode, exprNode, blockptNode);
+	blockptNode(exprNode*&, exprNode*&);
+	blockptNode(exprNode*&, blockptNode*&);
+	blockptNode(idNode*&, typeNode*&, exprNode*&, exprNode*&);
+	blockptNode(idNode*&, typeNode*&, exprNode*&, blockptNode*&);
 	~blockptNode() {
 		delete expr1;
 		delete expr2;
@@ -364,16 +351,16 @@ class exprNode : public Node
 public:
 	exprNode() {}
 	exprNode(exprType);
-	exprNode(exprType, idNode, exprNode);
-	exprNode(exprType, exprNode);
-	exprNode(exprType, exprNode, exprNode, exprNode);
-	exprNode(exprType, exprNode, exprNode);
-	exprNode(exprType, idNode, actualsNode);
-	exprNode(exprType, typeNode, actualsNode);
-	exprNode(exprType, blockNode);
-	exprNode(exprType, exprNode, idNode, actualsNode);
-	exprNode(exprType, exprNode, casesNode);
-	exprNode(exprType, idNode);
+	exprNode(exprType, idNode*&, exprNode*&);
+	exprNode(exprType, exprNode*&);
+	exprNode(exprType, exprNode*&, exprNode*&, exprNode*&);
+	exprNode(exprType, exprNode*&, exprNode*&);
+	exprNode(exprType, idNode*&, actualsNode*&);
+	exprNode(exprType, typeNode*&, actualsNode*&);
+	exprNode(exprType, blockNode*&);
+	exprNode(exprType, exprNode*&, idNode*&, actualsNode*&);
+	exprNode(exprType, exprNode*&, casesNode*&);
+	exprNode(exprType, idNode*&);
 	~exprNode() {
 		delete id;
 		delete expr;
@@ -401,7 +388,7 @@ class casesNode : public Node
 	friend class Visitor;
 public:
 	casesNode() {}
-	casesNode(casNode);
+	casesNode(casNode*&);
 	~casesNode() {
 		delete cas;
 	}
@@ -414,10 +401,10 @@ class casNode : public Node
 	friend class Visitor;
 public:
 	casNode() {}
-	casNode(idNode, typeNode, blockNode);
-	casNode(casNode, idNode, typeNode, blockNode);
-	casNode(blockNode);
-	casNode(casNode, blockNode);
+	casNode(idNode*&, typeNode*&, blockNode*&);
+	casNode(casNode*&, idNode*&, typeNode*&, blockNode*&);
+	casNode(blockNode*&);
+	casNode(casNode*&, blockNode*&);
 	~casNode() {
 		delete cas;
 		delete id;

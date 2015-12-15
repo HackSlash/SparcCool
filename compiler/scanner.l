@@ -13,14 +13,15 @@
 	#endif
 	#include <stdio.h>
 	#include <unistd.h>
+	#include "tables.h"
 	#include <string.h>
 	#include "parser.hpp"
 	#include "error.h"
-	#include "tables.h"
+	
 	extern YYSTYPE yylval;
 
-	#define SAVE_STRING (new StringNode(stringBuffer); /*yylval.symbol = */new stringEntry(stringBuffer))
-	#define SAVE_INT (new IntNode(atoi(yytext)); /*yylval.symbol = */new intEntry(yytext);)
+	#define SAVE_STRING /*(new StringNode(stringBuffer); /*yylval.symbol = *//*new stringEntry(stringBuffer))*/
+	#define SAVE_INT /*(new IntNode(atoi(yytext)); /*yylval.symbol = *//*new intEntry(yytext);)*/
 	#define TOKEN(t) t
 }
 

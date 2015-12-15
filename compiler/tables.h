@@ -4,7 +4,7 @@
 
 enum types { Int, Bool, String, Unit, Null, Nothing, Any };
 
-addSymbol() {}
+void addSymbol() {}
 
 class symbol
 {
@@ -34,11 +34,11 @@ public:
 class intEntry
 {
 public:
-	intEntry(std::string v) {val = std::stoi(v, NULL)}
+	intEntry(std::string v) {val = std::stoi(v, NULL);}
 	~intEntry();
 	int val;
 };
 
-extern std::vector<strTableEntry> stringTable;
-extern std::vector<intTableEntry> intTable;
+extern std::vector<strEntry> stringTable;
+extern std::vector<intEntry> intTable;
 extern std::vector<symbol> symbolTable;

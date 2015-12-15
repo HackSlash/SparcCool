@@ -20,7 +20,7 @@ typedef enum {
 void genError(errorType er, char* text, int lineNr/*, char* fileName*/, ...)
 {
 	//std::string location = "@\"" + fileName + "\", line " + lineNr + ": ";
-	std::string location = "@\"" + ".." "\", line " + lineNr + ": ";
+	std::string location = "@ \".. \", line " + std::to_string(lineNr) + ":: ";
 
 	nrErrors++;
 	switch(er)
