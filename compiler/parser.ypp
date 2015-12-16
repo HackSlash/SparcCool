@@ -142,7 +142,7 @@ classbody	: BRACE_OPEN features BRACE_CLOSE										{$$ = new classbodyNode($2)
 			| BRACE_OPEN error BRACE_CLOSE											{genError(inv_syn,yytext,yylineno);}
 			;
 
-features	: /* empty */															{}
+features	: /* empty */															{$$ = NULL;}
 			| features DEF id formals COLON type EQ expr SEMICOLON					{$$ = new featuresNode(false,$1,$3,$4,$6,$8);}
 			| features OVERRIDE DEF id formals COLON type EQ expr SEMICOLON			{$$ = new featuresNode(true,$1,$4,$5,$7,$9);}
 			| features DEF id formals COLON type EQ NATIVE SEMICOLON				{$$ = new featuresNode(false,$1,$3,$4,$6);}
@@ -150,7 +150,7 @@ features	: /* empty */															{}
 			| features VAR id EQ NATIVE SEMICOLON									{$$ = new featuresNode($1,$3);}
 			| features VAR id COLON type EQ expr SEMICOLON							{$$ = new featuresNode($1,$3,$5,$7)}
 			| features BRACE_OPEN block BRACE_CLOSE SEMICOLON						{$$ = new featuresNode($1,$3);}
-			| error SEMICOLON														{genError(inv_syn,yytext,yylineno);}
+			| error SEMICOLON														{$$ = NULL; genError(inv_syn,yytext,yylineno);}
 			;
 
 formals		: PAR_OPEN PAR_CLOSE													{$$ = new formalsNode();}
