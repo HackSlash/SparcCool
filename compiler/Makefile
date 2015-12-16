@@ -1,4 +1,4 @@
-YY=bison
+YY=/opt/bison-3.0.2/bin/bison
 YFLAGS=-kdv
 YTARGET=parser.cpp
 YFILES=parser.ypp

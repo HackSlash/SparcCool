@@ -1,0 +1,1863 @@
+In file included from compiler.h:5:0,
+                 from parser.ypp:4:
+tree.h: In destructor ‘virtual programNode::~programNode()’:
+tree.h:111:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete classdecls;
+          ^
+tree.h:111:10: warning: invalid use of incomplete type ‘class classdeclsNode’
+tree.h:39:7: note: forward declaration of ‘class classdeclsNode’
+ class classdeclsNode;
+       ^
+tree.h:111:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete classdecls;
+          ^
+tree.h: In destructor ‘virtual classdeclsNode::~classdeclsNode()’:
+tree.h:125:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete classdecl;
+          ^
+tree.h:125:10: warning: invalid use of incomplete type ‘class classdeclNode’
+tree.h:40:7: note: forward declaration of ‘class classdeclNode’
+ class classdeclNode;
+       ^
+tree.h:125:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete classdecl;
+          ^
+tree.h: In destructor ‘virtual classdeclNode::~classdeclNode()’:
+tree.h:141:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:141:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:141:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h:142:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete extendType;
+          ^
+tree.h:142:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:142:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete extendType;
+          ^
+tree.h:143:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete varformals;
+          ^
+tree.h:143:10: warning: invalid use of incomplete type ‘class varformalsNode’
+tree.h:41:7: note: forward declaration of ‘class varformalsNode’
+ class varformalsNode;
+       ^
+tree.h:143:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete varformals;
+          ^
+tree.h:144:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete classbody;
+          ^
+tree.h:144:10: warning: invalid use of incomplete type ‘class classbodyNode’
+tree.h:43:7: note: forward declaration of ‘class classbodyNode’
+ class classbodyNode;
+       ^
+tree.h:144:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete classbody;
+          ^
+tree.h:145:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete extendActuals;
+          ^
+tree.h:145:10: warning: invalid use of incomplete type ‘class actualsNode’
+tree.h:47:7: note: forward declaration of ‘class actualsNode’
+ class actualsNode;
+       ^
+tree.h:145:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete extendActuals;
+          ^
+tree.h: In destructor ‘virtual varformalsNode::~varformalsNode()’:
+tree.h:162:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete varform;
+          ^
+tree.h:162:10: warning: invalid use of incomplete type ‘class varformNode’
+tree.h:42:7: note: forward declaration of ‘class varformNode’
+ class varformNode;
+       ^
+tree.h:162:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete varform;
+          ^
+tree.h: In destructor ‘virtual varformNode::~varformNode()’:
+tree.h:177:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:177:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:177:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:178:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:178:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:178:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h: In destructor ‘virtual classbodyNode::~classbodyNode()’:
+tree.h:193:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete features;
+          ^
+tree.h:193:10: warning: invalid use of incomplete type ‘class featuresNode’
+tree.h:44:7: note: forward declaration of ‘class featuresNode’
+ class featuresNode;
+       ^
+tree.h:193:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete features;
+          ^
+tree.h: In destructor ‘virtual featuresNode::~featuresNode()’:
+tree.h:210:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:210:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:210:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:211:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete formals;
+          ^
+tree.h:211:10: warning: invalid use of incomplete type ‘class formalsNode’
+tree.h:45:7: note: forward declaration of ‘class formalsNode’
+ class formalsNode;
+       ^
+tree.h:211:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete formals;
+          ^
+tree.h:212:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:212:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:212:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h:213:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr;
+          ^
+tree.h:213:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:213:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr;
+          ^
+tree.h:214:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete block;
+          ^
+tree.h:214:10: warning: invalid use of incomplete type ‘class blockNode’
+tree.h:49:7: note: forward declaration of ‘class blockNode’
+ class blockNode;
+       ^
+tree.h:214:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete block;
+          ^
+tree.h: In destructor ‘virtual formalsNode::~formalsNode()’:
+tree.h:233:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete form;
+          ^
+tree.h:233:10: warning: invalid use of incomplete type ‘class formNode’
+tree.h:46:7: note: forward declaration of ‘class formNode’
+ class formNode;
+       ^
+tree.h:233:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete form;
+          ^
+tree.h: In destructor ‘virtual formNode::~formNode()’:
+tree.h:248:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:248:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:248:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:249:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:249:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:249:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h: In destructor ‘virtual actualsNode::~actualsNode()’:
+tree.h:264:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete actual;
+          ^
+tree.h:264:10: warning: invalid use of incomplete type ‘class actualNode’
+tree.h:48:7: note: forward declaration of ‘class actualNode’
+ class actualNode;
+       ^
+tree.h:264:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete actual;
+          ^
+tree.h: In destructor ‘virtual actualNode::~actualNode()’:
+tree.h:279:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr;
+          ^
+tree.h:279:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:279:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr;
+          ^
+tree.h: In destructor ‘virtual blockNode::~blockNode()’:
+tree.h:294:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr;
+          ^
+tree.h:294:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:294:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr;
+          ^
+tree.h:295:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete blockpt;
+          ^
+tree.h:295:10: warning: invalid use of incomplete type ‘class blockptNode’
+tree.h:50:7: note: forward declaration of ‘class blockptNode’
+ class blockptNode;
+       ^
+tree.h:295:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete blockpt;
+          ^
+tree.h: In destructor ‘virtual blockptNode::~blockptNode()’:
+tree.h:312:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr1;
+          ^
+tree.h:312:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:312:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr1;
+          ^
+tree.h:313:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr2;
+          ^
+tree.h:313:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:313:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr2;
+          ^
+tree.h:314:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:314:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:314:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:315:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:315:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:315:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h: In destructor ‘virtual exprNode::~exprNode()’:
+tree.h:372:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete cases;
+          ^
+tree.h:372:10: warning: invalid use of incomplete type ‘class casesNode’
+tree.h:54:7: note: forward declaration of ‘class casesNode’
+ class casesNode;
+       ^
+tree.h:372:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete cases;
+          ^
+tree.h: In destructor ‘virtual casesNode::~casesNode()’:
+tree.h:393:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete cas;
+          ^
+tree.h:393:10: warning: invalid use of incomplete type ‘class casNode’
+tree.h:55:7: note: forward declaration of ‘class casNode’
+ class casNode;
+       ^
+tree.h:393:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete cas;
+          ^
+parser.ypp: In function ‘int yyparse()’:
+parser.ypp:131:129: error: invalid initialization of non-const reference of type ‘actualsNode*&’ from an rvalue of type ‘actualsNode*’
+    | CLASS type varformals EXTENDS NATIVE classbody      {$$ = new classdeclNode($2,$3,new typeNode(-1),nullptr,$6); /* new classdeclNode(type,varformals,native,NULL,classbody)? */}
+                                                                                                                                 ^
+In file included from compiler.h:5:0,
+                 from parser.ypp:4:
+tree.h:139:2: note:   initializing argument 4 of ‘classdeclNode::classdeclNode(typeNode*&, varformalsNode*&, typeNode*, actualsNode*&, classbodyNode*&)’
+  classdeclNode(typeNode*&, varformalsNode*&, typeNode*, actualsNode*&, classbodyNode*&);
+  ^
+parser.ypp:152:120: error: no matching function for call to ‘featuresNode::featuresNode(bool, featuresNode*&, idNode*&, formalsNode*&, typeNode*&)’
+In file included from compiler.h:5:0,
+                 from parser.ypp:4:
+tree.h:207:2: note: candidate: featuresNode::featuresNode(featuresNode*&, blockNode*&)
+  featuresNode(featuresNode*&, blockNode*&);
+  ^
+tree.h:207:2: note:   candidate expects 2 arguments, 5 provided
+tree.h:206:2: note: candidate: featuresNode::featuresNode(featuresNode*&, idNode*&, typeNode*&, exprNode*&)
+  featuresNode(featuresNode*&, idNode*&, typeNode*&, exprNode*&);
+  ^
+tree.h:206:2: note:   candidate expects 4 arguments, 5 provided
+tree.h:205:2: note: candidate: featuresNode::featuresNode(featuresNode*&, idNode*&)
+  featuresNode(featuresNode*&, idNode*&); // var id = native;
+  ^
+tree.h:205:2: note:   candidate expects 2 arguments, 5 provided
+tree.h:204:2: note: candidate: featuresNode::featuresNode(bool, featuresNode*&, idNode*&, formalsNode*&, typeNode*&, exprNode*&)
+  featuresNode(bool, featuresNode*&, idNode*&, formalsNode*&, typeNode*&, exprNode*&);
+  ^
+tree.h:204:2: note:   candidate expects 6 arguments, 5 provided
+tree.h:203:2: note: candidate: featuresNode::featuresNode()
+  featuresNode() {}
+  ^
+tree.h:203:2: note:   candidate expects 0 arguments, 5 provided
+tree.h:199:7: note: candidate: constexpr featuresNode::featuresNode(const featuresNode&)
+ class featuresNode : public Node
+       ^
+tree.h:199:7: note:   candidate expects 1 argument, 5 provided
+parser.ypp:153:119: error: no matching function for call to ‘featuresNode::featuresNode(bool, featuresNode*&, idNode*&, formalsNode*&, typeNode*&)’
+In file included from compiler.h:5:0,
+                 from parser.ypp:4:
+tree.h:207:2: note: candidate: featuresNode::featuresNode(featuresNode*&, blockNode*&)
+  featuresNode(featuresNode*&, blockNode*&);
+  ^
+tree.h:207:2: note:   candidate expects 2 arguments, 5 provided
+tree.h:206:2: note: candidate: featuresNode::featuresNode(featuresNode*&, idNode*&, typeNode*&, exprNode*&)
+  featuresNode(featuresNode*&, idNode*&, typeNode*&, exprNode*&);
+  ^
+tree.h:206:2: note:   candidate expects 4 arguments, 5 provided
+tree.h:205:2: note: candidate: featuresNode::featuresNode(featuresNode*&, idNode*&)
+  featuresNode(featuresNode*&, idNode*&); // var id = native;
+  ^
+tree.h:205:2: note:   candidate expects 2 arguments, 5 provided
+tree.h:204:2: note: candidate: featuresNode::featuresNode(bool, featuresNode*&, idNode*&, formalsNode*&, typeNode*&, exprNode*&)
+  featuresNode(bool, featuresNode*&, idNode*&, formalsNode*&, typeNode*&, exprNode*&);
+  ^
+tree.h:204:2: note:   candidate expects 6 arguments, 5 provided
+tree.h:203:2: note: candidate: featuresNode::featuresNode()
+  featuresNode() {}
+  ^
+tree.h:203:2: note:   candidate expects 0 arguments, 5 provided
+tree.h:199:7: note: candidate: constexpr featuresNode::featuresNode(const featuresNode&)
+ class featuresNode : public Node
+       ^
+tree.h:199:7: note:   candidate expects 1 argument, 5 provided
+parser.ypp:155:112: error: expected ‘;’ before ‘}’ token
+parser.ypp:190:6: error: ‘sym’ was not declared in this scope
+ id   : ID                 {sym = yytext; $$ = new idNode(yytext);}
+      ^
+parser.ypp:190:50: error: invalid conversion from ‘char*’ to ‘int’ [-fpermissive]
+ id   : ID                 {sym = yytext; $$ = new idNode(yytext);}
+                                                  ^
+In file included from compiler.h:5:0,
+                 from parser.ypp:4:
+tree.h:331:2: note:   initializing argument 1 of ‘idNode::idNode(int)’
+  idNode(int i) : id(i) {}
+  ^
+parser.ypp:193:40: error: invalid conversion from ‘char*’ to ‘int’ [-fpermissive]
+ type  : TYPE                 {$$ = new typeNode(yytext);}
+                                        ^
+In file included from compiler.h:5:0,
+                 from parser.ypp:4:
+tree.h:342:2: note:   initializing argument 1 of ‘typeNode::typeNode(int)’
+  typeNode(int i) : id(i) {}
+  ^
+parser.ypp:218:60: error: invalid conversion from ‘char*’ to ‘int’ [-fpermissive]
+    | INTEGER                {$$ = new exprNode(lit_int,new IntNode(yytext));}
+                                                            ^
+In file included from compiler.h:5:0,
+                 from parser.ypp:4:
+tree.h:85:2: note:   initializing argument 1 of ‘IntNode::IntNode(int)’
+  IntNode(int i) : val(i) {}
+  ^
+parser.ypp:218:61: error: no matching function for call to ‘exprNode::exprNode(exprType, IntNode*)’
+    | INTEGER                {$$ = new exprNode(lit_int,new IntNode(yytext));}
+                                                             ^
+In file included from compiler.h:5:0,
+                 from parser.ypp:4:
+tree.h:363:2: note: candidate: exprNode::exprNode(exprType, idNode*&)
+  exprNode(exprType, idNode*&);
+  ^
+tree.h:363:2: note:   no known conversion for argument 2 from ‘IntNode*’ to ‘idNode*&’
+tree.h:362:2: note: candidate: exprNode::exprNode(exprType, exprNode*&, casesNode*&)
+  exprNode(exprType, exprNode*&, casesNode*&);
+  ^
+tree.h:362:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:361:2: note: candidate: exprNode::exprNode(exprType, exprNode*&, idNode*&, actualsNode*&)
+  exprNode(exprType, exprNode*&, idNode*&, actualsNode*&);
+  ^
+tree.h:361:2: note:   candidate expects 4 arguments, 2 provided
+tree.h:360:2: note: candidate: exprNode::exprNode(exprType, blockNode*&)
+  exprNode(exprType, blockNode*&);
+  ^
+tree.h:360:2: note:   no known conversion for argument 2 from ‘IntNode*’ to ‘blockNode*&’
+tree.h:359:2: note: candidate: exprNode::exprNode(exprType, typeNode*&, actualsNode*&)
+  exprNode(exprType, typeNode*&, actualsNode*&);
+  ^
+tree.h:359:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:358:2: note: candidate: exprNode::exprNode(exprType, idNode*&, actualsNode*&)
+  exprNode(exprType, idNode*&, actualsNode*&);
+  ^
+tree.h:358:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:357:2: note: candidate: exprNode::exprNode(exprType, exprNode*&, exprNode*&)
+  exprNode(exprType, exprNode*&, exprNode*&);
+  ^
+tree.h:357:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:356:2: note: candidate: exprNode::exprNode(exprType, exprNode*&, exprNode*&, exprNode*&)
+  exprNode(exprType, exprNode*&, exprNode*&, exprNode*&);
+  ^
+tree.h:356:2: note:   candidate expects 4 arguments, 2 provided
+tree.h:355:2: note: candidate: exprNode::exprNode(exprType, exprNode*&)
+  exprNode(exprType, exprNode*&);
+  ^
+tree.h:355:2: note:   no known conversion for argument 2 from ‘IntNode*’ to ‘exprNode*&’
+tree.h:354:2: note: candidate: exprNode::exprNode(exprType, idNode*&, exprNode*&)
+  exprNode(exprType, idNode*&, exprNode*&);
+  ^
+tree.h:354:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:353:2: note: candidate: exprNode::exprNode(exprType)
+  exprNode(exprType);
+  ^
+tree.h:353:2: note:   candidate expects 1 argument, 2 provided
+tree.h:352:2: note: candidate: exprNode::exprNode()
+  exprNode() {}
+  ^
+tree.h:352:2: note:   candidate expects 0 arguments, 2 provided
+tree.h:348:7: note: candidate: constexpr exprNode::exprNode(const exprNode&)
+ class exprNode : public Node
+       ^
+tree.h:348:7: note:   candidate expects 1 argument, 2 provided
+parser.ypp:219:67: error: no matching function for call to ‘exprNode::exprNode(exprType, StringNode*)’
+    | STRING                {$$ = new exprNode(lit_string,new StringNode(yytext));}
+                                                                   ^
+In file included from compiler.h:5:0,
+                 from parser.ypp:4:
+tree.h:363:2: note: candidate: exprNode::exprNode(exprType, idNode*&)
+  exprNode(exprType, idNode*&);
+  ^
+tree.h:363:2: note:   no known conversion for argument 2 from ‘StringNode*’ to ‘idNode*&’
+tree.h:362:2: note: candidate: exprNode::exprNode(exprType, exprNode*&, casesNode*&)
+  exprNode(exprType, exprNode*&, casesNode*&);
+  ^
+tree.h:362:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:361:2: note: candidate: exprNode::exprNode(exprType, exprNode*&, idNode*&, actualsNode*&)
+  exprNode(exprType, exprNode*&, idNode*&, actualsNode*&);
+  ^
+tree.h:361:2: note:   candidate expects 4 arguments, 2 provided
+tree.h:360:2: note: candidate: exprNode::exprNode(exprType, blockNode*&)
+  exprNode(exprType, blockNode*&);
+  ^
+tree.h:360:2: note:   no known conversion for argument 2 from ‘StringNode*’ to ‘blockNode*&’
+tree.h:359:2: note: candidate: exprNode::exprNode(exprType, typeNode*&, actualsNode*&)
+  exprNode(exprType, typeNode*&, actualsNode*&);
+  ^
+tree.h:359:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:358:2: note: candidate: exprNode::exprNode(exprType, idNode*&, actualsNode*&)
+  exprNode(exprType, idNode*&, actualsNode*&);
+  ^
+tree.h:358:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:357:2: note: candidate: exprNode::exprNode(exprType, exprNode*&, exprNode*&)
+  exprNode(exprType, exprNode*&, exprNode*&);
+  ^
+tree.h:357:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:356:2: note: candidate: exprNode::exprNode(exprType, exprNode*&, exprNode*&, exprNode*&)
+  exprNode(exprType, exprNode*&, exprNode*&, exprNode*&);
+  ^
+tree.h:356:2: note:   candidate expects 4 arguments, 2 provided
+tree.h:355:2: note: candidate: exprNode::exprNode(exprType, exprNode*&)
+  exprNode(exprType, exprNode*&);
+  ^
+tree.h:355:2: note:   no known conversion for argument 2 from ‘StringNode*’ to ‘exprNode*&’
+tree.h:354:2: note: candidate: exprNode::exprNode(exprType, idNode*&, exprNode*&)
+  exprNode(exprType, idNode*&, exprNode*&);
+  ^
+tree.h:354:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:353:2: note: candidate: exprNode::exprNode(exprType)
+  exprNode(exprType);
+  ^
+tree.h:353:2: note:   candidate expects 1 argument, 2 provided
+tree.h:352:2: note: candidate: exprNode::exprNode()
+  exprNode() {}
+  ^
+tree.h:352:2: note:   candidate expects 0 arguments, 2 provided
+tree.h:348:7: note: candidate: constexpr exprNode::exprNode(const exprNode&)
+ class exprNode : public Node
+       ^
+tree.h:348:7: note:   candidate expects 1 argument, 2 provided
+parser.ypp:220:63: error: no matching function for call to ‘exprNode::exprNode(exprType, BoolNode*)’
+    | BOOL                 {$$ = new exprNode(lit_bool,new BoolNode(yytext));}
+                                                               ^
+In file included from compiler.h:5:0,
+                 from parser.ypp:4:
+tree.h:363:2: note: candidate: exprNode::exprNode(exprType, idNode*&)
+  exprNode(exprType, idNode*&);
+  ^
+tree.h:363:2: note:   no known conversion for argument 2 from ‘BoolNode*’ to ‘idNode*&’
+tree.h:362:2: note: candidate: exprNode::exprNode(exprType, exprNode*&, casesNode*&)
+  exprNode(exprType, exprNode*&, casesNode*&);
+  ^
+tree.h:362:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:361:2: note: candidate: exprNode::exprNode(exprType, exprNode*&, idNode*&, actualsNode*&)
+  exprNode(exprType, exprNode*&, idNode*&, actualsNode*&);
+  ^
+tree.h:361:2: note:   candidate expects 4 arguments, 2 provided
+tree.h:360:2: note: candidate: exprNode::exprNode(exprType, blockNode*&)
+  exprNode(exprType, blockNode*&);
+  ^
+tree.h:360:2: note:   no known conversion for argument 2 from ‘BoolNode*’ to ‘blockNode*&’
+tree.h:359:2: note: candidate: exprNode::exprNode(exprType, typeNode*&, actualsNode*&)
+  exprNode(exprType, typeNode*&, actualsNode*&);
+  ^
+tree.h:359:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:358:2: note: candidate: exprNode::exprNode(exprType, idNode*&, actualsNode*&)
+  exprNode(exprType, idNode*&, actualsNode*&);
+  ^
+tree.h:358:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:357:2: note: candidate: exprNode::exprNode(exprType, exprNode*&, exprNode*&)
+  exprNode(exprType, exprNode*&, exprNode*&);
+  ^
+tree.h:357:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:356:2: note: candidate: exprNode::exprNode(exprType, exprNode*&, exprNode*&, exprNode*&)
+  exprNode(exprType, exprNode*&, exprNode*&, exprNode*&);
+  ^
+tree.h:356:2: note:   candidate expects 4 arguments, 2 provided
+tree.h:355:2: note: candidate: exprNode::exprNode(exprType, exprNode*&)
+  exprNode(exprType, exprNode*&);
+  ^
+tree.h:355:2: note:   no known conversion for argument 2 from ‘BoolNode*’ to ‘exprNode*&’
+tree.h:354:2: note: candidate: exprNode::exprNode(exprType, idNode*&, exprNode*&)
+  exprNode(exprType, idNode*&, exprNode*&);
+  ^
+tree.h:354:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:353:2: note: candidate: exprNode::exprNode(exprType)
+  exprNode(exprType);
+  ^
+tree.h:353:2: note:   candidate expects 1 argument, 2 provided
+tree.h:352:2: note: candidate: exprNode::exprNode()
+  exprNode() {}
+  ^
+tree.h:352:2: note:   candidate expects 0 arguments, 2 provided
+tree.h:348:7: note: candidate: constexpr exprNode::exprNode(const exprNode&)
+ class exprNode : public Node
+       ^
+tree.h:348:7: note:   candidate expects 1 argument, 2 provided
+parser.ypp:230:63: error: no matching function for call to ‘casNode::casNode(exprNode*, blockNode*&)’
+    | CASE NULLVAL ARROW block             {$$ = new casNode(new exprNode(),$4);}
+                                                               ^
+In file included from compiler.h:5:0,
+                 from parser.ypp:4:
+tree.h:407:2: note: candidate: casNode::casNode(casNode*&, blockNode*&)
+  casNode(casNode*&, blockNode*&);
+  ^
+tree.h:407:2: note:   no known conversion for argument 1 from ‘exprNode*’ to ‘casNode*&’
+tree.h:406:2: note: candidate: casNode::casNode(blockNode*&)
+  casNode(blockNode*&);
+  ^
+tree.h:406:2: note:   candidate expects 1 argument, 2 provided
+tree.h:405:2: note: candidate: casNode::casNode(casNode*&, idNode*&, typeNode*&, blockNode*&)
+  casNode(casNode*&, idNode*&, typeNode*&, blockNode*&);
+  ^
+tree.h:405:2: note:   candidate expects 4 arguments, 2 provided
+tree.h:404:2: note: candidate: casNode::casNode(idNode*&, typeNode*&, blockNode*&)
+  casNode(idNode*&, typeNode*&, blockNode*&);
+  ^
+tree.h:404:2: note:   candidate expects 3 arguments, 2 provided
+tree.h:403:2: note: candidate: casNode::casNode()
+  casNode() {}
+  ^
+tree.h:403:2: note:   candidate expects 0 arguments, 2 provided
+tree.h:399:7: note: candidate: constexpr casNode::casNode(const casNode&)
+ class casNode : public Node
+       ^
+tree.h:399:7: note:   candidate expects 1 argument, 2 provided
+parser.ypp:231:79: error: no matching function for call to ‘casNode::casNode(casNode*&, exprNode*, blockNode*&)’
+    | cas CASE NULLVAL ARROW block           {$$ = new casNode($1,new exprNode(),$5);}
+                                                                               ^
+In file included from compiler.h:5:0,
+                 from parser.ypp:4:
+tree.h:407:2: note: candidate: casNode::casNode(casNode*&, blockNode*&)
+  casNode(casNode*&, blockNode*&);
+  ^
+tree.h:407:2: note:   candidate expects 2 arguments, 3 provided
+tree.h:406:2: note: candidate: casNode::casNode(blockNode*&)
+  casNode(blockNode*&);
+  ^
+tree.h:406:2: note:   candidate expects 1 argument, 3 provided
+tree.h:405:2: note: candidate: casNode::casNode(casNode*&, idNode*&, typeNode*&, blockNode*&)
+  casNode(casNode*&, idNode*&, typeNode*&, blockNode*&);
+  ^
+tree.h:405:2: note:   candidate expects 4 arguments, 3 provided
+tree.h:404:2: note: candidate: casNode::casNode(idNode*&, typeNode*&, blockNode*&)
+  casNode(idNode*&, typeNode*&, blockNode*&);
+  ^
+tree.h:404:2: note:   no known conversion for argument 1 from ‘casNode*’ to ‘idNode*&’
+tree.h:403:2: note: candidate: casNode::casNode()
+  casNode() {}
+  ^
+tree.h:403:2: note:   candidate expects 0 arguments, 3 provided
+tree.h:399:7: note: candidate: constexpr casNode::casNode(const casNode&)
+ class casNode : public Node
+       ^
+tree.h:399:7: note:   candidate expects 1 argument, 3 provided
+scanner.l:23:55: warning: "/*" within comment [-Wcomment]
+  #define SAVE_STRING /*(new StringNode(stringBuffer); /*yylval.symbol = *//*new stringEntry(stringBuffer))*/
+                                                       ^
+scanner.l:24:49: warning: "/*" within comment [-Wcomment]
+  #define SAVE_INT /*(new IntNode(atoi(yytext)); /*yylval.symbol = *//*new intEntry(yytext);)*/
+                                                 ^
+In file included from compiler.h:5:0,
+                 from scanner.l:12:
+tree.h: In destructor ‘virtual programNode::~programNode()’:
+tree.h:111:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete classdecls;
+          ^
+tree.h:111:10: warning: invalid use of incomplete type ‘class classdeclsNode’
+tree.h:39:7: note: forward declaration of ‘class classdeclsNode’
+ class classdeclsNode;
+       ^
+tree.h:111:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete classdecls;
+          ^
+tree.h: In destructor ‘virtual classdeclsNode::~classdeclsNode()’:
+tree.h:125:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete classdecl;
+          ^
+tree.h:125:10: warning: invalid use of incomplete type ‘class classdeclNode’
+tree.h:40:7: note: forward declaration of ‘class classdeclNode’
+ class classdeclNode;
+       ^
+tree.h:125:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete classdecl;
+          ^
+tree.h: In destructor ‘virtual classdeclNode::~classdeclNode()’:
+tree.h:141:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:141:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:141:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h:142:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete extendType;
+          ^
+tree.h:142:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:142:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete extendType;
+          ^
+tree.h:143:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete varformals;
+          ^
+tree.h:143:10: warning: invalid use of incomplete type ‘class varformalsNode’
+tree.h:41:7: note: forward declaration of ‘class varformalsNode’
+ class varformalsNode;
+       ^
+tree.h:143:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete varformals;
+          ^
+tree.h:144:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete classbody;
+          ^
+tree.h:144:10: warning: invalid use of incomplete type ‘class classbodyNode’
+tree.h:43:7: note: forward declaration of ‘class classbodyNode’
+ class classbodyNode;
+       ^
+tree.h:144:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete classbody;
+          ^
+tree.h:145:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete extendActuals;
+          ^
+tree.h:145:10: warning: invalid use of incomplete type ‘class actualsNode’
+tree.h:47:7: note: forward declaration of ‘class actualsNode’
+ class actualsNode;
+       ^
+tree.h:145:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete extendActuals;
+          ^
+tree.h: In destructor ‘virtual varformalsNode::~varformalsNode()’:
+tree.h:162:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete varform;
+          ^
+tree.h:162:10: warning: invalid use of incomplete type ‘class varformNode’
+tree.h:42:7: note: forward declaration of ‘class varformNode’
+ class varformNode;
+       ^
+tree.h:162:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete varform;
+          ^
+tree.h: In destructor ‘virtual varformNode::~varformNode()’:
+tree.h:177:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:177:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:177:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:178:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:178:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:178:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h: In destructor ‘virtual classbodyNode::~classbodyNode()’:
+tree.h:193:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete features;
+          ^
+tree.h:193:10: warning: invalid use of incomplete type ‘class featuresNode’
+tree.h:44:7: note: forward declaration of ‘class featuresNode’
+ class featuresNode;
+       ^
+tree.h:193:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete features;
+          ^
+tree.h: In destructor ‘virtual featuresNode::~featuresNode()’:
+tree.h:210:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:210:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:210:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:211:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete formals;
+          ^
+tree.h:211:10: warning: invalid use of incomplete type ‘class formalsNode’
+tree.h:45:7: note: forward declaration of ‘class formalsNode’
+ class formalsNode;
+       ^
+tree.h:211:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete formals;
+          ^
+tree.h:212:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:212:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:212:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h:213:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr;
+          ^
+tree.h:213:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:213:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr;
+          ^
+tree.h:214:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete block;
+          ^
+tree.h:214:10: warning: invalid use of incomplete type ‘class blockNode’
+tree.h:49:7: note: forward declaration of ‘class blockNode’
+ class blockNode;
+       ^
+tree.h:214:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete block;
+          ^
+tree.h: In destructor ‘virtual formalsNode::~formalsNode()’:
+tree.h:233:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete form;
+          ^
+tree.h:233:10: warning: invalid use of incomplete type ‘class formNode’
+tree.h:46:7: note: forward declaration of ‘class formNode’
+ class formNode;
+       ^
+tree.h:233:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete form;
+          ^
+tree.h: In destructor ‘virtual formNode::~formNode()’:
+tree.h:248:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:248:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:248:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:249:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:249:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:249:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h: In destructor ‘virtual actualsNode::~actualsNode()’:
+tree.h:264:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete actual;
+          ^
+tree.h:264:10: warning: invalid use of incomplete type ‘class actualNode’
+tree.h:48:7: note: forward declaration of ‘class actualNode’
+ class actualNode;
+       ^
+tree.h:264:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete actual;
+          ^
+tree.h: In destructor ‘virtual actualNode::~actualNode()’:
+tree.h:279:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr;
+          ^
+tree.h:279:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:279:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr;
+          ^
+tree.h: In destructor ‘virtual blockNode::~blockNode()’:
+tree.h:294:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr;
+          ^
+tree.h:294:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:294:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr;
+          ^
+tree.h:295:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete blockpt;
+          ^
+tree.h:295:10: warning: invalid use of incomplete type ‘class blockptNode’
+tree.h:50:7: note: forward declaration of ‘class blockptNode’
+ class blockptNode;
+       ^
+tree.h:295:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete blockpt;
+          ^
+tree.h: In destructor ‘virtual blockptNode::~blockptNode()’:
+tree.h:312:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr1;
+          ^
+tree.h:312:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:312:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr1;
+          ^
+tree.h:313:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr2;
+          ^
+tree.h:313:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:313:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr2;
+          ^
+tree.h:314:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:314:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:314:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:315:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:315:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:315:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h: In destructor ‘virtual exprNode::~exprNode()’:
+tree.h:372:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete cases;
+          ^
+tree.h:372:10: warning: invalid use of incomplete type ‘class casesNode’
+tree.h:54:7: note: forward declaration of ‘class casesNode’
+ class casesNode;
+       ^
+tree.h:372:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete cases;
+          ^
+tree.h: In destructor ‘virtual casesNode::~casesNode()’:
+tree.h:393:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete cas;
+          ^
+tree.h:393:10: warning: invalid use of incomplete type ‘class casNode’
+tree.h:55:7: note: forward declaration of ‘class casNode’
+ class casNode;
+       ^
+tree.h:393:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete cas;
+          ^
+scanner.l: In function ‘void nextFile()’:
+scanner.l:151:8: warning: unused variable ‘yyin’ [-Wunused-variable]
+  filePath = path;
+        ^
+scanner.c: At global scope:
+scanner.c:1764:17: warning: ‘void yyunput(int, char*)’ defined but not used [-Wunused-function]
+     static void yyunput (int c, char * yy_bp )
+                 ^
+In file included from compiler.h:5:0,
+                 from compiler.cpp:1:
+tree.h: In destructor ‘virtual programNode::~programNode()’:
+tree.h:111:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete classdecls;
+          ^
+tree.h:111:10: warning: invalid use of incomplete type ‘class classdeclsNode’
+tree.h:39:7: note: forward declaration of ‘class classdeclsNode’
+ class classdeclsNode;
+       ^
+tree.h:111:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete classdecls;
+          ^
+tree.h: In destructor ‘virtual classdeclsNode::~classdeclsNode()’:
+tree.h:125:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete classdecl;
+          ^
+tree.h:125:10: warning: invalid use of incomplete type ‘class classdeclNode’
+tree.h:40:7: note: forward declaration of ‘class classdeclNode’
+ class classdeclNode;
+       ^
+tree.h:125:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete classdecl;
+          ^
+tree.h: In destructor ‘virtual classdeclNode::~classdeclNode()’:
+tree.h:141:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:141:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:141:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h:142:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete extendType;
+          ^
+tree.h:142:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:142:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete extendType;
+          ^
+tree.h:143:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete varformals;
+          ^
+tree.h:143:10: warning: invalid use of incomplete type ‘class varformalsNode’
+tree.h:41:7: note: forward declaration of ‘class varformalsNode’
+ class varformalsNode;
+       ^
+tree.h:143:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete varformals;
+          ^
+tree.h:144:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete classbody;
+          ^
+tree.h:144:10: warning: invalid use of incomplete type ‘class classbodyNode’
+tree.h:43:7: note: forward declaration of ‘class classbodyNode’
+ class classbodyNode;
+       ^
+tree.h:144:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete classbody;
+          ^
+tree.h:145:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete extendActuals;
+          ^
+tree.h:145:10: warning: invalid use of incomplete type ‘class actualsNode’
+tree.h:47:7: note: forward declaration of ‘class actualsNode’
+ class actualsNode;
+       ^
+tree.h:145:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete extendActuals;
+          ^
+tree.h: In destructor ‘virtual varformalsNode::~varformalsNode()’:
+tree.h:162:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete varform;
+          ^
+tree.h:162:10: warning: invalid use of incomplete type ‘class varformNode’
+tree.h:42:7: note: forward declaration of ‘class varformNode’
+ class varformNode;
+       ^
+tree.h:162:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete varform;
+          ^
+tree.h: In destructor ‘virtual varformNode::~varformNode()’:
+tree.h:177:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:177:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:177:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:178:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:178:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:178:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h: In destructor ‘virtual classbodyNode::~classbodyNode()’:
+tree.h:193:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete features;
+          ^
+tree.h:193:10: warning: invalid use of incomplete type ‘class featuresNode’
+tree.h:44:7: note: forward declaration of ‘class featuresNode’
+ class featuresNode;
+       ^
+tree.h:193:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete features;
+          ^
+tree.h: In destructor ‘virtual featuresNode::~featuresNode()’:
+tree.h:210:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:210:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:210:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:211:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete formals;
+          ^
+tree.h:211:10: warning: invalid use of incomplete type ‘class formalsNode’
+tree.h:45:7: note: forward declaration of ‘class formalsNode’
+ class formalsNode;
+       ^
+tree.h:211:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete formals;
+          ^
+tree.h:212:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:212:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:212:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h:213:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr;
+          ^
+tree.h:213:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:213:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr;
+          ^
+tree.h:214:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete block;
+          ^
+tree.h:214:10: warning: invalid use of incomplete type ‘class blockNode’
+tree.h:49:7: note: forward declaration of ‘class blockNode’
+ class blockNode;
+       ^
+tree.h:214:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete block;
+          ^
+tree.h: In destructor ‘virtual formalsNode::~formalsNode()’:
+tree.h:233:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete form;
+          ^
+tree.h:233:10: warning: invalid use of incomplete type ‘class formNode’
+tree.h:46:7: note: forward declaration of ‘class formNode’
+ class formNode;
+       ^
+tree.h:233:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete form;
+          ^
+tree.h: In destructor ‘virtual formNode::~formNode()’:
+tree.h:248:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:248:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:248:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:249:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:249:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:249:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h: In destructor ‘virtual actualsNode::~actualsNode()’:
+tree.h:264:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete actual;
+          ^
+tree.h:264:10: warning: invalid use of incomplete type ‘class actualNode’
+tree.h:48:7: note: forward declaration of ‘class actualNode’
+ class actualNode;
+       ^
+tree.h:264:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete actual;
+          ^
+tree.h: In destructor ‘virtual actualNode::~actualNode()’:
+tree.h:279:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr;
+          ^
+tree.h:279:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:279:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr;
+          ^
+tree.h: In destructor ‘virtual blockNode::~blockNode()’:
+tree.h:294:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr;
+          ^
+tree.h:294:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:294:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr;
+          ^
+tree.h:295:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete blockpt;
+          ^
+tree.h:295:10: warning: invalid use of incomplete type ‘class blockptNode’
+tree.h:50:7: note: forward declaration of ‘class blockptNode’
+ class blockptNode;
+       ^
+tree.h:295:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete blockpt;
+          ^
+tree.h: In destructor ‘virtual blockptNode::~blockptNode()’:
+tree.h:312:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr1;
+          ^
+tree.h:312:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:312:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr1;
+          ^
+tree.h:313:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr2;
+          ^
+tree.h:313:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:313:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr2;
+          ^
+tree.h:314:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:314:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:314:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:315:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:315:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:315:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h: In destructor ‘virtual exprNode::~exprNode()’:
+tree.h:372:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete cases;
+          ^
+tree.h:372:10: warning: invalid use of incomplete type ‘class casesNode’
+tree.h:54:7: note: forward declaration of ‘class casesNode’
+ class casesNode;
+       ^
+tree.h:372:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete cases;
+          ^
+tree.h: In destructor ‘virtual casesNode::~casesNode()’:
+tree.h:393:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete cas;
+          ^
+tree.h:393:10: warning: invalid use of incomplete type ‘class casNode’
+tree.h:55:7: note: forward declaration of ‘class casNode’
+ class casNode;
+       ^
+tree.h:393:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete cas;
+          ^
+In file included from tree.cpp:1:0:
+tree.h: In destructor ‘virtual programNode::~programNode()’:
+tree.h:111:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete classdecls;
+          ^
+tree.h:111:10: warning: invalid use of incomplete type ‘class classdeclsNode’
+tree.h:39:7: note: forward declaration of ‘class classdeclsNode’
+ class classdeclsNode;
+       ^
+tree.h:111:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete classdecls;
+          ^
+tree.h: In destructor ‘virtual classdeclsNode::~classdeclsNode()’:
+tree.h:125:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete classdecl;
+          ^
+tree.h:125:10: warning: invalid use of incomplete type ‘class classdeclNode’
+tree.h:40:7: note: forward declaration of ‘class classdeclNode’
+ class classdeclNode;
+       ^
+tree.h:125:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete classdecl;
+          ^
+tree.h: In destructor ‘virtual classdeclNode::~classdeclNode()’:
+tree.h:141:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:141:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:141:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h:142:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete extendType;
+          ^
+tree.h:142:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:142:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete extendType;
+          ^
+tree.h:143:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete varformals;
+          ^
+tree.h:143:10: warning: invalid use of incomplete type ‘class varformalsNode’
+tree.h:41:7: note: forward declaration of ‘class varformalsNode’
+ class varformalsNode;
+       ^
+tree.h:143:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete varformals;
+          ^
+tree.h:144:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete classbody;
+          ^
+tree.h:144:10: warning: invalid use of incomplete type ‘class classbodyNode’
+tree.h:43:7: note: forward declaration of ‘class classbodyNode’
+ class classbodyNode;
+       ^
+tree.h:144:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete classbody;
+          ^
+tree.h:145:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete extendActuals;
+          ^
+tree.h:145:10: warning: invalid use of incomplete type ‘class actualsNode’
+tree.h:47:7: note: forward declaration of ‘class actualsNode’
+ class actualsNode;
+       ^
+tree.h:145:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete extendActuals;
+          ^
+tree.h: In destructor ‘virtual varformalsNode::~varformalsNode()’:
+tree.h:162:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete varform;
+          ^
+tree.h:162:10: warning: invalid use of incomplete type ‘class varformNode’
+tree.h:42:7: note: forward declaration of ‘class varformNode’
+ class varformNode;
+       ^
+tree.h:162:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete varform;
+          ^
+tree.h: In destructor ‘virtual varformNode::~varformNode()’:
+tree.h:177:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:177:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:177:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:178:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:178:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:178:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h: In destructor ‘virtual classbodyNode::~classbodyNode()’:
+tree.h:193:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete features;
+          ^
+tree.h:193:10: warning: invalid use of incomplete type ‘class featuresNode’
+tree.h:44:7: note: forward declaration of ‘class featuresNode’
+ class featuresNode;
+       ^
+tree.h:193:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete features;
+          ^
+tree.h: In destructor ‘virtual featuresNode::~featuresNode()’:
+tree.h:210:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:210:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:210:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:211:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete formals;
+          ^
+tree.h:211:10: warning: invalid use of incomplete type ‘class formalsNode’
+tree.h:45:7: note: forward declaration of ‘class formalsNode’
+ class formalsNode;
+       ^
+tree.h:211:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete formals;
+          ^
+tree.h:212:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:212:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:212:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h:213:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr;
+          ^
+tree.h:213:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:213:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr;
+          ^
+tree.h:214:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete block;
+          ^
+tree.h:214:10: warning: invalid use of incomplete type ‘class blockNode’
+tree.h:49:7: note: forward declaration of ‘class blockNode’
+ class blockNode;
+       ^
+tree.h:214:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete block;
+          ^
+tree.h: In destructor ‘virtual formalsNode::~formalsNode()’:
+tree.h:233:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete form;
+          ^
+tree.h:233:10: warning: invalid use of incomplete type ‘class formNode’
+tree.h:46:7: note: forward declaration of ‘class formNode’
+ class formNode;
+       ^
+tree.h:233:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete form;
+          ^
+tree.h: In destructor ‘virtual formNode::~formNode()’:
+tree.h:248:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:248:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:248:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:249:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:249:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:249:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h: In destructor ‘virtual actualsNode::~actualsNode()’:
+tree.h:264:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete actual;
+          ^
+tree.h:264:10: warning: invalid use of incomplete type ‘class actualNode’
+tree.h:48:7: note: forward declaration of ‘class actualNode’
+ class actualNode;
+       ^
+tree.h:264:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete actual;
+          ^
+tree.h: In destructor ‘virtual actualNode::~actualNode()’:
+tree.h:279:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr;
+          ^
+tree.h:279:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:279:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr;
+          ^
+tree.h: In destructor ‘virtual blockNode::~blockNode()’:
+tree.h:294:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr;
+          ^
+tree.h:294:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:294:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr;
+          ^
+tree.h:295:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete blockpt;
+          ^
+tree.h:295:10: warning: invalid use of incomplete type ‘class blockptNode’
+tree.h:50:7: note: forward declaration of ‘class blockptNode’
+ class blockptNode;
+       ^
+tree.h:295:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete blockpt;
+          ^
+tree.h: In destructor ‘virtual blockptNode::~blockptNode()’:
+tree.h:312:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr1;
+          ^
+tree.h:312:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:312:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr1;
+          ^
+tree.h:313:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete expr2;
+          ^
+tree.h:313:10: warning: invalid use of incomplete type ‘class exprNode’
+tree.h:53:7: note: forward declaration of ‘class exprNode’
+ class exprNode;
+       ^
+tree.h:313:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete expr2;
+          ^
+tree.h:314:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete id;
+          ^
+tree.h:314:10: warning: invalid use of incomplete type ‘class idNode’
+tree.h:51:7: note: forward declaration of ‘class idNode’
+ class idNode;
+       ^
+tree.h:314:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete id;
+          ^
+tree.h:315:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete type;
+          ^
+tree.h:315:10: warning: invalid use of incomplete type ‘class typeNode’
+tree.h:52:7: note: forward declaration of ‘class typeNode’
+ class typeNode;
+       ^
+tree.h:315:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete type;
+          ^
+tree.h: In destructor ‘virtual exprNode::~exprNode()’:
+tree.h:372:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete cases;
+          ^
+tree.h:372:10: warning: invalid use of incomplete type ‘class casesNode’
+tree.h:54:7: note: forward declaration of ‘class casesNode’
+ class casesNode;
+       ^
+tree.h:372:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete cases;
+          ^
+tree.h: In destructor ‘virtual casesNode::~casesNode()’:
+tree.h:393:10: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
+   delete cas;
+          ^
+tree.h:393:10: warning: invalid use of incomplete type ‘class casNode’
+tree.h:55:7: note: forward declaration of ‘class casNode’
+ class casNode;
+       ^
+tree.h:393:10: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
+   delete cas;
+          ^
+tree.cpp: In constructor ‘programNode::programNode(classdeclsNode*&)’:
+tree.cpp:4:13: error: cannot convert ‘classdeclsNode**’ to ‘classdeclsNode*’ in assignment
+  classdecls = &c;
+             ^
+tree.cpp: In constructor ‘classdeclsNode::classdeclsNode(classdeclNode*&)’:
+tree.cpp:8:12: error: cannot convert ‘classdeclNode**’ to ‘classdeclNode*’ in assignment
+  classdecl = &c;
+            ^
+tree.cpp: In constructor ‘classdeclsNode::classdeclsNode(classdeclNode*&, classdeclsNode*&)’:
+tree.cpp:11:12: error: cannot convert ‘classdeclNode**’ to ‘classdeclNode*’ in assignment
+  classdecl = &c1;
+            ^
+tree.cpp:12:13: error: cannot convert ‘classdeclsNode**’ to ‘classdeclsNode*’ in assignment
+  classdecls = &c2;
+             ^
+tree.cpp: In constructor ‘classdeclNode::classdeclNode(typeNode*&, varformalsNode*&, classbodyNode*&)’:
+tree.cpp:16:7: error: cannot convert ‘typeNode**’ to ‘typeNode*’ in assignment
+  type = &t;
+       ^
+tree.cpp:17:13: error: cannot convert ‘varformalsNode**’ to ‘varformalsNode*’ in assignment
+  varformals = &v;
+             ^
+tree.cpp:18:12: error: cannot convert ‘classbodyNode**’ to ‘classbodyNode*’ in assignment
+  classbody = &c;
+            ^
+tree.cpp: In constructor ‘classdeclNode::classdeclNode(typeNode*&, varformalsNode*&, typeNode*, actualsNode*&, classbodyNode*&)’:
+tree.cpp:21:8: error: cannot convert ‘typeNode**’ to ‘typeNode*’ in assignment
+   type = &t;
+        ^
+tree.cpp:22:14: error: cannot convert ‘varformalsNode**’ to ‘varformalsNode*’ in assignment
+   varformals = &v;
+              ^
+tree.cpp:24:17: error: cannot convert ‘actualsNode**’ to ‘actualsNode*’ in assignment
+   extendActuals = &ea;
+                 ^
+tree.cpp:25:12: error: cannot convert ‘classbodyNode**’ to ‘classbodyNode*’ in assignment
+  classbody = &c;
+            ^
+tree.cpp: In constructor ‘varformalsNode::varformalsNode(varformNode*&)’:
+tree.cpp:29:10: error: cannot convert ‘varformNode**’ to ‘varformNode*’ in assignment
+  varform = &v;
+          ^
+tree.cpp: In constructor ‘varformNode::varformNode(idNode*&, typeNode*&)’:
+tree.cpp:33:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp:34:7: error: cannot convert ‘typeNode**’ to ‘typeNode*’ in assignment
+  type = &t;
+       ^
+tree.cpp: In constructor ‘varformNode::varformNode(varformNode*&, idNode*&, typeNode*&)’:
+tree.cpp:37:10: error: cannot convert ‘varformNode**’ to ‘varformNode*’ in assignment
+  varform = &v;
+          ^
+tree.cpp:38:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp:39:7: error: cannot convert ‘typeNode**’ to ‘typeNode*’ in assignment
+  type = &t;
+       ^
+tree.cpp: In constructor ‘classbodyNode::classbodyNode(featuresNode*&)’:
+tree.cpp:43:11: error: cannot convert ‘featuresNode**’ to ‘featuresNode*’ in assignment
+  features = &f;
+           ^
+tree.cpp: In constructor ‘featuresNode::featuresNode(bool, featuresNode*&, idNode*&, formalsNode*&, typeNode*&, exprNode*&)’:
+tree.cpp:47:21: warning: the address of ‘o’ will always evaluate as ‘true’ [-Waddress]
+  bool isOverride = &o;
+                     ^
+tree.cpp:48:11: error: cannot convert ‘featuresNode**’ to ‘featuresNode*’ in assignment
+  features = &fe;
+           ^
+tree.cpp:49:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp:50:10: error: cannot convert ‘formalsNode**’ to ‘formalsNode*’ in assignment
+  formals = &fo;
+          ^
+tree.cpp:51:7: error: cannot convert ‘typeNode**’ to ‘typeNode*’ in assignment
+  type = &t;
+       ^
+tree.cpp:52:7: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr = &e;
+       ^
+tree.cpp:47:7: warning: unused variable ‘isOverride’ [-Wunused-variable]
+  bool isOverride = &o;
+       ^
+tree.cpp: In constructor ‘featuresNode::featuresNode(featuresNode*&, idNode*&)’:
+tree.cpp:55:11: error: cannot convert ‘featuresNode**’ to ‘featuresNode*’ in assignment
+  features = &fe;
+           ^
+tree.cpp:56:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp: In constructor ‘featuresNode::featuresNode(featuresNode*&, idNode*&, typeNode*&, exprNode*&)’:
+tree.cpp:59:11: error: cannot convert ‘featuresNode**’ to ‘featuresNode*’ in assignment
+  features = &fe;
+           ^
+tree.cpp:60:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp:61:7: error: cannot convert ‘typeNode**’ to ‘typeNode*’ in assignment
+  type = &t;
+       ^
+tree.cpp:62:7: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr = &e;
+       ^
+tree.cpp: In constructor ‘featuresNode::featuresNode(featuresNode*&, blockNode*&)’:
+tree.cpp:65:11: error: cannot convert ‘featuresNode**’ to ‘featuresNode*’ in assignment
+  features = &fe;
+           ^
+tree.cpp:66:8: error: cannot convert ‘blockNode**’ to ‘blockNode*’ in assignment
+  block = &b;
+        ^
+tree.cpp: In constructor ‘formalsNode::formalsNode(formNode*&)’:
+tree.cpp:70:7: error: cannot convert ‘formNode**’ to ‘formNode*’ in assignment
+  form = &f;
+       ^
+tree.cpp: In constructor ‘formNode::formNode(idNode*&, typeNode*&)’:
+tree.cpp:74:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp:75:7: error: cannot convert ‘typeNode**’ to ‘typeNode*’ in assignment
+  type = &t;
+       ^
+tree.cpp: In constructor ‘formNode::formNode(formNode*&, idNode*&, typeNode*&)’:
+tree.cpp:78:7: error: cannot convert ‘formNode**’ to ‘formNode*’ in assignment
+  form = &f;
+       ^
+tree.cpp:79:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp:80:7: error: cannot convert ‘typeNode**’ to ‘typeNode*’ in assignment
+  type = &t;
+       ^
+tree.cpp: In constructor ‘actualsNode::actualsNode(actualNode*&)’:
+tree.cpp:84:9: error: cannot convert ‘actualNode**’ to ‘actualNode*’ in assignment
+  actual = &a;
+         ^
+tree.cpp: In constructor ‘actualNode::actualNode(exprNode*&)’:
+tree.cpp:88:7: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr = &e;
+       ^
+tree.cpp: In constructor ‘actualNode::actualNode(actualNode*&, exprNode*&)’:
+tree.cpp:91:9: error: cannot convert ‘actualNode**’ to ‘actualNode*’ in assignment
+  actual = &a;
+         ^
+tree.cpp:92:7: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr = &e;
+       ^
+tree.cpp: In constructor ‘blockNode::blockNode(exprNode*&)’:
+tree.cpp:96:7: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr = &e;
+       ^
+tree.cpp: In constructor ‘blockNode::blockNode(blockptNode*&)’:
+tree.cpp:99:10: error: cannot convert ‘blockptNode**’ to ‘blockptNode*’ in assignment
+  blockpt = &b;
+          ^
+tree.cpp: In constructor ‘blockptNode::blockptNode(exprNode*&, exprNode*&)’:
+tree.cpp:103:8: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr1 = &e1;
+        ^
+tree.cpp:104:8: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr2 = &e2;
+        ^
+tree.cpp: In constructor ‘blockptNode::blockptNode(exprNode*&, blockptNode*&)’:
+tree.cpp:107:8: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr1 = &e;
+        ^
+tree.cpp:108:10: error: cannot convert ‘blockptNode**’ to ‘blockptNode*’ in assignment
+  blockpt = &b;
+          ^
+tree.cpp: In constructor ‘blockptNode::blockptNode(idNode*&, typeNode*&, exprNode*&, exprNode*&)’:
+tree.cpp:111:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp:112:7: error: cannot convert ‘typeNode**’ to ‘typeNode*’ in assignment
+  type = &t;
+       ^
+tree.cpp:113:8: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr1 = &e1;
+        ^
+tree.cpp:114:8: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr2 = &e2;
+        ^
+tree.cpp: In constructor ‘blockptNode::blockptNode(idNode*&, typeNode*&, exprNode*&, blockptNode*&)’:
+tree.cpp:117:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp:118:7: error: cannot convert ‘typeNode**’ to ‘typeNode*’ in assignment
+  type = &t;
+       ^
+tree.cpp:119:8: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr1 = &e;
+        ^
+tree.cpp:120:10: error: cannot convert ‘blockptNode**’ to ‘blockptNode*’ in assignment
+  blockpt = &b;
+          ^
+tree.cpp: In constructor ‘exprNode::exprNode(exprType, idNode*&, exprNode*&)’:
+tree.cpp:128:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp:129:7: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr = &e;
+       ^
+tree.cpp: In constructor ‘exprNode::exprNode(exprType, exprNode*&)’:
+tree.cpp:133:7: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr = &e;
+       ^
+tree.cpp: In constructor ‘exprNode::exprNode(exprType, exprNode*&, exprNode*&, exprNode*&)’:
+tree.cpp:137:7: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr = &e;
+       ^
+tree.cpp:138:8: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr1 = &e1;
+        ^
+tree.cpp:139:8: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr2 = &e2;
+        ^
+tree.cpp: In constructor ‘exprNode::exprNode(exprType, exprNode*&, exprNode*&)’:
+tree.cpp:143:7: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr = &e;
+       ^
+tree.cpp:144:8: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr1 = &e1;
+        ^
+tree.cpp: In constructor ‘exprNode::exprNode(exprType, idNode*&, actualsNode*&)’:
+tree.cpp:148:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp:149:10: error: cannot convert ‘actualsNode**’ to ‘actualsNode*’ in assignment
+  actuals = &a;
+          ^
+tree.cpp: In constructor ‘exprNode::exprNode(exprType, typeNode*&, actualsNode*&)’:
+tree.cpp:153:7: error: cannot convert ‘typeNode**’ to ‘typeNode*’ in assignment
+  type = &t;
+       ^
+tree.cpp:154:10: error: cannot convert ‘actualsNode**’ to ‘actualsNode*’ in assignment
+  actuals = &a;
+          ^
+tree.cpp: In constructor ‘exprNode::exprNode(exprType, blockNode*&)’:
+tree.cpp:158:8: error: cannot convert ‘blockNode**’ to ‘blockNode*’ in assignment
+  block = &b;
+        ^
+tree.cpp: In constructor ‘exprNode::exprNode(exprType, exprNode*&, idNode*&, actualsNode*&)’:
+tree.cpp:162:7: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr = &e;
+       ^
+tree.cpp:163:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp:164:10: error: cannot convert ‘actualsNode**’ to ‘actualsNode*’ in assignment
+  actuals = &a;
+          ^
+tree.cpp: In constructor ‘exprNode::exprNode(exprType, exprNode*&, casesNode*&)’:
+tree.cpp:168:7: error: cannot convert ‘exprNode**’ to ‘exprNode*’ in assignment
+  expr = &e;
+       ^
+tree.cpp:169:8: error: cannot convert ‘casesNode**’ to ‘casesNode*’ in assignment
+  cases = &c;
+        ^
+tree.cpp: In constructor ‘exprNode::exprNode(exprType, idNode*&)’:
+tree.cpp:173:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp: In constructor ‘casesNode::casesNode(casNode*&)’:
+tree.cpp:177:6: error: cannot convert ‘casNode**’ to ‘casNode*’ in assignment
+  cas = &c;
+      ^
+tree.cpp: In constructor ‘casNode::casNode(idNode*&, typeNode*&, blockNode*&)’:
+tree.cpp:181:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp:182:7: error: cannot convert ‘typeNode**’ to ‘typeNode*’ in assignment
+  type = &t;
+       ^
+tree.cpp:183:8: error: cannot convert ‘blockNode**’ to ‘blockNode*’ in assignment
+  block = &b;
+        ^
+tree.cpp: In constructor ‘casNode::casNode(casNode*&, idNode*&, typeNode*&, blockNode*&)’:
+tree.cpp:186:6: error: cannot convert ‘casNode**’ to ‘casNode*’ in assignment
+  cas = &c;
+      ^
+tree.cpp:187:5: error: cannot convert ‘idNode**’ to ‘idNode*’ in assignment
+  id = &i;
+     ^
+tree.cpp:188:7: error: cannot convert ‘typeNode**’ to ‘typeNode*’ in assignment
+  type = &t;
+       ^
+tree.cpp:189:8: error: cannot convert ‘blockNode**’ to ‘blockNode*’ in assignment
+  block = &b;
+        ^
+tree.cpp: In constructor ‘casNode::casNode(blockNode*&)’:
+tree.cpp:192:8: error: cannot convert ‘blockNode**’ to ‘blockNode*’ in assignment
+  block = &b;
+        ^
+tree.cpp: In constructor ‘casNode::casNode(casNode*&, blockNode*&)’:
+tree.cpp:195:6: error: cannot convert ‘casNode**’ to ‘casNode*’ in assignment
+  cas = &c;
+      ^
+tree.cpp:196:8: error: cannot convert ‘blockNode**’ to ‘blockNode*’ in assignment
+  block = &b;
+        ^
+make: *** [cpp_obj] Error 1

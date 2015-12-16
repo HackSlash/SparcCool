@@ -17,10 +17,10 @@ typedef enum {
 	ill_nat // Illegal native error
 } errorType;
 
-void genError(errorType er, char* text, int lineNr/*, char* fileName*/)
+void genError(errorType er, char* text, int lineNr/*, char* fileName*/, ...)
 {
 	//std::string location = "@\"" + fileName + "\", line " + lineNr + ": ";
-	std::string location = "@\"" + ".." "\", line " + lineNr + ": ";
+	std::string location = "@ \".. \", line " + std::to_string(lineNr) + ":: ";
 
 	nrErrors++;
 	switch(er)
@@ -36,7 +36,7 @@ void genError(errorType er, char* text, int lineNr/*, char* fileName*/)
 			break;
 		case typ_err:
 			va_list args;
-			va_start(args, NULL)
+			va_start(args, lineNr);
 			std::cerr << error << location << "Illegal type detected, expected \"" << va_arg(args, char*) << "\" but found \"" << text << "\"." << std::endl;
 			va_end(args);
 			break;

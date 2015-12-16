@@ -4,56 +4,41 @@
 
 enum types { Int, Bool, String, Unit, Null, Nothing, Any };
 
+void addSymbol() {}
+
 class symbol
 {
 public:
-	symbol(std::string sid, types stype, unsigned int sref) : id(sid), type(stype), ref(sref) {
-
-	}
+	//symbol() {}
+	symbol(std::string sid, types stype) : id(sid), type(stype) {}
+	symbol(std::string sid, types stype, std::string val) : id(sid), type(stype), stringVal(val) {}
+	symbol(std::string sid, types stype, int val) : id(sid), type(stype), intVal(val) {}
+	symbol(std::string sid, types stype, bool val) : id(sid), type(stype), boolVal(val) {}
 	~symbol();
 	std::string id;
 	types type;
-	unsigned int ref;
+	std::string stringVal;
+	int intVal;
+	bool boolVal;
+	
 };
 
-extern std::vector<strTableEntry> stringTable;
-extern std::vector<intTableEntry> intTable;
-extern std::vector<symbol> idTable;
-
-class strTableEntry
+class strEntry
 {
 public:
-	strTableEntry(std::string v) {
-		bool foundInTable = false;
-		for (std::vector<strTableEntry>::iterator i = stringList.begin(); i != stringList.end(); ++i)
-		{
-			if (stringList[i] == v)
-			{
-				foundInTable = true;
-				break;
-			}
-		}
-	}
-	~strTableEntry();
-	int id;
+	strEntry(std::string v) : val(v) {}
+	~strEntry();
 	std::string val;
 };
 
-class intTableEntry
+class intEntry
 {
 public:
-	intTableEntry(std::string v) {
-		bool foundInTable = false;
-		for (std::vector<strTableEntry>::iterator i = stringList.begin(); i != stringList.end(); ++i)
-		{
-			if (stringList[i] == v)
-			{
-				foundInTable = true;
-				break;
-			}
-		}
-	}
-	~intTableEntry();
-	int id;
+	intEntry(std::string v) {val = std::stoi(v, NULL);}
+	~intEntry();
 	int val;
 };
+
+extern std::vector<strEntry> stringTable;
+extern std::vector<intEntry> intTable;
+extern std::vector<symbol> symbolTable;
