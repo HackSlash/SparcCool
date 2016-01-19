@@ -1,3 +1,4 @@
+// vim:set shiftwidth=3 softtabstop=3 expandtab:
 /**
  * MIPS
  * basic (static) branch prediction: don't expect jumps. Possible later upgrade to saturating counter.
@@ -10,10 +11,6 @@
 `define BITNESS 32
 
 //`include "alu.v"
- 
-module register_file(zero,at,v0,v1,a0,a1,a2,a3,t0,t1,t2,t3,t4,t5,t6,t7,s0,s1,s2,s3,s4,s5,s6,s7,t8,t9,k0,k1,gp,sp,fp,ra);
-	inout reg[4:1] zero,at,v0,v1,a0,a1,a2,a3,t0,t1,t2,t3,t4,t5,t6,t7,s0,s1,s2,s3,s4,s5,s6,s7,t8,t9,k0,k1,gp,sp,fp,ra;
-endmodule
 
 module fpu(); //floating point optimised alu
 endmodule
@@ -41,7 +38,7 @@ module core(out1,out2,a1,a2,b1,b2,instr1,instr2,c);
 	int_alu alu2(.out(out2), .a(a2), .b(b2), .instr(instr2), .c(c));
 endmodule
 
-module SparCool(output clock);									// Top module
+module SparCool(inout clock);										// Top module
 	instr_fetch IF(.pc(program_counter), .ram(memory));	// main IF
 	
 	core core1(.c(clock));											// First "core", passing clock to c
